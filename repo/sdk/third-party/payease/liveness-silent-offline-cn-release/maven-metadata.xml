@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>sdk.third-party.payease</groupId>
+  <artifactId>liveness-silent-offline-cn-release</artifactId>
+  <versioning>
+    <release>1.10.0</release>
+    <versions>
+      <version>1.10.0</version>
+    </versions>
+    <lastUpdated>20210119024013</lastUpdated>
+  </versioning>
+</metadata>

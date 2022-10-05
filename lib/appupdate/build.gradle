@@ -1,0 +1,7 @@
+dependencies {
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.androidx_constraintlayout.dep
+    implementation Config.depConfig.utilcode.dep
+}
+
+apply from: "config.gradle"

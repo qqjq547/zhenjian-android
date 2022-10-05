@@ -1,0 +1,40 @@
+package com.tiocloud.common;
+
+/**
+ * <pre>
+ *     author : TaoWang
+ *     e-mail : watayouxiang@qq.com
+ *     time   : 2021/02/26
+ *     desc   :
+ * </pre>
+ */
+public class ModuleConfig {
+    /**
+     * 水印
+     */
+    public static final boolean ENABLE_WATERMARK = true;
+    /**
+     * 手动更新
+     */
+    public static final boolean ENABLE_MANUAL_UPDATE = true;
+    /**
+     * 二维码
+     */
+    public static final boolean ENABLE_QR_CODE = true;
+    /**
+     * 钱包
+     */
+    public static final boolean ENABLE_WALLET = true;
+    /**
+     * 三方登录
+     */
+    public static final boolean ENABLE_THIRD_PARTY_LOGIN = true;
+    /**
+     * 短信登录
+     */
+    public static final boolean ENABLE_SMS_LOGIN = true;
+    /**
+     * 是否为 "测试模式"
+     */
+    public static final boolean DEBUG = BuildConfig.DEBUG;
+}

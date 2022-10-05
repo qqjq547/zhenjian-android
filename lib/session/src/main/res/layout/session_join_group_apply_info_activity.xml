@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.watayouxiang.androidutils.widget.titlebar.WtTitleBar
+            android:id="@+id/titleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusBar"
+            app:tb_tvTitle_text="群聊邀请" />
+
+        <!--列表-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/ll_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleBar"
+            app:layout_constraintVertical_bias="0" />
+
+        <!--底部按钮-->
+        <LinearLayout
+            android:id="@+id/ll_container"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.watayouxiang.androidutils.widget.qmui.TioShadowLayout
+                android:id="@+id/sl_negative"
+                android:layout_width="@dimen/dp_134"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/btn_negative"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="忽略"
+                    android:textColor="#949494"
+                    android:textSize="16sp"
+                    app:qmui_backgroundColor="@color/btn_sel_negative_bg_color"
+                    app:qmui_borderColor="@color/transparent"
+                    app:qmui_borderWidth="0px"
+                    app:qmui_radius="58dp" />
+            </com.watayouxiang.androidutils.widget.qmui.TioShadowLayout>
+
+            <com.watayouxiang.androidutils.widget.qmui.TioShadowLayout
+                android:id="@+id/sl_positive"
+                android:layout_width="@dimen/dp_134"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/btn_positive"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="同意邀请"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:qmui_backgroundColor="@color/btn_sel_positive_bg_color"
+                    app:qmui_borderColor="@color/transparent"
+                    app:qmui_borderWidth="0px"
+                    app:qmui_radius="58dp" />
+            </com.watayouxiang.androidutils.widget.qmui.TioShadowLayout>
+
+        </LinearLayout>
+
+        <!--分割线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_f1f1f1"
+            app:layout_constraintEnd_toEndOf="@id/ll_container"
+            app:layout_constraintStart_toStartOf="@id/ll_container"
+            app:layout_constraintTop_toTopOf="@id/ll_container" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

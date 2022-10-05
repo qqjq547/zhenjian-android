@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="data"
+            type="com.tiocloud.newpay.feature.bankcard_add.AddBankCardFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/all_linyout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--提示文案-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:text="请绑定持卡人本人的银行卡"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+
+                <!--切换 储蓄、信用卡-->
+                <TextView
+                    android:id="@+id/tv_changeCardType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="7dp"
+                    android:text="绑定储蓄卡"
+                    android:textColor="#4C94FF"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/yinhan_xuanzhe"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/yinhang_tv_title"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:text="银行"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/yinhang_et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/yinhang_tv_title"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请选择银行"
+                    android:paddingLeft="5dp"
+                    android:visibility="gone"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/gray_333333"
+                    android:textColorHint="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_16" />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_cardName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/yinhang_tv_title"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入银行名称"
+                    android:inputType="text"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/gray_333333"
+                    android:textColorHint="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_16" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_8"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/gray_f5f5f5" />
+            </RelativeLayout>
+
+            <!--卡号-->
+            <RelativeLayout
+                android:id="@+id/cardNo_rl_container"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/cardNo_tv_title"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:text="卡号"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/sp_16" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/cardNo_et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/cardNo_tv_title"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="输入本人的银行卡号"
+                    android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/gray_333333"
+                    android:textColorHint="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_8"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/gray_f5f5f5" />
+            </RelativeLayout>
+
+            <!--有效期-->
+            <RelativeLayout
+                android:id="@+id/expiry_rl_container"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="58dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/expiry_tv_title"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:text="有效期"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/sp_16" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/expiry_et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@id/expiry_tv_tip"
+                    android:layout_toRightOf="@id/expiry_tv_title"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="如：0824"
+                    android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/gray_333333"
+                    android:textColorHint="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/expiry_tv_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="15dp"
+                    android:text="月份/年份"
+                    android:textColor="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_14" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_8"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/gray_f5f5f5" />
+            </RelativeLayout>
+
+            <!--背后三位-->
+            <RelativeLayout
+                android:id="@+id/tail_rl_container"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:visibility="gone"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tail_tv_title"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:text="背后三位"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/sp_16" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/tail_et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@id/tail_tv_tip"
+                    android:layout_toRightOf="@id/tail_tv_title"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="如：824"
+                    android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/gray_333333"
+                    android:textColorHint="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/tail_tv_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="15dp"
+                    android:text="卡背后3位数字"
+                    android:textColor="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_14" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_8"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/gray_f5f5f5" />
+            </RelativeLayout>
+
+            <!--持卡人-->
+            <RelativeLayout
+                android:id="@+id/name_rl_container"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/name_tv_title"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:text="持卡人"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/sp_16" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/name_et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/name_tv_title"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入姓名"
+                    android:inputType="text"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/gray_333333"
+                    android:textColorHint="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_8"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/gray_f5f5f5" />
+            </RelativeLayout>
+
+            <!--身份证-->
+            <RelativeLayout
+                android:id="@+id/idNo_rl_container"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="58dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/idNo_tv_title"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:text="身份证号"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/sp_16" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/idNo_et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/idNo_tv_title"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入身份证号"
+                    android:inputType="text"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/gray_333333"
+                    android:textColorHint="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_8"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/gray_f5f5f5" />
+            </RelativeLayout>
+
+            <!--手机号-->
+            <RelativeLayout
+                android:id="@+id/phone_rl_container"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:visibility="gone"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/phone_tv_title"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:text="手机号"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/sp_16" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/phone_et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@id/phone_tv_reqCode"
+                    android:layout_toRightOf="@id/phone_tv_title"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入手机号"
+                    android:inputType="phone"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@={data.txt_phone}"
+                    android:textColor="@color/gray_333333"
+                    android:textColorHint="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/phone_tv_reqCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
+                    android:visibility="gone"
+                    android:layout_marginBottom="11dp"
+                    android:alpha="@{!data.isStartTimer ? 1f : 0.3f}"
+                    android:background="@drawable/wallet_btn_bg_blue_2"
+                    android:enabled="@{!data.isStartTimer}"
+                    android:gravity="center"
+                    android:onClick="@{data.onClick_reqPhoneCode}"
+                    android:text="获取验证码"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_8"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/gray_f5f5f5" />
+            </RelativeLayout>
+
+            <!--短信验证码-->
+            <RelativeLayout
+                android:id="@+id/code_rl_container"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:visibility="gone"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/code_tv_title"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:text="短信验证码"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/sp_16" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/code_et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/code_tv_title"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入验证码"
+                    android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/gray_333333"
+                    android:textColorHint="@color/gray_bbbbbb"
+                    android:textSize="@dimen/sp_16" />
+
+            </RelativeLayout>
+
+            <!--下一步-->
+            <TextView
+                android:id="@+id/tv_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="28dp"
+                android:background="@drawable/wallet_btn_bg_blue"
+                android:gravity="center"
+                android:onClick="@{data.onClick_next}"
+                android:text="绑卡"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

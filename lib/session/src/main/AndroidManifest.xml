@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tiocloud.session">
+
+    <application>
+        <activity
+            android:name=".feature.session_info_p2p.P2PSessionInfoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.join_group_apply_info.JoinGroupApplyInfoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+    </application>
+</manifest>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="drag_login">滑动验证登录</string>
+    <string name="word_login">文字验证登录</string>
+</resources>

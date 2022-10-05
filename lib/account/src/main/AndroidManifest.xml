@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tiocloud.account">
+
+    <application>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".feature.register.PhoneYZCodeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" ></activity>
+        <activity
+            android:name=".feature.register.PerfectMessageActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.register.FillInvitationCodeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.login.LoginActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.register.RegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.retrieve_pwd.RetrievePwdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.bind_phone.BindPhoneActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.t_bind_phone.TBindPhoneActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.login_sms.SmsLoginActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.account.AccountActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.phone_modify.ModifyPhoneActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.unregister.UnregisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+    </application>
+
+</manifest>

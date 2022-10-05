@@ -1,0 +1,18 @@
+android {
+    sourceSets {
+        main {
+            assets.srcDirs = ['assets']
+        }
+    }
+}
+
+dependencies {
+    implementation Config.depConfig.androidx_constraintlayout.dep
+    implementation Config.depConfig.lib_httpclient.dep
+    implementation Config.depConfig.utilcode.dep
+    implementation Config.depConfig.fresco.dep
+    implementation Config.depConfig.fresco_animated_gif.dep
+    implementation Config.depConfig.fresco_soloader.dep
+}
+
+apply from: "config.gradle"

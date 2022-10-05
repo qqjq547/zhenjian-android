@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/emojiLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200">
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/scrPlugin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+        <LinearLayout
+            android:id="@+id/layout_scr_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_viewSC"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_5"
+            android:visibility="gone"
+            android:background="@color/white"
+            android:layout_height="@dimen/dp_200"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F0F1F5"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/rl_emojiBtn1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:background="@color/white"
+            android:paddingRight="@dimen/dp_5"
+            android:paddingLeft="@dimen/dp_10">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:layout_centerInParent="true"
+                android:src="@drawable/biaoqing_icon"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_emojiBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_5">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:layout_centerInParent="true"
+                android:src="@drawable/shoucang_icon"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

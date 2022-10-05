@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tiocloud.newpay">
+
+    <application>
+        <activity android:name=".feature.alipbind.BindAliPayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.alipbind.AddAliPayCardActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/QMUITheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.alipbind.UnAliPayBingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/QMUITheme.Blue.NoActionBar" />
+
+        <activity
+            android:name=".feature.wallet.WalletActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.open.OpenWalletActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.account.AccountActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.bill.BillActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.bill_detail.BillDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.recharge.RechargeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.recharge_result.RechargeResultActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.withdraw.WithdrawActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.withdraw_record.WithdrawRecordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.withdraw_result.WithdrawResultActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.withdraw_detail.WithdrawDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.redpacket.RedPacketActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Red.NoActionBar" />
+        <activity
+            android:name=".feature.redpaper.RedPaperActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Red.NoActionBar" />
+        <activity
+            android:name=".feature.paperdetail.PaperDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Red.NoActionBar" />
+        <activity
+            android:name=".feature.paypwd_setup.SetupPayPwdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.safe_setting.SafeSettingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.paypwd_modify.ModifyPayPwdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.paypwd_find.FindPayPwdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WtTheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.bankcard_my.MyBankCardActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/QMUITheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.bankcard_add.AddBankCardActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/QMUITheme.Blue.NoActionBar" />
+        <activity
+            android:name=".feature.bankcard_remove.RemoveBankCardActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/QMUITheme.Blue.NoActionBar" />
+    </application>
+
+</manifest>

@@ -1,0 +1,14 @@
+//apply from: "../config.gradle"
+
+// upload local repository
+apply plugin: 'maven'
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri("${project.rootDir.path}/repo"))
+        pom.project {
+            groupId 'com.tiocloud'
+            artifactId 'webrtc'
+            version '1.0.0'
+        }
+    }
+}

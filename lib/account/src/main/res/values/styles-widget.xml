@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 自定义CheckBox 样式 -->
+    <style name="TioCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/tio_checkbox_selector</item>
+    </style>
+</resources>

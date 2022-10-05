@@ -1,0 +1,11 @@
+dependencies {
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.material.dep
+    implementation Config.depConfig.androidx_localbroadcastmanager.dep
+    implementation Config.depConfig.gson.dep
+    api Config.depConfig.wechat_sdk_android_without_mta.dep
+    api Config.depConfig.sina_weibo_sdk_core.dep
+    api fileTree(dir: "libs", include: ["*.jar"])
+}
+
+apply from: "config.gradle"

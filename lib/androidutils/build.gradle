@@ -1,0 +1,35 @@
+android {
+    sourceSets {
+        main {
+            assets.srcDirs = ['assets']
+        }
+    }
+}
+
+dependencies {
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.material.dep
+    implementation Config.depConfig.androidx_constraintlayout.dep
+    implementation Config.depConfig.lifecycle_viewmodel_savedstate.dep
+    implementation Config.depConfig.lib_httpclient.dep
+    implementation Config.depConfig.lib_imclient.dep
+    implementation Config.depConfig.commons_lang3.dep
+    api Config.depConfig.utilcode.dep
+    api Config.depConfig.fresco.dep
+    api Config.depConfig.fresco_animated_gif.dep
+    api Config.depConfig.fresco_soloader.dep
+    api Config.depConfig.BaseRecyclerViewAdapterHelper.dep
+    api Config.depConfig.Permission.dep
+    api Config.depConfig.DemoShell.dep
+    api Config.depConfig.widgetlibrary.dep
+
+    api Config.depConfig.EasyPhotos.dep
+    implementation Config.depConfig.glide.dep
+    annotationProcessor Config.depConfig.glide_compiler.dep
+    implementation Config.depConfig.MNImageBrowser.dep
+    api Config.depConfig.qmui.dep
+    implementation Config.depConfig.GSYVideoPlayer.dep
+//    debugImplementation Config.depConfig.leakcanary_android.dep
+}
+
+apply from: "config.gradle"

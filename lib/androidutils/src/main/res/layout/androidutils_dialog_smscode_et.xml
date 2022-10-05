@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/androidutils_dialog_smscode_et_bg">
+
+        <EditText
+            android:id="@+id/et_input"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/v_divider"
+            android:background="@null"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:paddingLeft="8dp"
+            android:textColorHint="@color/gray_cccccc"
+            android:textSize="@dimen/sp_14" />
+
+        <View
+            android:id="@+id/v_divider"
+            android:layout_width="@dimen/dp_0_8"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@id/tv_reqCode"
+            android:background="@color/gray_d8d8d8" />
+
+        <TextView
+            android:id="@+id/tv_reqCode"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="获取验证码"
+            android:textColor="@color/blue_4c94ff"
+            android:textSize="@dimen/sp_14" />
+
+    </RelativeLayout>
+</layout>

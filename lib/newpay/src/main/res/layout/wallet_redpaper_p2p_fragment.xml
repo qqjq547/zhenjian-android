@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.tiocloud.newpay.tools.MoneyUtils" />
+
+        <variable
+            name="data"
+            type="com.tiocloud.newpay.feature.redpaper.feature.p2p.P2PFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--背景-->
+        <View
+            android:id="@+id/bg_red0"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:background="@color/red_ff5e5e"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bg_red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/wallet_redpacket_top_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bg_red0" />
+
+        <View
+            android:id="@+id/bg_white"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="@dimen/dp_15"
+            android:background="@drawable/wallet_redpaper_white_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_toWho" />
+
+        <TextView
+            android:id="@+id/tv_toWho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/wallet_redpaper_towho_bg"
+            android:drawableLeft="@drawable/wallet_samll_yellow_packet"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:text="@={data.toWhoInfo}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/rl_money"
+            android:layout_width="0dp"
+            android:layout_height="58dp"
+            app:layout_constraintEnd_toEndOf="@id/bg_white"
+            app:layout_constraintStart_toStartOf="@id/bg_white"
+            app:layout_constraintTop_toTopOf="@id/bg_white">
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:gravity="center_vertical"
+                android:text="单个红包"
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_16" />
+
+            <EditText
+                android:id="@+id/et_money"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/tv_yuan"
+                android:layout_toRightOf="@id/tv_money"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|right"
+                android:hint="@{data.moneyHint}"
+                android:inputType="numberDecimal"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@={data.money}"
+                android:textColor="#333333"
+                android:textColorHint="#9C9C9C"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_yuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="元"
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:background="#F5F5F5" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_gift"
+            android:layout_width="0dp"
+            android:layout_height="58dp"
+            app:layout_constraintEnd_toEndOf="@id/bg_white"
+            app:layout_constraintStart_toStartOf="@id/bg_white"
+            app:layout_constraintTop_toBottomOf="@id/rl_money">
+
+            <TextView
+                android:id="@+id/tv_gift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:gravity="center_vertical"
+                android:text="祝福语"
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_16" />
+
+            <EditText
+                android:id="@+id/et_gift"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/tv_gift"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|right"
+                android:hint="@{data.giftHint}"
+                android:inputType="text"
+                android:maxLength="15"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@={data.gift}"
+                android:textColor="#333333"
+                android:textColorHint="#9C9C9C"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:visibility="invisible"
+            android:text="单个红包金额为0.01~200元"
+            android:textColor="#F9AD55"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bg_white" />
+
+        <TextView
+            android:id="@+id/tv_moneySymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="5dp"
+            android:text="¥"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_28"
+            app:layout_constraintBottom_toBottomOf="@id/tv_moneyAmount"
+            app:layout_constraintEnd_toStartOf="@id/tv_moneyAmount"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_moneyAmount" />
+
+        <TextView
+            android:id="@+id/tv_moneyAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:layout_marginRight="@dimen/dp_15"
+            android:singleLine="true"
+            android:text="@{TextUtils.isEmpty(data.money) ? (@string/zero_money) : MoneyUtils.formatYuan(data.money)}"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_41"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_moneySymbol"
+            app:layout_constraintTop_toBottomOf="@id/bg_white" />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:alpha="@{TextUtils.isEmpty(data.money) ? 0.3f : 1f}"
+            android:background="@drawable/wallet_btn_bg_red"
+            android:enabled="@{!(TextUtils.isEmpty(data.money))}"
+            android:gravity="center"
+            android:onClick="@{data.clickOkBtn}"
+            android:text="塞钱进红包"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_moneyAmount" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="24dp"
+            android:text="未领取的红包，将在24小时后自动退回"
+            android:textColor="#9C9C9C"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

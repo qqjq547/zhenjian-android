@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_200"
+    android:layout_marginLeft="@dimen/dp_20"
+    android:layout_marginRight="@dimen/dp_20"
+    android:background="@drawable/white_tanchuang_bg">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_50"
+        android:text="提示"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/dp_18"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您还没有开启通知权限，点去是否去开启"
+        android:textSize="@dimen/dp_16"
+        android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_cancleBtn"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_30"
+                android:text="取消"
+                android:background="@drawable/line_quxiao_xian"
+                android:gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_goOpenBtn"
+                android:layout_width="@dimen/dp_100"
+                android:layout_marginLeft="@dimen/dp_50"
+                android:text="去开启"
+                android:textColor="#579BFF"
+                android:background="@drawable/open_kaiqi_line_bg"
+                android:gravity="center"
+                android:layout_height="@dimen/dp_30"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

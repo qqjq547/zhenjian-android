@@ -1,0 +1,13 @@
+dependencies {
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.androidx_constraintlayout.dep
+    implementation Config.depConfig.androidx_cardview.dep
+    implementation Config.depConfig.lib_androidutils.dep
+    implementation Config.depConfig.lib_httpclient.dep
+    implementation Config.depConfig.lib_social_tio.dep
+    implementation Config.depConfig.bga_qrcode_zxing.dep
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+}
+
+apply from: "config.gradle"

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="data"
+            type="com.tiocloud.account.feature.unregister.VerifySafeFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/account_unregister_security"
+            android:drawablePadding="@dimen/dp_20"
+            android:gravity="center"
+            android:scrollbars="vertical"
+            android:text="安全验证"
+            android:textColor="@color/gray_333333"
+            android:textSize="@dimen/sp_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center"
+            android:scrollbars="vertical"
+            android:text="短信验证码将发送至"
+            android:textColor="@color/gray_333333"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_logo" />
+
+        <com.watayouxiang.androidutils.widget.qmui.TioShadowLayout
+            android:id="@+id/ll_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginRight="36dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tip">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.watayouxiang.androidutils.widget.edittext.TioEditText
+                    android:id="@+id/et_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@drawable/account_sel_et"
+                    android:drawableLeft="@drawable/account_ic_safe"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:hint="请输入短信验证码"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:paddingRight="100dp"
+                    android:singleLine="true"
+                    android:text="@={data.txt_code}"
+                    android:textColor="#333333"
+                    android:textColorHint="#D5D5D5"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_reqPhoneCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:enabled="@{!data.isStartTimer &amp;&amp; !TextUtils.isEmpty(data.txt_phone)}"
+                    android:onClick="@{data::onClick_reqPhoneCode}"
+                    android:padding="5dp"
+                    android:text="获取验证码"
+                    android:textColor="@color/account_sel_code_timer_txt_color"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </com.watayouxiang.androidutils.widget.qmui.TioShadowLayout>
+
+        <com.watayouxiang.androidutils.widget.qmui.TioShadowLayout
+            android:id="@+id/ll_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginBottom="@dimen/dp_17"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:enabled="@{!TextUtils.isEmpty(data.txt_code) &amp;&amp; !TextUtils.isEmpty(data.txt_phone)}"
+                android:gravity="center"
+                android:onClick="@{data::onClick_ok}"
+                android:text="确认注销"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:qmui_backgroundColor="@color/btn_sel_positive_bg_color"
+                app:qmui_borderColor="@color/transparent"
+                app:qmui_borderWidth="0px"
+                app:qmui_radius="24dp" />
+        </com.watayouxiang.androidutils.widget.qmui.TioShadowLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

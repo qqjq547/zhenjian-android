@@ -1,0 +1,8 @@
+dependencies {
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.material.dep
+
+    implementation Config.depConfig.lib_newpay.dep
+}
+
+apply from: "config.gradle"

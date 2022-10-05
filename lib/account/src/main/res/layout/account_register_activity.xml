@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="data"
+            type="com.tiocloud.account.feature.register.RegisterActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/dp_23"
+        android:background="@color/white">
+
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/statusBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/statusBar"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:id="@+id/rlClose"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="match_parent">
+                    <!--返回按钮-->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/btn_return_black"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/dp_15"
+                        android:paddingRight="15dp"
+                        />
+                </RelativeLayout>
+
+
+                <!--标题-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_2"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:fontFamily="sans-serif-medium"
+                    android:singleLine="true"
+                    android:text="注册"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="36dp"
+                android:layout_below="@+id/ll_title"
+                android:layout_marginTop="87dp"
+                android:layout_marginRight="36dp"
+                android:orientation="vertical">
+
+                <com.watayouxiang.androidutils.widget.edittext.TioEditText
+                    android:id="@+id/et_login_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:drawablePadding="4dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入账号"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
+                    android:inputType="number"
+                    android:textColor="#333333"
+                    android:textColorHint="#D5D5D5"
+                    android:textSize="16sp"
+                    android:maxLength="16"
+                    />
+<!--                android:background="@drawable/account_sel_et"-->
+                <!--                android:drawableLeft="@drawable/account_ic_phone"-->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E9E9E9"/>
+
+                <com.watayouxiang.androidutils.widget.edittext.TioEditText
+                    android:id="@+id/et_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:drawablePadding="4dp"
+                    android:background="@null"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:gravity="center_vertical"
+                    android:hint="请设置登录密码"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textColorHint="#D5D5D5"
+                    android:textSize="16sp" />
+<!--                android:drawableLeft="@drawable/account_ic_lock"-->
+<!--                android:background="@drawable/account_sel_et"-->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E9E9E9"/>
+                <com.watayouxiang.androidutils.widget.edittext.TioEditText
+                    android:id="@+id/et_pwdTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:drawablePadding="4dp"
+                    android:background="@null"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:visibility="gone"
+                    android:gravity="center_vertical"
+                    android:hint="请确认登录密码"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textColorHint="#D5D5D5"
+                    android:textSize="16sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="gone"
+                    android:background="#E9E9E9"/>
+                <LinearLayout
+                    android:id="@+id/protocol_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:visibility="gone"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/protocol_checkBox"
+                        style="@style/TioCheckboxTheme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/protocol_tv_agree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="同意"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:id="@+id/protocol_xieyi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="《用户协议和隐私政策》"
+                        android:textColor="@color/blue_4c94ff"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="和"
+                        android:visibility="gone"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:id="@+id/protocol_zhengce"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="《隐私政策》"
+                        android:visibility="gone"
+                        android:textColor="@color/blue_4c94ff"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/btRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="下一步"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="60dp"
+                    android:textSize="18sp"
+                    app:qmui_backgroundColor="@color/btn_sel_positive_bg_color"
+                    app:qmui_borderColor="@color/transparent"
+                    app:qmui_borderWidth="0px"
+                    app:qmui_radius="10dp" />
+                <TextView
+                    android:id="@+id/btLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="已有账号,立即登录"
+                    android:textColor="#999999"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:textSize="18sp"
+                    android:background="@drawable/btn_ys_positive_bg_ll"
+                   />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

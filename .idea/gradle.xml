@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/feature/feature0/export" />
+            <option value="$PROJECT_DIR$/feature/feature0/pkg" />
+            <option value="$PROJECT_DIR$/feature/launcher/app" />
+            <option value="$PROJECT_DIR$/lib/account" />
+            <option value="$PROJECT_DIR$/lib/androidutils" />
+            <option value="$PROJECT_DIR$/lib/appupdate" />
+            <option value="$PROJECT_DIR$/lib/audiorecord" />
+            <option value="$PROJECT_DIR$/lib/base" />
+            <option value="$PROJECT_DIR$/lib/common" />
+            <option value="$PROJECT_DIR$/lib/common-tio" />
+            <option value="$PROJECT_DIR$/lib/commonwallet" />
+            <option value="$PROJECT_DIR$/lib/db" />
+            <option value="$PROJECT_DIR$/lib/httpclient" />
+            <option value="$PROJECT_DIR$/lib/imclient" />
+            <option value="$PROJECT_DIR$/lib/jpush" />
+            <option value="$PROJECT_DIR$/lib/newpay" />
+            <option value="$PROJECT_DIR$/lib/qrcode" />
+            <option value="$PROJECT_DIR$/lib/session" />
+            <option value="$PROJECT_DIR$/lib/social-lib" />
+            <option value="$PROJECT_DIR$/lib/social-tio" />
+            <option value="$PROJECT_DIR$/lib/verification" />
+            <option value="$PROJECT_DIR$/lib/webrtc" />
+            <option value="$PROJECT_DIR$/lib/webrtclib" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

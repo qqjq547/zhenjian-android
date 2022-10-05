@@ -1,0 +1,160 @@
+{
+  "appConfigDesc": "appConfig 配置的是可以跑 app 的模块，git 提交务必只包含 launcher",
+  "appConfig": [
+    "launcher"
+  ],
+  "pkgConfigDesc": "pkgConfig 配置的是要依赖的功能包，为空则依赖全部，git 提交务必为空",
+  "pkgConfig": [
+  ],
+  "proConfigDesc": "proConfig 配置的是使用本地还是仓库，优先级低于 appConfig 和 pkgConfig",
+  "proConfig": [
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":feature:launcher:app"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":feature:feature0:app"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":feature:feature0:pkg"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":feature:feature0:export"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":feature:mock"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:base"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:common"
+    },
+    {
+      "isApply": false,
+      "useLocal": true,
+      "localPath": ":lib:dbsample"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:imclient",
+      "remotePath": "com.watayouxiang:imclient:1.1.2"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:httpclient",
+      "remotePath": "com.watayouxiang:httpclient:1.0.2"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:androidutils",
+      "remotePath": "com.watayouxiang:androidutils:1.0.1"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:appupdate",
+      "remotePath": "com.watayouxiang:appupdate:1.0.1"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:audiorecord",
+      "remotePath": "com.watayouxiang:audiorecord:1.0.1"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:db",
+      "remotePath": "com.watayouxiang:db:1.0.1"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:qrcode",
+      "remotePath": "com.watayouxiang:qrcode:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:social-lib",
+      "remotePath": "com.watayouxiang:social:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:social-tio",
+      "remotePath": "com.tiocloud:social:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:webrtclib",
+      "remotePath": "com.watayouxiang:webrtclib:1.0.1"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:account",
+      "remotePath": "com.tiocloud:account:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:common-tio",
+      "remotePath": "com.tiocloud:common:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:jpush",
+      "remotePath": "com.tiocloud:jpush:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:session",
+      "remotePath": "com.tiocloud:session:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:verification",
+      "remotePath": "com.tiocloud:verification:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:webrtc",
+      "remotePath": "com.tiocloud:webrtc:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:commonwallet",
+      "remotePath": "com.tiocloud:commonwallet:1.0.0"
+    },
+    {
+      "isApply": true,
+      "useLocal": true,
+      "localPath": ":lib:newpay",
+      "remotePath": "com.tiocloud:newpay:1.0.0"
+    }
+  ]
+}

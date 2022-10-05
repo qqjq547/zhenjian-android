@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="wallet_open_content" translatable="false">
+        城市客栈钱包由新生支付提供，城市客栈将向新生支付提供您的个人身份信息，用于开通新生支付账号。\n如您同意开通，请点击【同意授权】按钮，如您不同意，请不要进行同意授权操作。
+    </string>
+
+    <string name="auth_passed">实名认证通过</string>
+    <string name="auth_no_passed">实名认证不通过</string>
+
+    <string name="register_phone_success">注册手机号认证成功</string>
+    <string name="register_phone_failed">注册手机号认证失败</string>
+
+    <string name="digits_amount">0123456789.</string>
+    <string name="zero_money">0.00</string>
+
+</resources>

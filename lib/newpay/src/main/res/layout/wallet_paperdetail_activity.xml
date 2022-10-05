@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.tiocloud.newpay.feature.paperdetail.PaperDetailActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--状态栏-->
+        <FrameLayout
+            android:id="@+id/statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--标题栏-->
+        <com.watayouxiang.androidutils.widget.titlebar.WtTitleBar
+            android:id="@+id/titleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusBar"
+            app:tb_background="@color/red_ff5e5e"
+            app:tb_isLightMode="false"
+            app:tb_spinnerRight_show="true"
+            app:tb_tvRight_text="查看记录"
+            app:tb_tvRight_textColor="@color/white"
+            app:tb_tvTitle_text="" />
+
+        <!--背景-->
+        <View
+            android:id="@+id/bg_red"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:background="@color/red_ff5e5e"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleBar" />
+
+        <!--背景2-->
+        <ImageView
+            android:id="@+id/bg_red2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/wallet_redpacket_top_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bg_red" />
+
+        <!--列表-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bg_red2" />
+
+        <!--头像-->
+        <com.watayouxiang.androidutils.widget.imageview.TioImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="13dp"
+            app:layout_constraintEnd_toStartOf="@id/tv_fromInfo"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleBar" />
+
+        <!--来源信息-->
+        <TextView
+            android:id="@+id/tv_fromInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:drawableRight="@drawable/wallet_ic_pin_19"
+            android:drawablePadding="3dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@{vm.fromInfo}"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+        <!--祝福语-->
+        <TextView
+            android:id="@+id/tv_giftInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="15dp"
+            android:singleLine="true"
+            android:text="@{vm.giftInfo}"
+            android:textColor="#FFFFBCA7"
+            android:textSize="14sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_avatar" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="anim_menu_bottombar">
+        <item name="android:windowEnterAnimation">@anim/jin</item>
+        <item name="android:windowExitAnimation">@anim/tui</item>
+    </style>
+
+</resources>

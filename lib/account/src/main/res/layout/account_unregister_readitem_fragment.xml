@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:lineSpacingExtra="8dp"
+            android:padding="20dp"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@id/ll_ok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.watayouxiang.androidutils.widget.qmui.TioShadowLayout
+            android:id="@+id/ll_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginBottom="@dimen/dp_17"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btn_ok"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="申请注销(15s)"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:qmui_backgroundColor="@color/btn_sel_positive_bg_color"
+                app:qmui_borderColor="@color/transparent"
+                app:qmui_borderWidth="0px"
+                app:qmui_radius="24dp" />
+        </com.watayouxiang.androidutils.widget.qmui.TioShadowLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

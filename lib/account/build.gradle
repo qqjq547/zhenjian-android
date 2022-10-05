@@ -1,0 +1,20 @@
+dependencies {
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.material.dep
+    implementation Config.depConfig.lib_androidutils.dep
+    implementation Config.depConfig.lib_httpclient.dep
+    implementation Config.depConfig.lib_imclient.dep
+    implementation Config.depConfig.lib_db.dep
+    implementation Config.depConfig.lib_verification.dep
+    implementation Config.depConfig.lib_social_tio.dep
+    implementation Config.depConfig.lib_jpush.dep
+    implementation Config.depConfig.lib_common_tio.dep
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    api 'com.github.yalantis:ucrop:2.2.2'
+}
+
+apply from: "config.gradle"

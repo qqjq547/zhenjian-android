@@ -1,0 +1,19 @@
+dependencies {
+    implementation Config.depConfig.lifecycle_viewmodel_savedstate.dep
+    implementation Config.depConfig.androidx_swiperefreshlayout.dep
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.material.dep
+    implementation Config.depConfig.androidx_constraintlayout.dep
+
+    api Config.depConfig.lib_androidutils.dep
+    implementation Config.depConfig.lib_httpclient.dep
+    implementation Config.depConfig.lib_imclient.dep
+    implementation Config.depConfig.lib_db.dep
+    implementation Config.depConfig.lib_common_tio.dep
+    implementation Config.depConfig.lib_verification.dep
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+}
+
+apply from: "config.gradle"

@@ -1,0 +1,30 @@
+dependencies {
+    api Config.depConfig.androidx_multidex.dep
+    api Config.depConfig.androidx_appcompat.dep
+    api Config.depConfig.material.dep
+    api Config.depConfig.androidx_constraintlayout.dep
+    api Config.depConfig.androidx_swiperefreshlayout.dep
+    api Config.depConfig.androidx_cardview.dep
+
+    api Config.depConfig.lib_webrtclib.dep
+    api Config.depConfig.lib_appupdate.dep
+    api Config.depConfig.lib_audiorecord.dep
+    api Config.depConfig.lib_db.dep
+    api Config.depConfig.lib_qrcode.dep
+    api Config.depConfig.lib_imclient.dep
+    api Config.depConfig.lib_httpclient.dep
+    api Config.depConfig.lib_androidutils.dep
+    api Config.depConfig.lib_verification.dep
+    api Config.depConfig.lib_social_tio.dep
+    api Config.depConfig.lib_jpush.dep
+    api Config.depConfig.lib_account.dep
+    api Config.depConfig.lib_session.dep
+    api Config.depConfig.lib_webrtc.dep
+    api Config.depConfig.lib_common_tio.dep
+    api Config.depConfig.lib_commonwallet.dep
+
+    api 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+//    api Config.depConfig.Butterknife.dep
+//    annotationProcessor Config.depConfig.ButterknifeCompiler.dep
+}

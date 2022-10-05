@@ -1,0 +1,19 @@
+dependencies {
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.material.dep
+    implementation Config.depConfig.androidx_constraintlayout.dep
+
+    implementation Config.depConfig.retrofit2.dep
+    implementation Config.depConfig.retrofit2_converter_gson.dep
+    implementation Config.depConfig.retrofit2_rxjava2_adapter.dep
+    implementation Config.depConfig.rxjava2_rxandroid.dep
+    implementation Config.depConfig.rxlifecycle_components.dep
+    implementation Config.depConfig.logging_interceptor.dep
+
+
+
+
+    implementation Config.depConfig.lib_httpclient.dep
+}
+
+apply from: "config.gradle"

@@ -1,0 +1,9 @@
+dependencies {
+    implementation Config.depConfig.androidx_annotation.dep
+    api Config.depConfig.okhttp3.dep
+    api Config.depConfig.okgo.dep
+    api Config.depConfig.gson.dep
+    implementation Config.depConfig.utilcode.dep
+}
+
+apply from: "config.gradle"

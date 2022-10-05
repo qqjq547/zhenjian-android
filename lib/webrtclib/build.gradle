@@ -1,0 +1,16 @@
+android {
+    // 显示jniLibs
+    sourceSets.main {
+        jniLibs.srcDir 'libs'
+        jni.srcDirs = []
+    }
+}
+
+dependencies {
+    implementation Config.depConfig.androidx_appcompat.dep
+    api Config.depConfig.google_webrtc.dep
+    implementation Config.depConfig.lib_imclient.dep
+    implementation Config.depConfig.lib_httpclient.dep
+}
+
+apply from: "config.gradle"

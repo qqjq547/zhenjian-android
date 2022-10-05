@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/wallet_redpaper_msg_bg" android:state_selected="false" />
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp" />
+            <solid android:color="#FFFF908F" />
+            <size android:width="202dp" android:height="86dp" />
+        </shape>
+    </item>
+</selector>

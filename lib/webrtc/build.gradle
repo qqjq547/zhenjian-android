@@ -1,0 +1,15 @@
+dependencies {
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.material.dep
+
+    implementation Config.depConfig.lib_webrtclib.dep
+    implementation Config.depConfig.lib_androidutils.dep
+    implementation Config.depConfig.lib_audiorecord.dep
+    implementation Config.depConfig.lib_db.dep
+    implementation Config.depConfig.lib_imclient.dep
+    implementation Config.depConfig.lib_httpclient.dep
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+}
+
+apply from: "config.gradle"

@@ -1,0 +1,35 @@
+android {
+    defaultConfig {
+        manifestPlaceholders = [
+                //正式
+//                JPUSH_APPKEY : "8b84c5eaa654a1b570f4a9bb",
+                //测试
+                JPUSH_APPKEY : "d144520ae22f450f49e081cc",
+                JPUSH_CHANNEL: "developer-default",
+                XIAOMI_APPID:"MI-xxx",
+                XIAOMI_APPKEY:"MI-xxx",
+                OPPO_APPKEY:"OP-xxx",
+                OPPO_APPID:"OP-xxx",
+                OPPO_APPSECRET:"OP-xxx",
+                VIVO_APPKEY:"xxx",
+                VIVO_APPID:"xxx"
+        ]
+
+        resConfigs "en", "zh-rCN"
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation Config.depConfig.heytap_msp_push.dep
+    implementation Config.depConfig.androidx_appcompat.dep
+    implementation Config.depConfig.huawei_hms_push.dep
+}
+
+apply from: "config.gradle"

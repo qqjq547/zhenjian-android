@@ -1,0 +1,102 @@
+apply {
+    plugin "com.android.application"
+    if (Config.depConfig.plugin_kotlin.isApply) {
+        plugin Config.depConfig.plugin_kotlin.pluginId
+    }
+    if (Config.depConfig.plugin_agcp.isApply) {
+        plugin Config.depConfig.plugin_agcp.pluginId
+    }
+}
+
+android {
+    signingConfigs {
+        release {
+            storeFile file("../../../chengshikezhan.jks")
+            storePassword "cskz123"
+            keyAlias "chengshikezhan"
+            keyPassword "cskz123"
+        }
+    }
+    compileSdkVersion Config.compileSdkVersion
+    defaultConfig {
+        applicationId Config.applicationId + suffix
+        minSdkVersion Config.minSdkVersion
+        targetSdkVersion Config.targetSdkVersion
+        versionCode Config.versionCode
+        versionName Config.versionName
+
+        multiDexEnabled true
+
+        ndk {
+            abiFilters 'x86', 'x86_64', 'arm64-v8a', 'armeabi-v7a'
+        }
+
+        manifestPlaceholders = [OUT_APK_TIME: outApkTime]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", Config.appName + suffix
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            resValue "string", "app_name", Config.appName+ suffix + ".debug"
+            signingConfig signingConfigs.release
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def appName = "TioIm"
+            outputFileName = "${appName}-${variant.baseName}-V${variant.versionName}.apk"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    dataBinding {
+        enabled true
+    }
+//    buildFeatures {
+//        viewBinding true
+//    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['assets']
+        }
+    }
+//    defaultConfig {
+//        vectorDrawables.useSupportLibrary = true
+//    }
+}
+
+dependencies {
+
+    for (def entrySet : ConfigUtils.getApplyPkgs().entrySet()) {
+        api entrySet.value.dep
+    }
+
+    if (Config.depConfig.feature_mock.isApply) {
+        api Config.depConfig.feature_mock.dep
+    }
+}
+
+def getSuffix() {
+    if (project.name == "feature_launcher_app") return ""
+    return "." + project.name.substring("feature_".length(), project.name.length() - "_app".length())
+}
+
+static def getOutApkTime() {
+    return new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("GMT+08"))
+}
