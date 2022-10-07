@@ -117,7 +117,7 @@ public class LogoutPresenter extends LogoutContract.Presenter {
 //            // 关闭其他页面
 //            ActivityUtils.finishAllActivities();
 //        });
-
+        PreferencesUtil.saveInt("firstTab",3);
         ThreadUtils.runOnUiThread(AppUtils::relaunchApp);
     }
 }

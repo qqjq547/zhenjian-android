@@ -66,6 +66,14 @@ public class MainWebFragment extends MainTabFragment {
                 goBackBt();
             }
         });
+        homeTitleBar.setCloselicListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!itemData.isEmpty()){
+                    showItem(0);
+                }
+            }
+        });
         if (!itemData.isEmpty()){
             showItem(0);
         }
@@ -94,11 +102,6 @@ public class MainWebFragment extends MainTabFragment {
             @Override
             public void onClick(View v) {
                 homeTitleBar.setRightClicListener(0,null);
-            }
-        });
-        homeTitleBar.setCloselicListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         });
         homeTitleBar.isShowWebBt(true);

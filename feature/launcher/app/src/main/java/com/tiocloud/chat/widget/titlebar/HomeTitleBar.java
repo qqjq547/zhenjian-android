@@ -2,6 +2,7 @@ package com.tiocloud.chat.widget.titlebar;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -47,6 +48,7 @@ public class HomeTitleBar extends RelativeLayout implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        Log.d("hjq","onClick");
         if (v == binding.ivMore) {
             if (rightClickListener == null) {
                 showHomePopupWindow(v);
@@ -67,7 +69,7 @@ public class HomeTitleBar extends RelativeLayout implements View.OnClickListener
             scClickListener.onClick(v);
 
         }else if (v == binding.ivClose) {
-            closeClickListener.onClick(v);
+     closeClickListener.onClick(v);
         }
 
     }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.tiocloud.chat.feature.main.mvp.MainPresenter;
 import com.tiocloud.jpush.PushLauncher;
 import com.watayouxiang.androidutils.page.TioActivity;
 import com.watayouxiang.httpclient.model.request.FoundListResp;
+import com.watayouxiang.httpclient.utils.PreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +74,9 @@ public class MainActivity extends TioActivity implements MainContract.View {
         binding = DataBindingUtil.setContentView(this, R.layout.tio_main_activity);
         presenter = new MainPresenter(this);
         presenter.init();
+        int selectTab=PreferencesUtil.getInt("firstTab",0);
+        binding.viewPager.setCurrentItem(selectTab);
+        PreferencesUtil.saveInt("firstTab",0);
     }
 
     @Override
