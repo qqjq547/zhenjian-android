@@ -111,6 +111,17 @@ public class HomeTitleBar extends RelativeLayout implements View.OnClickListener
                 .append(title).setFontSize((int) getResources().getDimension(R.dimen.sp_24))
                 .create();
     }
+    public void setWebTitle(@NonNull String title) {
+        if (binding == null) return;
+        this.title = title;
+        binding.tvWebTitle.setText(title);
+    }
+    public View getWebTitleView() {
+        return   binding.tvWebTitle;
+    }
+    public View getFriendBtnView() {
+        return   binding.ivFriend;
+    }
     public void setTitleCenter(@NonNull String title){
         if (binding == null) return;
 
@@ -207,4 +218,5 @@ public class HomeTitleBar extends RelativeLayout implements View.OnClickListener
 
         closeClickListener = clicListener;
     }
+
 }

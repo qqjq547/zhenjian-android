@@ -115,7 +115,7 @@ public class TestActivity extends ListActivity {
                     TioIMClient.getInstance().connect();
                 })
                 .addSection("NotificationUtils")
-                .addClick("notify", view -> NotificationUtils.notify(notifyId++, builder -> builder.setSmallIcon(R.mipmap.ic_launcher_round)
+                .addClick("notify", view -> NotificationUtils.notify(notifyId++, builder -> builder.setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("title")
                         .setContentText("text " + notifyId)
                         .setContentIntent(PendingIntent.getActivity(TestActivity.this, 0, getIntent(), PendingIntent.FLAG_UPDATE_CURRENT))

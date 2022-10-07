@@ -1,20 +1,21 @@
 package com.tiocloud.chat.feature.main.model;
 
 import com.tiocloud.chat.R;
-import com.tiocloud.chat.feature.main.fragment.MainFiveFragment;
+import com.tiocloud.chat.feature.main.fragment.MainWebFragment;
 import com.tiocloud.chat.widget.reference.reminder.ReminderId;
 import com.tiocloud.chat.feature.main.base.MainTabFragment;
-import com.tiocloud.chat.feature.main.fragment.MainFriendFragment;
-import com.tiocloud.chat.feature.main.fragment.MainFoundFragment;
 import com.tiocloud.chat.feature.main.fragment.MainChatFragment;
 import com.tiocloud.chat.feature.main.fragment.MainUserFragment;
 
 public enum MainTab {
-    CHAT(0, ReminderId.CHAT, MainChatFragment.class, R.string.talk, R.drawable.tio_main_chats_selector, R.layout.tio_main_chat_fragment),
-    FRIEND(1, ReminderId.FRIEND, MainFriendFragment.class, R.string.good_friend, R.drawable.tio_main_friend_selector, R.layout.tio_main_friend_fragment),
+//    CHAT(0, ReminderId.CHAT, MainChatFragment.class, R.string.talk, R.drawable.tio_main_chats_selector, R.layout.tio_main_chat_fragment),
+//    FRIEND(1, ReminderId.FRIEND, MainFriendFragment.class, R.string.good_friend, R.drawable.tio_main_friend_selector, R.layout.tio_main_friend_fragment),
 //    FIVE(2, ReminderId.FIVE, MainFiveFragment.class, R.string.shouye, R.drawable.tio_main_found_selector, R.layout.tio_main_five_fragment),
-    FOUND(2, ReminderId.FOUND, MainFoundFragment.class, R.string.found, R.drawable.tio_main_found_selector, R.layout.tio_main_found_fragment),
-    USER(3, ReminderId.USER, MainUserFragment.class, R.string.mine, R.drawable.tio_main_user_selector, R.layout.tio_main_user_fragment);
+    VIDEO(0, ReminderId.VIDEO, MainWebFragment.class, R.string.video_area, R.drawable.tio_main_home_selector, R.layout.tio_main_web_fragment),
+    BEAUTY(1, ReminderId.BEAUTY, MainWebFragment.class, R.string.beauty_area, R.drawable.tio_main_beauty_selector, R.layout.tio_main_web_fragment),
+    GOLD(2, ReminderId.GOLD, MainWebFragment.class, R.string.gold_area, R.drawable.tio_main_gold_selector, R.layout.tio_main_web_fragment),
+    CHAT(3, ReminderId.CHAT, MainChatFragment.class, R.string.talk, R.drawable.tio_main_chats_selector, R.layout.tio_main_chat_fragment),
+    USER(4, ReminderId.USER, MainUserFragment.class, R.string.mine, R.drawable.tio_main_user_selector, R.layout.tio_main_user_fragment);
     public final int tabIndex;
     public final int reminderId;
     public final Class<? extends MainTabFragment> clazz;

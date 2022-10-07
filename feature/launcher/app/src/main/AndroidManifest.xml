@@ -229,7 +229,12 @@
             android:name=".feature.aboutapp.AboutAppActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/TioTheme" /> <!-- 测试页 -->
+            android:theme="@style/TioTheme" />
+        <activity
+            android:name=".feature.main.fragment.FriendActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/TioTheme" />
         <activity
             android:name=".test.TestActivity"
             android:theme="@style/WtTheme.Blue.DarkActionBar" />
@@ -251,6 +256,7 @@
         <activity
             android:name=".test.activity.RecordTestActivity"
             android:theme="@style/WtTheme.Blue.DarkActionBar" />
+
     </application>
 
 </manifest>

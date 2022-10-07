@@ -59,6 +59,9 @@
     <string name="good_friend">好友</string>
     <string name="found">发现</string>
     <string name="mine">我的</string>
+    <string name="video_area">视频区</string>
+    <string name="beauty_area">选美区</string>
+    <string name="gold_area">赏金区</string>
     <string name="shouye">首页</string>
     <string name="repair_group_nick">修改群名称</string>
     <string name="good_group_nick">一个好的群名称，让你快速方便找到！</string>

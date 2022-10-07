@@ -59,8 +59,8 @@ public class FriendFragment extends TioFragment implements FriendContract.View {
     }
 
     public void onRefresh() {
-//        if (presenter != null) {
-//            presenter.load();
-//        }
+        if (presenter != null) {
+            presenter.load();
+        }
     }
 }

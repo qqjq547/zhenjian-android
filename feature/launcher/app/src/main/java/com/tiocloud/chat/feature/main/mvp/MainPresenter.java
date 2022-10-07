@@ -11,12 +11,14 @@ import com.tiocloud.chat.mvp.socket.SocketPresenter;
 import com.tiocloud.chat.preferences.TioMemory;
 import com.tiocloud.chat.util.AppUpdateTool;
 import com.tiocloud.jpush.PushLauncher;
+import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.androidutils.widget.TioToast;
 import com.watayouxiang.audiorecord.tio.TioBellVibrate;
 import com.watayouxiang.db.dao.ChatListTableCrud;
 import com.watayouxiang.db.dao.CurrUserTableCrud;
 import com.watayouxiang.db.prefernces.TioDBPreferences;
 import com.watayouxiang.db.table.ChatListTable;
+import com.watayouxiang.httpclient.model.request.FoundListResp;
 import com.watayouxiang.imclient.TioIMClient;
 import com.watayouxiang.imclient.model.body.MsgTip;
 import com.watayouxiang.imclient.model.body.wx.WxFriendChatNtf;
@@ -53,6 +55,7 @@ public class MainPresenter extends MainContract.Presenter {
         BarUtils.transparentStatusBar(getView().getActivity());
         getView().initViews();
         connectSocket();
+        getFoundList();
     }
 
     @Override
@@ -69,6 +72,7 @@ public class MainPresenter extends MainContract.Presenter {
     public void clearAllNotifications() {
         PushLauncher.getInstance().clearAllNotifications();
     }
+
 
     private void connectSocket() {
         socketPresenter.connectSocket(resp -> {
@@ -159,5 +163,18 @@ public class MainPresenter extends MainContract.Presenter {
             return table.getMsgfreeflag() != 1;
         }
         return true;
+    }
+    private void getFoundList(){
+        getModel().requestFoundList(new BaseModel.DataProxy<FoundListResp>() {
+            @Override
+            public void onSuccess(FoundListResp founds) {
+                getView().setFoundList(founds);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                TioToast.showShort(msg);
+            }
+        });
     }
 }

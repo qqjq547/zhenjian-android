@@ -6,6 +6,9 @@ import com.tiocloud.chat.feature.main.MainActivity;
 import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.androidutils.mvp.BasePresenter;
 import com.watayouxiang.androidutils.mvp.BaseView;
+import com.watayouxiang.httpclient.model.request.FoundListResp;
+
+import java.util.List;
 
 /**
  * author : TaoWang
@@ -21,10 +24,12 @@ public interface MainContract {
         void initViews();
 
         void updateRedDot(int pageIndex, int count);
+
+        void setFoundList(List<FoundListResp.Found> data);
     }
 
     abstract class Model extends BaseModel {
-
+        public abstract void requestFoundList(DataProxy<FoundListResp> proxy);
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {
@@ -37,5 +42,6 @@ public interface MainContract {
         public abstract void checkAppUpdate();
 
         public abstract void clearAllNotifications();
+
     }
 }

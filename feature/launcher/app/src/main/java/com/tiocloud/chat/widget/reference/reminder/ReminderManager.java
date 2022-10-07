@@ -44,7 +44,7 @@ public class ReminderManager {
     }
 
     public final void updateContactUnreadNum(int unreadNum) {
-        updateUnreadMessageNum(unreadNum, false, ReminderId.FRIEND);
+//        updateUnreadMessageNum(unreadNum, false, ReminderId.FRIEND);
     }
 
     public void registerUnreadNumChangedCallback(UnreadNumChangedCallback cb) {
@@ -66,7 +66,7 @@ public class ReminderManager {
     // inner
     private final void populate(SparseArray<ReminderItem> items) {
         items.put(ReminderId.CHAT, new ReminderItem(ReminderId.CHAT));
-        items.put(ReminderId.FRIEND, new ReminderItem(ReminderId.FRIEND));
+//        items.put(ReminderId.FRIEND, new ReminderItem(ReminderId.FRIEND));
     }
 
     private final void updateUnreadMessageNum(int unreadNum, boolean delta, int reminderId) {

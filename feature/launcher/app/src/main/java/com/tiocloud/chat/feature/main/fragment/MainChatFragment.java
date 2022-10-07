@@ -12,13 +12,16 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.ListPopupWindow;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.TioApplication;
@@ -26,6 +29,7 @@ import com.tiocloud.chat.baseNewVersion.base.BaseConstants;
 import com.tiocloud.chat.baseNewVersion.utils2.BrandUtil;
 import com.tiocloud.chat.baseNewVersion.utils2.DensityUtils;
 import com.tiocloud.chat.feature.home.chat.ChatFragment;
+import com.tiocloud.chat.feature.main.adapter.LineAdapter;
 import com.tiocloud.chat.feature.main.base.MainTabFragment;
 import com.tiocloud.chat.feature.search.curr.SearchActivity;
 import com.tiocloud.chat.widget.titlebar.HomeTitleBar;
@@ -82,6 +86,13 @@ public class MainChatFragment extends MainTabFragment {
             @Override
             public void onClick(View v) {
                 SearchActivity.start(v.getContext());
+            }
+        });
+        homeTitleBar.getFriendBtnView().setVisibility(View.VISIBLE);
+        homeTitleBar.getFriendBtnView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),FriendActivity.class));
             }
         });
 //        all_layout=findViewById(R.id.all_layout);

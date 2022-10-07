@@ -35,7 +35,7 @@ public class TioNotification {
         NotificationUtils.notify(notifyId++, new Utils.Consumer<NotificationCompat.Builder>() {
             @Override
             public void accept(NotificationCompat.Builder builder) {
-                builder.setSmallIcon(R.mipmap.ic_launcher_round)
+                builder.setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(title)
                         .setContentText(text)
                         .setContentIntent(PendingIntent.getActivity(activity, 0, activity.getIntent(), PendingIntent.FLAG_UPDATE_CURRENT))
