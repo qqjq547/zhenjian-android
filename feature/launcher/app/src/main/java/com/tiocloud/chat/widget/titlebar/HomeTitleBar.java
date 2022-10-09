@@ -48,7 +48,6 @@ public class HomeTitleBar extends RelativeLayout implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        Log.d("hjq","onClick");
         if (v == binding.ivMore) {
             if (rightClickListener == null) {
                 showHomePopupWindow(v);

@@ -3,13 +3,22 @@ package com.tiocloud.chat.widget.popupwindow;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.view.View;
 
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.feature.group.create.CreateGroupActivity;
 import com.tiocloud.chat.feature.search.user.SearchUserActivity;
+import com.tiocloud.chat.feature.session.p2p.P2PSessionActivity;
 import com.tiocloud.chat.util.ScreenUtil;
 import com.tiocloud.common.ModuleConfig;
+import com.watayouxiang.androidutils.widget.TioToast;
+import com.watayouxiang.androidutils.widget.dialog.oper.EasyOperDialog;
+import com.watayouxiang.httpclient.callback.TioCallbackImpl;
+import com.watayouxiang.httpclient.model.request.CheckCardKefuXiaoZuReq;
+import com.watayouxiang.httpclient.model.request.CustServiceSearchReq;
+import com.watayouxiang.httpclient.model.response.CustServiceTeamListResp;
+import com.watayouxiang.imclient.model.body.wx.msg.InnerMsgCard;
 import com.watayouxiang.qrcode.feature.qrcode_decoder.QRCodeDecoderActivity;
 
 /**
@@ -38,12 +47,70 @@ public class HomePopupWindow extends BasePopupWindow {
             SearchUserActivity.start(getActivity());
             dismiss();
         });
+        findViewById(R.id.ll_addZhuanshu).setOnClickListener(view -> {
+//            openKefuCard(getActivity(),"test");
+            searchCustServiceTeam("test");
+            dismiss();
+        });
         if (ModuleConfig.ENABLE_QR_CODE) {
             findViewById(R.id.ll_qrcode_decoder).setOnClickListener(view -> {
                 QRCodeDecoderActivity.start(getActivity());
                 dismiss();
             });
         }
+    }
+    public void searchCustServiceTeam(String searchkey){
+        new CustServiceSearchReq(searchkey).setCancelTag(this).get(new TioCallbackImpl<CustServiceTeamListResp>() {
+            @Override
+            public void onTioSuccess(CustServiceTeamListResp custServiceTeamListResp) {
+                if (!custServiceTeamListResp.getList().isEmpty()){
+                    P2PSessionActivity.active(getActivity(),custServiceTeamListResp.getList().get(0).getRotatecurrid()+"");
+                }else {
+                    TioToast.showShort("没有找到相关客服");
+                }
+            }
+
+            @Override
+            public void onTioError(String msg) {
+                TioToast.showShort(msg);
+
+            }
+        });
+    }
+    public void openKefuCard(Context context, String teamid) {
+        new EasyOperDialog.Builder("是否添加客服小组")
+                .setPositiveBtnTxt("是")
+                .setNegativeBtnTxt("取消")
+                .setOnBtnListener(new EasyOperDialog.OnBtnListener() {
+                    @Override
+                    public void onClickPositive(View view, EasyOperDialog dialog) {
+                        dialog.dismiss();
+
+                        new CheckCardKefuXiaoZuReq(teamid).setCancelTag(this).get(new TioCallbackImpl<Object>() {
+                            @Override
+                            public void onTioSuccess(Object o) {
+//                                Log.d("=====客服小组===","==="+o.toString());
+
+                                TioToast.showShort("添加客服小组成功");
+
+                            }
+
+                            @Override
+                            public void onTioError(String msg) {
+                                TioToast.showShort(msg);
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onClickNegative(View view, EasyOperDialog dialog) {
+                        dialog.dismiss();
+
+                    }
+                })
+                .build()
+                .show_unCancel(context);
     }
 
     @Override

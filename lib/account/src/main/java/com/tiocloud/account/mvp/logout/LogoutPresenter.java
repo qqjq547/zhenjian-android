@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.request.base.Request;
+import com.tiocloud.account.data.AccountSP;
 import com.tiocloud.account.feature.login.LoginActivity;
 import com.tiocloud.account.widget.LogoutDialog;
 import com.tiocloud.jpush.PushLauncher;
@@ -106,6 +107,8 @@ public class LogoutPresenter extends LogoutContract.Presenter {
             CurrUserTableCrud.curr_delete();
 //            // 移除 cookies
             CookieUtils.removeCookies();
+            AccountSP.putLoginName("");
+            AccountSP.putKeyLoginPwd("");
             PreferencesUtil.saveString("session_cookie_nameNew","");
         });
     }

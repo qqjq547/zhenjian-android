@@ -1,8 +1,11 @@
 package com.tiocloud.chat.feature.main.mvp;
 
+import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.watayouxiang.httpclient.TioHttpClient;
 import com.watayouxiang.httpclient.callback.TioCallback;
+import com.watayouxiang.httpclient.model.BaseReq;
+import com.watayouxiang.httpclient.model.BaseResp;
 import com.watayouxiang.httpclient.model.request.FoundListReq;
 import com.watayouxiang.httpclient.model.request.FoundListResp;
 
