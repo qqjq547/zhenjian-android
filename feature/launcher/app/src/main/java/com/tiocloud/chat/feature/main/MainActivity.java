@@ -74,9 +74,9 @@ public class MainActivity extends TioActivity implements MainContract.View {
         binding = DataBindingUtil.setContentView(this, R.layout.tio_main_activity);
         presenter = new MainPresenter(this);
         presenter.init();
-        int selectTab=PreferencesUtil.getInt("firstTab",0);
-        binding.viewPager.setCurrentItem(selectTab);
-        PreferencesUtil.saveInt("firstTab",0);
+//        int selectTab=PreferencesUtil.getInt("firstTab",0);
+        binding.viewPager.setCurrentItem(MainTab.CHAT.tabIndex);
+//        PreferencesUtil.saveInt("firstTab",0);
     }
 
     @Override

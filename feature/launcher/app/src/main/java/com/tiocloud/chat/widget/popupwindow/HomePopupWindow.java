@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.feature.group.create.CreateGroupActivity;
+import com.tiocloud.chat.feature.search.customservice.SearchCustServiceActivity;
 import com.tiocloud.chat.feature.search.user.SearchUserActivity;
 import com.tiocloud.chat.feature.session.p2p.P2PSessionActivity;
 import com.tiocloud.chat.util.ScreenUtil;
@@ -49,7 +50,8 @@ public class HomePopupWindow extends BasePopupWindow {
         });
         findViewById(R.id.ll_addZhuanshu).setOnClickListener(view -> {
 //            openKefuCard(getActivity(),"test");
-            searchCustServiceTeam("test");
+//            searchCustServiceTeam("test");
+            SearchCustServiceActivity.start(getActivity());
             dismiss();
         });
         if (ModuleConfig.ENABLE_QR_CODE) {

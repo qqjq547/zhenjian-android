@@ -92,6 +92,13 @@
             android:theme="@style/TioTheme"
             android:windowSoftInputMode="stateVisible" /> <!-- 设置页 -->
         <activity
+            android:name=".feature.search.customservice.SearchCustServiceActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/TioTheme"
+            android:windowSoftInputMode="stateVisible" /> <!-- 设置页 -->
+        <activity
             android:name=".feature.settings.SettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"

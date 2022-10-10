@@ -9,12 +9,16 @@ import com.watayouxiang.httpclient.model.response.CustServiceTeamListResp;
 import java.lang.reflect.Type;
 
 public class CustServiceSearchReq extends BaseReq<CustServiceTeamListResp> {
-    private final int pageNumber=1;
-    private final int pageSize=10;
+    private  int pageNumber=1;
+    private  int pageSize=10;
     private String searchkey;
 
     public CustServiceSearchReq(String searchkey) {
         this.searchkey = searchkey;
+    }
+    public CustServiceSearchReq(String searchkey,int pageNumber) {
+        this.searchkey = searchkey;
+        this.pageNumber = pageNumber;
     }
 
     @Override
