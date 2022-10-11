@@ -37,7 +37,6 @@ public class SearchCustServiceFragment extends TioFragment implements SearchCust
         RecyclerView rv_list = findViewById(R.id.rv_list);
         presenter = new SearchCustServiceFragmentPresenter(this);
         presenter.initListView(rv_list);
-        presenter.search("");
     }
 
     @Override

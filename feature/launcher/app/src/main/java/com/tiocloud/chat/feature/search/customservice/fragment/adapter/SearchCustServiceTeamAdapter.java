@@ -71,7 +71,6 @@ public class SearchCustServiceTeamAdapter extends BaseQuickAdapter<CustServiceTe
                 StringUtil.nonNull(item.getName()),
                 keyWord));
         // 添加按钮
-        tv_addBtn.setEnabled(true);
         helper.addOnClickListener(tv_addBtn.getId());
     }
 
