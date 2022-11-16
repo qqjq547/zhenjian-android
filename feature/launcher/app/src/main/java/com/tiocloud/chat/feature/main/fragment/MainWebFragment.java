@@ -257,7 +257,11 @@ public class MainWebFragment extends MainTabFragment {
 
     @Override
     public void onDestroy() {
-        agentWeb.getWebLifeCycle().onDestroy();
+        try {
+            agentWeb.getWebLifeCycle().onDestroy();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         super.onDestroy();
     }
     public void goBackBt(){
