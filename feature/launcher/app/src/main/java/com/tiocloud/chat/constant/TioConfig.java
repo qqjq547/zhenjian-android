@@ -8,13 +8,13 @@ public class TioConfig {
     /**
      * 握手密钥
      */
-    public static final String HAND_SHAKE_KEY = "WS39UpxTDmTZdtNidg";
+    public static final String HAND_SHAKE_KEY = "WS52U4uV0pztMu7";
 
-    public static final String OSS_objectName = "ip/yuanfen.json";
+    public static final String OSS_objectName = "ip/ip.json";
 
     // 访问的endpoint地址
     public static final String OSS_ENDPOINT = "oss-cn-shenzhen.aliyuncs.com";
-    public static final String BUCKET_NAME = "yuanfen1";
-    public static final String OSS_ACCESS_KEY_ID = "LTAI5tKug3W5tFyNCBtBCUWJ";
-    public static final String OSS_ACCESS_KEY_SECRET = "Y9CTnEb7VyBLI1UG1KuLvBpRRamZJa";
+    public static final String BUCKET_NAME = "fyiposs";
+    public static final String OSS_ACCESS_KEY_ID = "LTAI5tLZMJSQV2DLsMgGYWYt";
+    public static final String OSS_ACCESS_KEY_SECRET = "ZmOzljqmCgOIrH2TLa68zxMqT9NY6f";
 }

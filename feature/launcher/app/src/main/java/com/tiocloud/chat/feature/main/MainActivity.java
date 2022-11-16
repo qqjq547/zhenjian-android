@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.baseNewVersion.base.BaseConstants;
 import com.tiocloud.chat.baseNewVersion.utils2.SPUtilsNew;
@@ -172,6 +173,7 @@ public class MainActivity extends TioActivity implements MainContract.View {
 
     @Override
     public void setFoundList(List<FoundListResp.Found> data) {
+        Log.e("hjq", GsonUtils.toJson(data));
         List<FoundListResp.Found> videoList=new ArrayList<>();
         List<FoundListResp.Found> beautyList=new ArrayList<>();
         List<FoundListResp.Found> goldList=new ArrayList<>();

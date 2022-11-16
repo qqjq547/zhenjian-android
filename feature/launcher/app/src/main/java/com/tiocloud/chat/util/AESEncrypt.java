@@ -1,5 +1,7 @@
 package com.tiocloud.chat.util;
 
+import static com.watayouxiang.androidutils.engine.AESEncrypt.base64Decode;
+
 import android.util.Base64;
 import android.util.Log;
 
@@ -44,53 +46,53 @@ public class AESEncrypt {
      * 秘钥长度不足 16 个字节时，默认填充位数
      */
     private static final String DEFAULT_VALUE = "0";
-//    /**
-//     * 加解密算法/工作模式/填充方式
-//     */
-//    private static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
+    /**
+     * 加解密算法/工作模式/填充方式
+     */
+    private static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
 
-//    /**
-//     * AES 加密
-//     *
-//     * @param data      待加密内容
-//     * @param secretKey 加密密码，长度：16 或 32 个字符
-//     * @return 返回Base64转码后的加密数据
-//     */
-//    public static String encrypt(String data, String secretKey) {
-//        try {
-//            //创建密码器
-//            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-//            //初始化为加密密码器
-//            cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(secretKey));
-//            byte[] encryptByte = cipher.doFinal(data.getBytes(CHARSET_UTF8));
-//            // 将加密以后的数据进行 Base64 编码
-//            return base64Encode(encryptByte);
-//        } catch (Exception e) {
-//            handleException(e);
-//        }
-//        return null;
-//    }
-//
-//    /**
-//     * AES 解密
-//     *
-//     * @param base64Data 加密的密文 Base64 字符串
-//     * @param secretKey  解密的密钥，长度：16 或 32 个字符
-//     */
-//    public static String decrypt(String base64Data, String secretKey) {
-//        try {
-//            byte[] data = base64Decode(base64Data);
-//            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-//            //设置为解密模式
-//            cipher.init(Cipher.DECRYPT_MODE, getSecretKey(secretKey));
-//            //执行解密操作
-//            byte[] result = cipher.doFinal(data);
-//            return new String(result, CHARSET_UTF8);
-//        } catch (Exception e) {
-//            handleException(e);
-//        }
-//        return null;
-//    }
+    /**
+     * AES 加密
+     *
+     * @param data      待加密内容
+     * @param secretKey 加密密码，长度：16 或 32 个字符
+     * @return 返回Base64转码后的加密数据
+     */
+    public static String encrypt(String data, String secretKey) {
+        try {
+            //创建密码器
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+            //初始化为加密密码器
+            cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(secretKey));
+            byte[] encryptByte = cipher.doFinal(data.getBytes(CHARSET_UTF8));
+            // 将加密以后的数据进行 Base64 编码
+            return base64Encode(encryptByte);
+        } catch (Exception e) {
+            handleException(e);
+        }
+        return null;
+    }
+
+    /**
+     * AES 解密
+     *
+     * @param base64Data 加密的密文 Base64 字符串
+     * @param secretKey  解密的密钥，长度：16 或 32 个字符
+     */
+    public static String decrypt(String base64Data, String secretKey) {
+        try {
+            byte[] data = base64Decode(base64Data);
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+            //设置为解密模式
+            cipher.init(Cipher.DECRYPT_MODE, getSecretKey(secretKey));
+            //执行解密操作
+            byte[] result = cipher.doFinal(data);
+            return new String(result, CHARSET_UTF8);
+        } catch (Exception e) {
+            handleException(e);
+        }
+        return null;
+    }
 
     /**
      * 使用密码获取 AES 秘钥
@@ -135,19 +137,19 @@ public class AESEncrypt {
             return null;
         }
     }
-//    /**
-//     * 将 Base64 字符串 解码成 字节数组
-//     */
-//    public static byte[] base64Decode(String data) {
-//        return Base64.decode(data, Base64.NO_WRAP);
-//    }
-//
-//    /**
-//     * 将 字节数组 转换成 Base64 编码
-//     */
-//    public static String base64Encode(byte[] data) {
-//        return Base64.encodeToString(data, Base64.NO_WRAP);
-//    }
+    /**
+     * 将 Base64 字符串 解码成 字节数组
+     */
+    public static byte[] base64Decode(String data) {
+        return Base64.decode(data, Base64.NO_WRAP);
+    }
+
+    /**
+     * 将 字节数组 转换成 Base64 编码
+     */
+    public static String base64Encode(byte[] data) {
+        return Base64.encodeToString(data, Base64.NO_WRAP);
+    }
 
     /**
      * 处理异常

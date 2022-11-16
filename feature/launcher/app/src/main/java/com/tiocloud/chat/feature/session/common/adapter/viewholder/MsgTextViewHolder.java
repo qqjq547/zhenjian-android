@@ -1,5 +1,7 @@
 package com.tiocloud.chat.feature.session.common.adapter.viewholder;
 
+import static com.tiocloud.chat.util.AESEncrypt.getFileName;
+
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -17,6 +19,9 @@ import com.tiocloud.chat.baseNewVersion.LinkMovementClickMethod;
 import com.tiocloud.chat.baseNewVersion.NoUnderlineSpan;
 import com.tiocloud.chat.feature.session.common.adapter.MsgAdapter;
 import com.tiocloud.chat.feature.session.common.adapter.viewholder.base.MsgBaseViewHolder;
+import com.tiocloud.chat.feature.session.common.model.TextContent;
+import com.tiocloud.chat.util.AESEncrypt;
+import com.tiocloud.chat.util.FileUtils;
 import com.tiocloud.chat.util.MoonUtil;
 import com.watayouxiang.androidutils.utils.ClickUtils;
 
@@ -45,6 +50,8 @@ public class MsgTextViewHolder extends MsgBaseViewHolder {
     @Override
     protected void bindContent(BaseViewHolder holder) {
         String content = getMessage().getContent();
+        content=TextContent.fromJson(content);
+        Log.d("hjq","bindContent="+content);
         if (content == null) content = "";
 //        Log.d("===消息内容==",content+"====="+ getMessage().getName()+"=="+ getMessage().getAitName());
 //        utils.append("[有人@你] ").setForegroundColor(Color.parseColor("#3A88FB"));

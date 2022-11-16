@@ -1,6 +1,7 @@
 package com.tiocloud.chat.feature.session.p2p.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,16 +9,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.tiocloud.chat.feature.session.common.SessionFragment;
 import com.tiocloud.chat.feature.session.common.model.SessionExtras;
+import com.tiocloud.chat.feature.session.common.model.TextContent;
 import com.tiocloud.chat.feature.session.p2p.P2PSessionActivity;
 import com.tiocloud.chat.feature.session.p2p.fragment.mvp.P2PFragmentContract;
 import com.tiocloud.chat.feature.session.p2p.fragment.mvp.P2PFragmentPresenter;
+import com.tiocloud.chat.util.AESEncrypt;
+import com.tiocloud.chat.util.AesUtil;
 import com.watayouxiang.androidutils.utils.HtmlUtils;
+import com.watayouxiang.httpclient.utils.MD5Utils;
 import com.watayouxiang.imclient.TioIMClient;
 import com.watayouxiang.imclient.model.body.wx.WxFriendChatReq;
 import com.watayouxiang.imclient.packet.TioPacket;
 import com.watayouxiang.imclient.packet.TioPacketBuilder;
+
+import org.json.JSONObject;
 
 /**
  * author : TaoWang
@@ -48,7 +56,9 @@ public class P2PSessionFragment extends SessionFragment implements P2PFragmentCo
     @Override
     public boolean sendMessage(String msg) {
         WxFriendChatReq wxP2PChatReq = new WxFriendChatReq(HtmlUtils.escapeHtml(msg), Integer.parseInt(getChatLinkId()));
+        wxP2PChatReq.c=TextContent.toJson(wxP2PChatReq.c);
         TioPacket packet = TioPacketBuilder.getWxFriendChatReq(wxP2PChatReq);
+        Log.d("hjq", "sendMessage="+GsonUtils.toJson(packet));
         return TioIMClient.getInstance().sendPacket(packet);
     }
 

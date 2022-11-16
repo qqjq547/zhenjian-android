@@ -24,6 +24,7 @@ import com.bumptech.glide.request.target.Target;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.baseNewVersion.utils2.HelperGlide;
+import com.tiocloud.chat.feature.session.common.model.TextContent;
 import com.tiocloud.chat.util.MoonUtil;
 import com.tiocloud.chat.util.StringUtil;
 import com.tiocloud.chat.util.TimeUtil;
@@ -150,7 +151,8 @@ class BaseUIAdapter extends BaseDataAdapter {
 
         // 2、构建新的富文本
         SpanUtils utils = SpanUtils.with(recentMsg);
-
+        Log.d("hjq","msgresume="+item.msgresume);
+        item.msgresume=TextContent.fromJson(item.msgresume);
         // ---消息免打扰
         if (item.msgfreeflag == 1 && item.notreadcount != 0) {
             // 开启消息免打扰 && 有未读消息

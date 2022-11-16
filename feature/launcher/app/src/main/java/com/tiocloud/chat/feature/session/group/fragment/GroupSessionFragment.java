@@ -11,6 +11,7 @@ import com.tiocloud.chat.feature.forbidden.ForbiddenMvpPresenter;
 import com.tiocloud.chat.feature.session.common.SessionFragment;
 import com.tiocloud.chat.feature.session.common.adapter.msg.TioMsg;
 import com.tiocloud.chat.feature.session.common.model.SessionExtras;
+import com.tiocloud.chat.feature.session.common.model.TextContent;
 import com.tiocloud.chat.feature.session.common.panel.MsgInputPanel;
 import com.tiocloud.chat.feature.session.group.fragment.ait.AitManager;
 import com.tiocloud.chat.feature.session.group.fragment.mvp.GroupFragmentContract;
@@ -106,6 +107,7 @@ public class GroupSessionFragment extends SessionFragment implements GroupFragme
         String escapeMsg = HtmlUtils.escapeHtml(msg);
         int chatLinkId = Integer.parseInt(getChatLinkId());
         WxGroupChatReq body = new WxGroupChatReq(escapeMsg, chatLinkId, aitStr);
+        body.c= TextContent.toJson(body.c);
         TioPacket packet = TioPacketBuilder.getWxGroupChatReq(body);
         boolean isSend = TioIMClient.getInstance().sendPacket(packet);
         if (isSend) {
