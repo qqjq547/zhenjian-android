@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.tiocloud.chat.BuildConfig;
 import com.tiocloud.chat.TioApplication;
 import com.tiocloud.chat.databinding.TioChatFragmentBinding;
@@ -144,6 +146,7 @@ public class ChatFragment extends TioFragment implements ChatContract.View {
     public void onChatListRespSuccess(@Nullable ChatListResp lists) {
         if (listAdapter != null) {
             listAdapter.setNewData(lists);
+            Log.e("hjq", GsonUtils.toJson(lists));
         }
     }
 
@@ -161,7 +164,7 @@ public class ChatFragment extends TioFragment implements ChatContract.View {
             return;
         }
         if (listAdapter == null) return;
-
+        Log.e("hjq 11", GsonUtils.toJson(event.getChatList()));
         if (event.isAll()) {
             listAdapter.setNewData(event.getChatList());
         } else {

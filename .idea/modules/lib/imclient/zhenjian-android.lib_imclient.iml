@@ -19,6 +19,7 @@
           <option name="noStdlib" value="true" />
           <option name="noReflect" value="true" />
           <option name="moduleName" value="lib_imclient_release" />
+          <option name="jvmTarget" value="1.8" />
           <option name="languageVersion" value="1.4" />
           <option name="apiVersion" value="1.4" />
           <option name="pluginOptions">
@@ -56,29 +57,10 @@
     <output-test url="file://$MODULE_DIR$/../../../../lib/imclient/build/intermediates/javac/releaseUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../lib/imclient">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../lib/imclient/build/generated/ap_generated_sources/release/out" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../../lib/imclient/build/generated/res/resValues/release" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../../lib/imclient/build/generated/source/buildConfig/release" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../../lib/imclient/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../lib/imclient/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../lib/imclient/build" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.6" level="project" />
-    <orderEntry type="library" name="Gradle: org.greenrobot:eventbus:3.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-common:4.2.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.4.32" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.1.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.32" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-adapters:4.2.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-runtime:4.2.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.databinding:viewbinding:4.2.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-runtime:2.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.blankj:utilcodex:1.30.5@aar" level="project" />
   </component>
 </module>

@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 apply {
     plugin "com.android.application"
     if (Config.depConfig.plugin_kotlin.isApply) {
@@ -38,20 +40,26 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue "string", "app_name", Config.appName + suffix
             signingConfig signingConfigs.release
         }
         debug {
             minifyEnabled false
-            resValue "string", "app_name", Config.appName+ suffix + ".debug"
             signingConfig signingConfigs.release
         }
     }
-
+    flavorDimensions "single"
+    productFlavors {
+        forqa {
+            resValue "string", "app_name", "测试"
+        }
+        cskz {
+            resValue "string", "app_name", Config.appName + suffix
+        }
+    }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            def appName = "TioIm"
-            outputFileName = "${appName}-${variant.baseName}-V${variant.versionName}.apk"
+            def date = new SimpleDateFormat("MMdd").format(new Date())
+            outputFileName = "${variant.baseName.replace("forqa","test")}-${date}-${variant.versionName}.apk"
         }
     }
 

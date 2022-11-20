@@ -1,5 +1,7 @@
 package com.tiocloud.chat.feature.session.common.model;
 
+import android.util.Log;
+
 import com.blankj.utilcode.util.GsonUtils;
 import com.tiocloud.chat.util.AESEncrypt;
 import com.watayouxiang.imclient.utils.MD5Utils;
@@ -48,6 +50,7 @@ public class TextContent implements Serializable {
             return AESEncrypt.decrypt(textContent.getData(),textContent.getFingerprint());
         }catch (Exception e){
             e.printStackTrace();
+            Log.e("hjq",GsonUtils.toJson(jsonString));
         }
         return jsonString;
     }

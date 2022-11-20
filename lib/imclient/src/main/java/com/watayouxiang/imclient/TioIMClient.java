@@ -1,7 +1,9 @@
 package com.watayouxiang.imclient;
 
 import android.app.Activity;
+import android.util.Log;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.Utils;
 import com.watayouxiang.imclient.app.AppIMClient;
@@ -74,6 +76,7 @@ public class TioIMClient extends AppIMClient {
         super.onSendPacketEnd(packet);
         short command = packet.getCommand();
         Object body = packet.getBody();
+        Log.d("hjq", GsonUtils.toJson(packet));
 
         if (command == TioCommand.WX_HANDSHAKE_REQ) {
             HandshakeReq handshakeReq = (HandshakeReq) body;

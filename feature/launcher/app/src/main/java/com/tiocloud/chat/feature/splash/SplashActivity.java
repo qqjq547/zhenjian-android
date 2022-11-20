@@ -35,6 +35,7 @@ import com.tiocloud.chat.constant.TioConfig;
 import com.tiocloud.chat.feature.main.MainActivity;
 import com.tiocloud.chat.mvp.launcher.LauncherContract;
 import com.tiocloud.chat.mvp.launcher.LauncherPresenter;
+import com.tiocloud.chat.util.AESEncrypt;
 import com.watayouxiang.androidutils.page.TioActivity;
 import com.watayouxiang.httpclient.preferences.HttpPreferences;
 
@@ -83,8 +84,23 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
                 presenter.init();
             }
         }).start();
-    }
 
+        test();
+    }
+    public  void test() {
+        String data="1234567890123456789012345678901234567891234567890";
+        String fingerprint= "17f036040c6c9e39ea661f41c9f988b2";
+//        String data="I/GOlKj4EUAEIX5/qwK09QX+uqQBOdZScLhCZP0FmYJkCgwqT6g3rcewieF7fDZHcuYJiNHQvg9NmVrfvEq9oQ==";
+//        String fingerprint= "17f036040c6c9e39ea661f41c9f988b2";
+//        String content=decrypt(data,fingerprint);
+        try {
+            String content= AESEncrypt.encrypt(data,fingerprint);
+            Log.d("hjq",content);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     protected void onDestroy() {

@@ -49,8 +49,7 @@ public class AESEncrypt {
     /**
      * 加解密算法/工作模式/填充方式
      */
-    private static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
-
+    private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
     /**
      * AES 加密
      *
@@ -63,7 +62,7 @@ public class AESEncrypt {
             //创建密码器
             Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
             //初始化为加密密码器
-            cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(secretKey));
+            cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(secretKey),new IvParameterSpec(secretKey.substring(0,16).getBytes()));
             byte[] encryptByte = cipher.doFinal(data.getBytes(CHARSET_UTF8));
             // 将加密以后的数据进行 Base64 编码
             return base64Encode(encryptByte);
@@ -84,7 +83,7 @@ public class AESEncrypt {
             byte[] data = base64Decode(base64Data);
             Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
             //设置为解密模式
-            cipher.init(Cipher.DECRYPT_MODE, getSecretKey(secretKey));
+            cipher.init(Cipher.DECRYPT_MODE, getSecretKey(secretKey),new IvParameterSpec(secretKey.substring(0,16).getBytes()));
             //执行解密操作
             byte[] result = cipher.doFinal(data);
             return new String(result, CHARSET_UTF8);
