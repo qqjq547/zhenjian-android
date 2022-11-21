@@ -83,12 +83,12 @@ public class SessionMsgDialog extends TioDialog {
 
     private void initComplaintView() {
         TextView tv_complaint = findViewById(R.id.tv_complaint);
-        if (complaint_mids != null && complaint_chatLinkId != null && complaint_enableComplaint) {
-            tv_complaint.setVisibility(View.VISIBLE);
-            tv_complaint.setOnClickListener(v -> reqComplaint());
-        } else {
+//        if (complaint_mids != null && complaint_chatLinkId != null && complaint_enableComplaint) {
+//            tv_complaint.setVisibility(View.VISIBLE);
+//            tv_complaint.setOnClickListener(v -> reqComplaint());
+//        } else {
             tv_complaint.setVisibility(View.GONE);
-        }
+//        }
     }
 
     private void reqComplaint() {
@@ -178,12 +178,12 @@ public class SessionMsgDialog extends TioDialog {
 
     private void initDeleteView() {
         TextView tv_delete = findViewById(R.id.tv_delete);
-        if (delete_chatlinkid != null && delete_mids != null) {
-            tv_delete.setVisibility(View.VISIBLE);
-            tv_delete.setOnClickListener(view -> postDeleteReq());
-        } else {
+//        if (delete_chatlinkid != null && delete_mids != null) {
+//            tv_delete.setVisibility(View.VISIBLE);
+//            tv_delete.setOnClickListener(view -> postDeleteReq());
+//        } else {
             tv_delete.setVisibility(View.GONE);
-        }
+//        }
     }
 
     private void postDeleteReq() {
@@ -251,12 +251,12 @@ public class SessionMsgDialog extends TioDialog {
     private void initWithdrawView() {
         TextView tv_withdraw = findViewById(R.id.tv_withdraw);
 
-        if (withdraw_chatlinkid != null && withdraw_mids != null) {
-            tv_withdraw.setVisibility(View.VISIBLE);
-            tv_withdraw.setOnClickListener(this::doWithdrawAction);
-        } else {
+//        if (withdraw_chatlinkid != null && withdraw_mids != null) {
+//            tv_withdraw.setVisibility(View.VISIBLE);
+//            tv_withdraw.setOnClickListener(this::doWithdrawAction);
+//        } else {
             tv_withdraw.setVisibility(View.GONE);
-        }
+//        }
     }
 
     private void doWithdrawAction(View view) {
