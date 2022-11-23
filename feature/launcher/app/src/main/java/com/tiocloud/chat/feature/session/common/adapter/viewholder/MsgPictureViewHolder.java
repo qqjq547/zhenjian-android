@@ -134,16 +134,17 @@ public class MsgPictureViewHolder extends MsgBaseViewHolder {
                 openWatchImageActivity(v);
             }
         });
+        findViewById(R.id.msgImageView).setOnLongClickListener(onContentLongClick());
     }
 
-//    @Override
-//    protected View.OnLongClickListener onContentLongClick() {
-//         return view -> {
-//            Log.d("===changan==","=22=");
-//            showAttachView(view, null);
-//            return true;
-//        };
-//    }
+    @Override
+    protected View.OnLongClickListener onContentLongClick() {
+         return view -> {
+            Log.d("===changan==","=22=");
+            showAttachView(view, null);
+            return true;
+        };
+    }
     @Override
     protected void bindContent(BaseViewHolder holder) {
         InnerMsgImage data = (InnerMsgImage) getMessage().getContentObj();

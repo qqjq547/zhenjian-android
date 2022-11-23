@@ -332,7 +332,7 @@ public class SessionMsgDialog extends TioDialog {
             });
         } else {
             tv_copy.setVisibility(View.GONE);
-            tv_collect.setVisibility(View.VISIBLE);
+            tv_collect.setVisibility(View.GONE);
         }
         tv_collect.setOnClickListener(view ->{
 //            Log.d("====收藏==",chatmode+"===");
