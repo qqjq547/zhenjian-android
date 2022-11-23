@@ -48,6 +48,7 @@ public class HomePopupWindow extends BasePopupWindow {
             SearchUserActivity.start(getActivity());
             dismiss();
         });
+        findViewById(R.id.ll_addZhuanshu).setVisibility(View.GONE);
         findViewById(R.id.ll_addZhuanshu).setOnClickListener(view -> {
 //            openKefuCard(getActivity(),"test");
 //            searchCustServiceTeam("test");
