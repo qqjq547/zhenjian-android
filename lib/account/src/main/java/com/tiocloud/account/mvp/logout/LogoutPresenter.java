@@ -12,6 +12,7 @@ import com.tiocloud.account.data.AccountSP;
 import com.tiocloud.account.feature.login.LoginActivity;
 import com.tiocloud.account.widget.LogoutDialog;
 import com.tiocloud.jpush.PushLauncher;
+import com.watayouxiang.androidutils.page.AppManager;
 import com.watayouxiang.androidutils.widget.TioToast;
 import com.watayouxiang.androidutils.widget.dialog.progress.SingletonProgressDialog;
 import com.watayouxiang.db.dao.ChatListTableCrud;
@@ -90,7 +91,7 @@ public class LogoutPresenter extends LogoutContract.Presenter {
         // 清除登录信息
         clearLoginInfo();
         PreferencesUtil.saveString("saveBaseUrl","");
-        // 只打开登录页
+        // 只打开登录
         openLoginCloseOthers();
     }
 
@@ -107,20 +108,21 @@ public class LogoutPresenter extends LogoutContract.Presenter {
             CurrUserTableCrud.curr_delete();
 //            // 移除 cookies
             CookieUtils.removeCookies();
-            AccountSP.putLoginName("");
-            AccountSP.putKeyLoginPwd("");
+            CurrUserTableCrud.curr_query().delete();
+//            AccountSP.putLoginName("");
+//            AccountSP.putKeyLoginPwd("");
             PreferencesUtil.saveString("session_cookie_nameNew","");
         });
     }
 
     public static void openLoginCloseOthers() {
-//        ThreadUtils.runOnUiThread(() -> {
-//            // 打开登录页面
-//            LoginActivity.start(Utils.getApp());
-//            // 关闭其他页面
-//            ActivityUtils.finishAllActivities();
-//        });
-        PreferencesUtil.saveInt("firstTab",3);
-        ThreadUtils.runOnUiThread(AppUtils::relaunchApp);
+        ThreadUtils.runOnUiThread(() -> {
+            // 打开登录页面
+            LoginActivity.start(Utils.getApp());
+            // 关闭其他页面
+            ActivityUtils.finishAllActivities();
+        });
+//        PreferencesUtil.saveInt("firstTab",3);
+//        ThreadUtils.runOnUiThread(AppUtils::relaunchApp);
     }
 }
