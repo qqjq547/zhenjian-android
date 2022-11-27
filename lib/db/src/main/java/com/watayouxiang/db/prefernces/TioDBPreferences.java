@@ -19,4 +19,7 @@ public class TioDBPreferences extends PreferencesUtils {
     public static long getCurrUid() {
         return HttpPreferences.getCurrUid();
     }
+    public static void clearCurrUid(){
+        HttpPreferences.clearCurrUid();
+    }
 }

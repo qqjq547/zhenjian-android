@@ -90,12 +90,15 @@ public class HttpPreferences extends PreferencesUtils {
     // currUserId
     // ====================================================================================
 
-    private static void saveCurrUid(long uid) {
+    public static void saveCurrUid(long uid) {
         saveLong(KEY_CURR_USER_ID, uid);
     }
 
     public static long getCurrUid() {
         return getLong(KEY_CURR_USER_ID, -1);
+    }
+    public static void clearCurrUid() {
+         clear(KEY_CURR_USER_ID);
     }
 
     // ====================================================================================

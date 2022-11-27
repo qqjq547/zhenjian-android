@@ -77,6 +77,10 @@ class PreferencesUtils {
     public static float getFloat(String key, float value) {
         return getSharedPreferences().getFloat(key, value);
     }
-
+    public static void clear(String key) {
+        editor = getSharedPreferences().edit();
+        editor.remove(key);
+        editor.commit();
+    }
 
 }

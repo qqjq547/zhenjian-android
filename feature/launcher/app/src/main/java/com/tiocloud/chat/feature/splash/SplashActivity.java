@@ -116,6 +116,7 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
 
     @Override
     public void openMainPage() {
+        Log.d("hjq","openMainPage");
         MainActivity.start(this);
     }
 }

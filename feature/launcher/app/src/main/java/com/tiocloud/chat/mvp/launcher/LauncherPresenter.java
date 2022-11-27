@@ -31,6 +31,7 @@ import com.tiocloud.chat.widget.dialog.tio.ProtectGuideDialog;
 import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.androidutils.widget.TioToast;
 import com.watayouxiang.db.dao.CurrUserTableCrud;
+import com.watayouxiang.db.prefernces.TioDBPreferences;
 import com.watayouxiang.httpclient.callback.TioCallbackImpl;
 import com.watayouxiang.httpclient.model.request.LoginReq;
 import com.watayouxiang.httpclient.model.request.UserCurrReq;
@@ -143,7 +144,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                         String  paw= AccountSP.getKeyLoginPwd();
                         PreferencesUtil.saveString("saveBaseUrl",save);
 
-                        if (!TextUtils.isEmpty(account) &&!TextUtils.isEmpty(paw)) {
+                        if (!TextUtils.isEmpty(account) &&!TextUtils.isEmpty(paw) &&TioDBPreferences.getCurrUid()>0) {
                             LoginReq.getPwdInstance(paw, account).setCancelTag(this).post(new TioCallbackImpl<LoginResp>() {
                                 @Override
                                 public void onTioSuccess(LoginResp loginResp) {
@@ -152,6 +153,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                                     new UserCurrReq().setCancelTag(this).get(new TioCallbackImpl<UserCurrResp>() {
                                         @Override
                                         public void onTioSuccess(UserCurrResp userCurrResp) {
+                                            Log.d("hjq","getPwdInstance");
 //                                            Log.d("====自动登录==","===获取信息==");
                                             // 存储用户信息
                                             CurrUserTableCrud.insert(userCurrResp);
@@ -261,6 +263,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
     }
 
     private void openNextPage() {
+        Log.d("hjq","openNextPage");
 //        if (!getModel().isLogin()) {
 //            getView().openLoginPage();
 //        } else {
