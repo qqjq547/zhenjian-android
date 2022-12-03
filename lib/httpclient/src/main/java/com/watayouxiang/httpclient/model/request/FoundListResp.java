@@ -1,7 +1,9 @@
 package com.watayouxiang.httpclient.model.request;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class FoundListResp extends LinkedList<FoundListResp.Found> implements Serializable {
 
@@ -29,5 +31,7 @@ public class FoundListResp extends LinkedList<FoundListResp.Found> implements Se
         public int status;
         public int updateperson;
         public String updatetime;
+        public String selecticon;
+        public List<Found> items=new ArrayList<>();
     }
 }

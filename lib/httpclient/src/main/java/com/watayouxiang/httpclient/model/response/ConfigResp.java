@@ -1,6 +1,9 @@
 package com.watayouxiang.httpclient.model.response;
 
+import com.watayouxiang.httpclient.model.response.internal.MainTabBean;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * author : TaoWang
@@ -39,6 +42,7 @@ public class ConfigResp implements Serializable {
     public long im_heartbeat_timeout;
     public int im_burst_transfer_file;//1, // 是否开启聊天文件快速传输 1 开启 2 关闭
     public int im_file_encrypt;// // 是否开启聊天文件加密 1 开启 2 关闭
+    public List<MainTabBean> app_find_page_base_list;// 首页tab配置
 
 
 

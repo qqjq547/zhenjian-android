@@ -17,14 +17,20 @@ package com.tiocloud.chat.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -40,9 +46,17 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
+import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.feature.main.adapter.MainTabPagerAdapter;
 import com.tiocloud.chat.widget.textview.TabUnreadTextView;
+import com.watayouxiang.httpclient.preferences.HttpCache;
+
+import org.jetbrains.annotations.NotNull;
 
 // 指针控件
 public class PagerSlidingTabStrip extends HorizontalScrollView implements OnPageChangeListener {
@@ -242,8 +256,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements OnPage
         PagerAdapter adapter = getPagerAdapter();
         String title = adapter.getPageTitle(position).toString();
         int iconId = 0;
+        String[] selectorUrl = null;
         if (adapter instanceof MainTabPagerAdapter) {
             iconId = ((MainTabPagerAdapter) adapter).getImageResource(position);
+            selectorUrl=((MainTabPagerAdapter) adapter).getImageUrls(position);
         }
 
         // 默认布局
@@ -253,11 +269,17 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements OnPage
         titleTV.setText(title);
         // icon
         ImageView iconIV = tabView.findViewById(R.id.tab_icon);
-        if (iconId != 0) {
+        if (selectorUrl!=null){
             iconIV.setVisibility(VISIBLE);
-            iconIV.setImageResource(iconId);
-        } else {
-            iconIV.setVisibility(GONE);
+            addSeletorFromNet(selectorUrl[0],selectorUrl[1],iconIV);
+            Log.d("hjq","selectorUrl="+ GsonUtils.toJson(HttpCache.getResUrl(selectorUrl[0])));
+        }else{
+            if (iconId != 0) {
+                iconIV.setVisibility(VISIBLE);
+                iconIV.setImageResource(iconId);
+            } else {
+                iconIV.setVisibility(GONE);
+            }
         }
         // 未读消息数
         final TextView tvUnread = tabView.findViewById(R.id.tv_unread);
@@ -433,5 +455,40 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements OnPage
 
     public interface OnTabDoubleTapListener {
         void onCurrentTabDoubleTap(int position);
+    }
+    private void addSeletorFromNet(final String normalPic, final String selectedPic, final ImageView imageView) {
+
+        if(imageView == null || TextUtils.isEmpty(normalPic))
+            return;
+        final StateListDrawable drawable = new StateListDrawable();
+        Glide.with(getContext())
+                .asBitmap()
+                .load(StringUtils.null2Length0(HttpCache.getResUrl(normalPic)))
+                .into(new SimpleTarget<Bitmap>() {
+
+                    @Override
+                    public void onResourceReady(@NotNull Bitmap bitmap, Transition<? super Bitmap> transition) {
+
+                        Drawable newDraw = new BitmapDrawable(bitmap);
+                        drawable.addState(new int[]{
+                                -android.R.attr.state_selected}, newDraw);
+
+                        Glide.with(getContext())
+                                .asBitmap()
+                                .load(StringUtils.null2Length0(HttpCache.getResUrl(selectedPic)))
+                                .into(new SimpleTarget<Bitmap>() {
+
+                                    @Override
+                                    public void onResourceReady(@NotNull Bitmap bitmap, Transition<? super Bitmap> transition) {
+
+                                        Drawable newDraw = new BitmapDrawable(bitmap);
+                                        drawable.addState(new int[]{
+                                                android.R.attr.state_selected}, newDraw);
+                                        imageView.setImageDrawable(drawable);
+                                    }
+                                });
+
+                    }
+                });
     }
 }

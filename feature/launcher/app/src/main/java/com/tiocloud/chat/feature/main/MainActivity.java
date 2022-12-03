@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.google.gson.reflect.TypeToken;
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.baseNewVersion.base.BaseConstants;
 import com.tiocloud.chat.baseNewVersion.utils2.SPUtilsNew;
@@ -28,9 +30,12 @@ import com.tiocloud.chat.feature.main.mvp.MainPresenter;
 import com.tiocloud.jpush.PushLauncher;
 import com.watayouxiang.androidutils.page.TioActivity;
 import com.watayouxiang.httpclient.model.request.FoundListResp;
+import com.watayouxiang.httpclient.model.response.internal.MainTabBean;
+import com.watayouxiang.httpclient.preferences.HttpPreferences;
 import com.watayouxiang.httpclient.utils.PreferencesUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -76,7 +81,7 @@ public class MainActivity extends TioActivity implements MainContract.View {
         presenter = new MainPresenter(this);
         presenter.init();
 //        int selectTab=PreferencesUtil.getInt("firstTab",0);
-        binding.viewPager.setCurrentItem(MainTab.CHAT.tabIndex);
+        binding.viewPager.setCurrentItem(MainTab.CHAT.getTabIndex());
 //        PreferencesUtil.saveInt("firstTab",0);
     }
 
@@ -150,9 +155,12 @@ public class MainActivity extends TioActivity implements MainContract.View {
     @Override
     public void initViews() {
         fontSizeScale = (float) SPUtilsNew.get(this, BaseConstants.SP_FontScale, 0.0f);
+
+    }
+    public void setTabViewPager(MainTab[] mainTabs){
         // 初始化 pager
-        MainTabPagerAdapter adapter = new MainTabPagerAdapter(getSupportFragmentManager(), binding.viewPager, this);
-        binding.viewPager.setCurrentItem(MainTab.VIDEO.tabIndex, false);
+        MainTabPagerAdapter adapter = new MainTabPagerAdapter(getSupportFragmentManager(), binding.viewPager, this,mainTabs);
+//        binding.viewPager.setCurrentItem(MainTab.VIDEO.tabIndex, false);
         // 初始化 tab
         binding.tabStrip.setViewPager(binding.viewPager);
         binding.tabStrip.setOnTabClickListener(adapter);
@@ -166,31 +174,58 @@ public class MainActivity extends TioActivity implements MainContract.View {
         binding.tabStrip.updateTab(pageIndex, count);
 
         // 设置角标数字
-        if (pageIndex == MainTab.CHAT.tabIndex) {
+        if (pageIndex == MainTab.CHAT.getTabIndex()) {
             PushLauncher.getInstance().setBadgeNumber(count);
         }
     }
 
     @Override
     public void setFoundList(List<FoundListResp.Found> data) {
-        Log.e("hjq", GsonUtils.toJson(data));
-        List<FoundListResp.Found> videoList=new ArrayList<>();
-        List<FoundListResp.Found> beautyList=new ArrayList<>();
-        List<FoundListResp.Found> goldList=new ArrayList<>();
+        List<MainTabBean> mainTabBeans= GsonUtils.fromJson(PreferencesUtil.getString("app_find_page_base_list",""),new TypeToken<ArrayList<MainTabBean>>(){}.getType());
+        List<FoundListResp.Found> tabList=new ArrayList<>();
         for (FoundListResp.Found item:data) {
-            if(item.itemname.startsWith("视频区-线")){
-                videoList.add(item);
-            }else if(item.itemname.startsWith("选美区-线")){
-                beautyList.add(item);
-            }else if(item.itemname.startsWith("赏金区-线")){
-                goldList.add(item);
+            //有icon图标，并且没有链接的，就是首页底部tab
+            if(compareTabData(mainTabBeans,item)){
+                tabList.add(item);
+            }else {
+                if (tabList.size()>0) {
+                    tabList.get(tabList.size() - 1).items.add(item);
+                }
             }
         }
-        MainWebFragment videoFragment=(MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.VIDEO.tabIndex);
-        MainWebFragment beautyFragment=(MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.BEAUTY.tabIndex);
-        MainWebFragment goldFragment=(MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.GOLD.tabIndex);
-        videoFragment.setItemData(videoList);
-        beautyFragment.setItemData(beautyList);
-        goldFragment.setItemData(goldList);
+        MainTab[] mainTabs=new MainTab[tabList.size()+2];
+        for (int i = 0; i < tabList.size(); i++) {
+            FoundListResp.Found found=tabList.get(i);
+            String[] iconUrls=new String[]{found.icon,found.selecticon};
+            mainTabs[i]=new MainTab(MainWebFragment.class,found.itemname,iconUrls,R.drawable.tio_main_home_selector,R.layout.tio_main_web_fragment);
+            mainTabs[i].setTabIndex(i);
+        }
+        mainTabs[tabList.size()]=MainTab.CHAT;
+        MainTab.CHAT.setTabIndex(tabList.size());
+        mainTabs[tabList.size()+1]=MainTab.USER;
+        MainTab.USER.setTabIndex(tabList.size()+1);
+        setTabViewPager(mainTabs);
+        for (int i = 0; i < tabList.size(); i++) {
+            ((MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(i)).setItemData(tabList.get(i).items);
+        }
+//        MainWebFragment videoFragment=(MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.VIDEO.tabIndex);
+//        MainWebFragment beautyFragment=(MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.BEAUTY.tabIndex);
+//        MainWebFragment goldFragment=(MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.GOLD.tabIndex);
+//        videoFragment.setItemData(videoList);
+//        beautyFragment.setItemData(beautyList);
+//        goldFragment.setItemData(goldList);
+    }
+    private Boolean compareTabData(List<MainTabBean> mainTabBeans,FoundListResp.Found item){
+        if (mainTabBeans==null||mainTabBeans.size()==0)
+            return false;
+        for (MainTabBean mainTabBean: mainTabBeans) {
+            if (item.id==mainTabBean.id){
+                item.itemname=mainTabBean.itemname;
+                item.icon=mainTabBean.icon;
+                item.selecticon=mainTabBean.selecticon;
+                return true;
+            }
+        }
+        return false;
     }
 }

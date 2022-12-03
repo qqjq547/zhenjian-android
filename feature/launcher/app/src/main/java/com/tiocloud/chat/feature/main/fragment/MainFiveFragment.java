@@ -37,7 +37,7 @@ public class MainFiveFragment extends MainTabFragment {
         homeTitleBar = findViewById(R.id.homeTitleBar);
 
         setStatusBarCustom(findViewById(R.id.fl_statusBar));
-        homeTitleBar.setTitle(getString(getTabData().titleId));
+        homeTitleBar.setTitle(getTabData().title);
         homeTitleBar.setLeftClicListener(0,null);
         homeTitleBar.setRightClicListener(0,null);
 

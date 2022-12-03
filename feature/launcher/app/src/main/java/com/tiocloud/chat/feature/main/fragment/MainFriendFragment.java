@@ -26,7 +26,7 @@ public class MainFriendFragment extends MainTabFragment {
         homeTitleBar = findViewById(R.id.homeTitleBar);
 
         setStatusBarCustom(findViewById(R.id.fl_statusBar));
-        homeTitleBar.setTitle(getString(getTabData().titleId));
+        homeTitleBar.setTitle(getTabData().title);
 
         fragment = new FriendFragment();
         fragment.setContainerId(R.id.friend_fragment_container);

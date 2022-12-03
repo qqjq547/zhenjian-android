@@ -16,12 +16,15 @@ abstract class BaseTabPagerAdapter extends FragmentPagerAdapter {
 
     private final MainTabFragment[] fragments;
     private final Context context;
+    private final MainTab[] mainTabs;
 
-    BaseTabPagerAdapter(FragmentManager fm, Context context) {
+    BaseTabPagerAdapter(FragmentManager fm, Context context,MainTab[] mainTabs) {
         super(fm);
         this.context = context;
-        this.fragments = new MainTabFragment[MainTab.values().length];
-        for (MainTab tab : MainTab.values()) {
+        this.mainTabs=mainTabs;
+        this.fragments = new MainTabFragment[mainTabs.length];
+        for (int i = 0; i < mainTabs.length; i++) {
+            MainTab tab=mainTabs[i];
             try {
                 // 获取已存在的 fragment
                 MainTabFragment fragment = null;
@@ -39,7 +42,7 @@ abstract class BaseTabPagerAdapter extends FragmentPagerAdapter {
                 // 绑定数据
                 fragment.attachTabData(tab);
                 // 存储到
-                fragments[tab.tabIndex] = fragment;
+                fragments[i] = fragment;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -51,12 +54,16 @@ abstract class BaseTabPagerAdapter extends FragmentPagerAdapter {
     // ====================================================================================
 
     public int getImageResource(int position) {
-        MainTab tab = MainTab.fromTabIndex(position);
+        MainTab tab = mainTabs[position];
         return tab == null ? 0 : tab.iconId;
+    }
+    public String[] getImageUrls(int position) {
+        MainTab tab = mainTabs[position];
+        return tab == null ? null : tab.selectUrlIcon;
     }
 
     public int getCacheCount() {
-        return MainTab.values().length;
+        return mainTabs.length;
     }
 
     public Context getContext() {
@@ -75,13 +82,13 @@ abstract class BaseTabPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return MainTab.values().length;
+        return mainTabs.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        MainTab tab = MainTab.fromTabIndex(position);
-        return tab == null ? "" : getContext().getText(tab.titleId);
+        MainTab tab = mainTabs[position];
+        return tab == null ? "" : tab.title;
     }
 
 }

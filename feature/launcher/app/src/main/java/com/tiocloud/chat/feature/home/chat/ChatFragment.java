@@ -97,7 +97,7 @@ public class ChatFragment extends TioFragment implements ChatContract.View {
             @Override
             public void onTotalUnreadChanged(int totalUnread) {
                 super.onTotalUnreadChanged(totalUnread);
-                activity.updateRedDot(MainTab.CHAT.tabIndex, totalUnread);
+                activity.updateRedDot(MainTab.CHAT.getTabIndex(), totalUnread);
             }
         };
         /* 单击逻辑 */

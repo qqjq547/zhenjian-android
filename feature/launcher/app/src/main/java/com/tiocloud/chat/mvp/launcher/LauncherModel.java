@@ -2,6 +2,7 @@ package com.tiocloud.chat.mvp.launcher;
 
 import android.util.Log;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.lzy.okgo.cache.CacheMode;
 import com.tiocloud.chat.feature.share.friend.mvp.ShareFriendPresenter;
 import com.tiocloud.chat.util.PreferencesUtil;
@@ -28,6 +29,7 @@ public class LauncherModel extends LauncherContract.Model {
                 Log.d("====config success==" ,configResp.toString());
                 PreferencesUtil.saveInt("im_burst_transfer_file",configResp.im_burst_transfer_file);
                 PreferencesUtil.saveInt("im_file_encrypt",configResp.im_file_encrypt);
+                PreferencesUtil.saveString("app_find_page_base_list", GsonUtils.toJson(configResp.app_find_page_base_list));
                 // 回调
                 proxy.onSuccess(null);
             }

@@ -27,7 +27,7 @@ public class MainFoundFragment extends MainTabFragment {
         homeTitleBar = findViewById(R.id.homeTitleBar);
 
         setStatusBarCustom(findViewById(R.id.fl_statusBar));
-        homeTitleBar.setTitleCenter(getString(getTabData().titleId));
+        homeTitleBar.setTitleCenter(getTabData().title);
         homeTitleBar.setLeftClicListener(0,null);
         homeTitleBar.setRightClicListener(0,null);
         homeTitleBar.setSXClicListener(new View.OnClickListener() {

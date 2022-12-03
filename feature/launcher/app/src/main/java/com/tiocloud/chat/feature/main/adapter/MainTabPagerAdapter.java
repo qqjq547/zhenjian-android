@@ -5,14 +5,15 @@ import android.content.Context;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.tiocloud.chat.feature.main.model.MainTab;
 import com.tiocloud.chat.widget.PagerSlidingTabStrip;
 import com.watayouxiang.androidutils.listener.OnSimplePageChangeListener;
 
 public class MainTabPagerAdapter extends BaseTabPagerAdapter implements PagerSlidingTabStrip.OnTabClickListener,
         PagerSlidingTabStrip.OnTabDoubleTapListener {
 
-    public MainTabPagerAdapter(FragmentManager fm, ViewPager pager, Context context) {
-        super(fm, context);
+    public MainTabPagerAdapter(FragmentManager fm, ViewPager pager, Context context, MainTab[] mainTabs) {
+        super(fm, context,mainTabs);
         // 缓存数量
         pager.setOffscreenPageLimit(getCacheCount());
         // 切换效果

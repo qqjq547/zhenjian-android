@@ -4,6 +4,7 @@ import android.app.backup.SharedPreferencesBackupHelper;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.watayouxiang.httpclient.model.BaseResp;
 import com.watayouxiang.httpclient.model.response.ConfigResp;
 import com.watayouxiang.httpclient.model.response.UserCurrResp;
@@ -46,6 +47,7 @@ public class HttpPreferences extends PreferencesUtils {
                 HttpPreferences.saveSessionCookieName(configResp.session_cookie_name);
                 // 存储心跳超时时长
                 HttpPreferences.saveImHeartbeatTimeout(configResp.im_heartbeat_timeout);
+                PreferencesUtil.saveString("app_find_page_base_list", GsonUtils.toJson(configResp.app_find_page_base_list));
             }
         }
     }

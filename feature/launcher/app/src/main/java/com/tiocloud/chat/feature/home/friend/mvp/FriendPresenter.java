@@ -224,7 +224,7 @@ public class FriendPresenter extends FriendContract.Presenter {
         Activity activity = getView().getActivity();
         if (activity instanceof MainActivity) {
             MainActivity mainActivity = (MainActivity) activity;
-            mainActivity.updateRedDot(MainTab.CHAT.tabIndex, applyCount);
+            mainActivity.updateRedDot(MainTab.CHAT.getTabIndex(), applyCount);
         }
     }
 }
