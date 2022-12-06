@@ -67,24 +67,24 @@ public class UserFragment extends TioFragment implements UserContract.View {
         );
         binding.rlModifyInfo.setOnClickListener(v -> CurrDetailActivity.start(getActivity()));
         binding.hivAvatar.setOnClickListener(v -> CurrDetailActivity.start(getActivity()));
-//        if (ModuleConfig.ENABLE_WALLET) {
-//            binding.rlWallet.setVisibility(View.VISIBLE);
-//            binding.rlWallet.setOnClickListener(new OnSingleClickListener() {
-//                @Override
-//                public void onSingleClick(View view) {
-//                    TioWallet.getWallet().WalletActivity_start(getActivity());
-//                }
-//            });
-////            if (ModuleConfig.DEBUG) {
-////                binding.rlWallet.setOnLongClickListener(v -> {
-////                    TioWallet.getWallet().OpenWalletActivity_start(getActivity());
-//
-////                    return true;
-////                });
-////            }
-//        } else {
-//            binding.rlWallet.setVisibility(View.GONE);
-//        }
+        if (ModuleConfig.ENABLE_WALLET) {
+            binding.rlWallet.setVisibility(View.VISIBLE);
+            binding.rlWallet.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View view) {
+                    TioWallet.getWallet().WalletActivity_start(getActivity());
+                }
+            });
+//            if (ModuleConfig.DEBUG) {
+//                binding.rlWallet.setOnLongClickListener(v -> {
+//                    TioWallet.getWallet().OpenWalletActivity_start(getActivity());
+
+//                    return true;
+//                });
+//            }
+        } else {
+            binding.rlWallet.setVisibility(View.GONE);
+        }
         if (ModuleConfig.ENABLE_QR_CODE) {
             binding.ivQrcode.setVisibility(View.VISIBLE);
             binding.ivQrcode.setOnClickListener(v -> {
