@@ -2,6 +2,7 @@ package com.tiocloud.newpay.feature.paypwd_setup;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.tiocloud.newpay.R;
 import com.tiocloud.newpay.databinding.WalletSetupPayPwdFragmentTwoBinding;
 import com.tiocloud.newpay.feature.wallet.WalletActivity;
+import com.watayouxiang.androidutils.page.AppManager;
 import com.watayouxiang.androidutils.page.BindingFragment;
 import com.watayouxiang.androidutils.widget.TioToast;
 import com.watayouxiang.androidutils.widget.dialog.confirm.EasyConfirmDialog;
@@ -72,8 +74,14 @@ public class SetupPayPwdFragmentTwo extends BindingFragment<WalletSetupPayPwdFra
         new EasyConfirmDialog.Builder(getTioActivity())
                 .setMessage("支付密码设置成功")
                 .setOnConfirmListener((view, dialog) -> {
-                    finish();
-                    WalletActivity.start(getTioActivity());
+                    if(AppManager.getAppManager().hasActivity(WalletActivity.class)){
+                        Log.d("hjq","hasActivity="+true);
+                        finish();
+                    }else {
+                        Log.d("hjq","hasActivity="+false);
+                        WalletActivity.start(getTioActivity());
+                        finish();
+                    }
                 })
                 .build()
                 .show();

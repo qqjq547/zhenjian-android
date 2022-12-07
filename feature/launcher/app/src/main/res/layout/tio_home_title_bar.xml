@@ -149,6 +149,16 @@
             app:layout_constraintRight_toLeftOf="@id/iv_more"
             app:layout_constraintTop_toTopOf="parent"
             />
+        <com.tiocloud.chat.widget.textview.ListUnreadTextView
+            android:id="@+id/tv_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:textSize="8sp"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dp_6"
+            app:layout_constraintRight_toRightOf="@id/iv_friend"
+            app:layout_constraintTop_toTopOf="@id/iv_friend" />
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_more"
             android:layout_width="@dimen/dp_35"

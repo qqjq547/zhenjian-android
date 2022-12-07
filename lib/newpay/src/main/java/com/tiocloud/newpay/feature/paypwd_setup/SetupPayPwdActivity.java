@@ -53,8 +53,8 @@ public class SetupPayPwdActivity extends BindingLightActivity<WalletSetupPayPwdA
                 .setOnBtnListener(new EasyOperDialog.OnBtnListener() {
                     @Override
                     public void onClickPositive(View view, EasyOperDialog dialog) {
-                        SetupPayPwdActivity.super.onBackPressed();
                         dialog.dismiss();
+                        SetupPayPwdActivity.this.finish();
                     }
 
                     @Override

@@ -2,6 +2,8 @@ package com.tiocloud.chat.feature.session.common.adapter.viewholder.viewmodel;
 
 import android.app.Activity;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.tiocloud.chat.feature.session.common.adapter.viewholder.MsgRedPaperViewHolder;
 import com.tiocloud.commonwallet.TioWallet;
 import com.watayouxiang.androidutils.listener.TioSuccessCallback;
@@ -42,7 +44,8 @@ public class RedPaperViewModel {
 
                 if (openflag == 2) {
                     // 未开户，跳转开户页
-                    TioWallet.getWallet().OpenWalletActivity_start(activity);
+                    TioWallet.getWallet().WalletActivity_start((FragmentActivity) activity);
+//                    TioWallet.getWallet().OpenWalletActivity_start(activity);
                 } else if (openflag == 1) {
                     // 开户
                     if ("SUCCESS".equals(grabstatus)) {

@@ -92,6 +92,14 @@ public class AppManager {
         }
         activityStack.clear();
     }
+    public boolean hasActivity(Class activityClass) {
+        for (int i = 0; i < activityStack.size(); i++) {
+            if (null != activityStack.get(i)) {
+               return activityStack.get(i).getClass()== activityClass;
+            }
+        }
+        return false;
+    }
 
     /**
      * 退出应用程序

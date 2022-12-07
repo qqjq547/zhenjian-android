@@ -80,4 +80,5 @@ public class ChatPresenter extends ChatContract.Presenter {
     public void onChatListTableEvent(@NonNull ChatListTableEvent event) {
         getView().onChatListTableEvent(event);
     }
+
 }

@@ -168,15 +168,22 @@ public class MainActivity extends TioActivity implements MainContract.View {
         binding.viewPager.setNoScroll(true);
     }
 
+    private int msgUnRead=0;
+    private int applyUnRead=0;
+    public void updateMsgUnReadCount(int count) {
+        msgUnRead=count;
+        updateRedDot();
+    }
+    public void updateApplyUnReadCount(int count) {
+        applyUnRead=count;
+        updateRedDot();
+    }
     @Override
-    public void updateRedDot(int pageIndex, int count) {
+    public void updateRedDot(){
         if (binding == null) return;
-        binding.tabStrip.updateTab(pageIndex, count);
-
-        // 设置角标数字
-        if (pageIndex == MainTab.CHAT.getTabIndex()) {
-            PushLauncher.getInstance().setBadgeNumber(count);
-        }
+        int count=msgUnRead+applyUnRead;
+        binding.tabStrip.updateTab(MainTab.CHAT.getTabIndex(), count);
+        PushLauncher.getInstance().setBadgeNumber(count);
     }
 
     @Override
@@ -208,6 +215,13 @@ public class MainActivity extends TioActivity implements MainContract.View {
         for (int i = 0; i < tabList.size(); i++) {
             ((MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(i)).setItemData(tabList.get(i).items);
         }
+        binding.viewPager.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.viewPager.setCurrentItem(MainTab.CHAT.getTabIndex());
+            }
+        });
+//        binding.tabStrip.onPageSelected(MainTab.CHAT.getTabIndex());
 //        MainWebFragment videoFragment=(MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.VIDEO.tabIndex);
 //        MainWebFragment beautyFragment=(MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.BEAUTY.tabIndex);
 //        MainWebFragment goldFragment=(MainWebFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.GOLD.tabIndex);

@@ -17,6 +17,7 @@ import com.tiocloud.chat.R;
 import com.tiocloud.chat.databinding.TioHomeTitleBarBinding;
 import com.tiocloud.chat.feature.search.curr.SearchActivity;
 import com.tiocloud.chat.widget.popupwindow.HomePopupWindow;
+import com.tiocloud.chat.widget.textview.ListUnreadTextView;
 
 /**
  * author : TaoWang
@@ -122,6 +123,9 @@ public class HomeTitleBar extends RelativeLayout implements View.OnClickListener
     }
     public View getFriendBtnView() {
         return   binding.ivFriend;
+    }
+    public ListUnreadTextView getTipTextView() {
+        return   binding.tvTip;
     }
     public void setTitleCenter(@NonNull String title){
         if (binding == null) return;

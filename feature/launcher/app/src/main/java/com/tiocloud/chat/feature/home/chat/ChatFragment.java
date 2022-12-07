@@ -18,6 +18,7 @@ import com.tiocloud.chat.feature.home.chat.adapter.ChatAdapter;
 import com.tiocloud.chat.feature.home.chat.mvp.ChatContract;
 import com.tiocloud.chat.feature.home.chat.mvp.ChatPresenter;
 import com.tiocloud.chat.feature.main.MainActivity;
+import com.tiocloud.chat.feature.main.fragment.MainChatFragment;
 import com.tiocloud.chat.feature.main.model.MainTab;
 import com.tiocloud.chat.feature.session.group.GroupSessionActivity;
 import com.tiocloud.chat.feature.session.p2p.P2PSessionActivity;
@@ -97,7 +98,7 @@ public class ChatFragment extends TioFragment implements ChatContract.View {
             @Override
             public void onTotalUnreadChanged(int totalUnread) {
                 super.onTotalUnreadChanged(totalUnread);
-                activity.updateRedDot(MainTab.CHAT.getTabIndex(), totalUnread);
+                activity.updateMsgUnReadCount(totalUnread);
             }
         };
         /* 单击逻辑 */
@@ -146,7 +147,6 @@ public class ChatFragment extends TioFragment implements ChatContract.View {
     public void onChatListRespSuccess(@Nullable ChatListResp lists) {
         if (listAdapter != null) {
             listAdapter.setNewData(lists);
-            Log.e("hjq", GsonUtils.toJson(lists));
         }
     }
 
@@ -164,7 +164,6 @@ public class ChatFragment extends TioFragment implements ChatContract.View {
             return;
         }
         if (listAdapter == null) return;
-        Log.e("hjq 11", GsonUtils.toJson(event.getChatList()));
         if (event.isAll()) {
             listAdapter.setNewData(event.getChatList());
         } else {

@@ -23,7 +23,7 @@ public interface MainContract {
 
         void initViews();
 
-        void updateRedDot(int pageIndex, int count);
+        void updateRedDot();
 
         void setFoundList(List<FoundListResp.Found> data);
     }

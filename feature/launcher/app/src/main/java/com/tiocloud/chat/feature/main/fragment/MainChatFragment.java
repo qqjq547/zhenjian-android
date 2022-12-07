@@ -23,17 +23,23 @@ import androidx.appcompat.widget.ListPopupWindow;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import com.lzy.okgo.cache.CacheMode;
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.TioApplication;
 import com.tiocloud.chat.baseNewVersion.base.BaseConstants;
 import com.tiocloud.chat.baseNewVersion.utils2.BrandUtil;
 import com.tiocloud.chat.baseNewVersion.utils2.DensityUtils;
+import com.tiocloud.chat.event.UpdateFriendApplyNumEvent;
 import com.tiocloud.chat.feature.home.chat.ChatFragment;
+import com.tiocloud.chat.feature.main.MainActivity;
 import com.tiocloud.chat.feature.main.adapter.LineAdapter;
 import com.tiocloud.chat.feature.main.base.MainTabFragment;
+import com.tiocloud.chat.feature.main.model.MainTab;
 import com.tiocloud.chat.feature.search.curr.SearchActivity;
 import com.tiocloud.chat.widget.titlebar.HomeTitleBar;
+import com.watayouxiang.androidutils.widget.TioToast;
 import com.watayouxiang.httpclient.callback.TioCallback;
+import com.watayouxiang.httpclient.model.request.ApplyDataReq;
 import com.watayouxiang.httpclient.model.request.UserCurrReq;
 import com.watayouxiang.httpclient.model.request.UserOnlineReq;
 import com.watayouxiang.httpclient.model.response.UserCurrResp;
@@ -41,7 +47,9 @@ import com.watayouxiang.imclient.TioIMClient;
 import com.watayouxiang.imclient.client.IMState;
 import com.watayouxiang.imclient.event.TioStateEvent;
 import com.watayouxiang.androidutils.page.TioActivity;
+import com.watayouxiang.imclient.model.body.wx.WxUserSysNtf;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -67,6 +75,9 @@ public class MainChatFragment extends MainTabFragment {
 
     @Override
     protected void onInit() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         setStatusBarCustom(findViewById(R.id.fl_statusBar));
 
         homeTitleBar = findViewById(R.id.homeTitleBar);
@@ -107,6 +118,7 @@ public class MainChatFragment extends MainTabFragment {
 //
 //        }
 //        checkNotifySetting();
+        requestApplyNum();
     }
     private View inflateCard;
     private PopupWindow popupWindow;
@@ -212,6 +224,13 @@ public class MainChatFragment extends MainTabFragment {
     public void onPageShow(int count, boolean isInit) {
         super.onPageShow(count, isInit);
         setStatusBarLightMode(true);
+        requestApplyNum();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requestApplyNum();
     }
 
     @Override
@@ -270,5 +289,57 @@ public class MainChatFragment extends MainTabFragment {
         if (homeTitleBar != null) {
             homeTitleBar.setAppendTitle(append);
         }
+    }
+    public void setApplyNum(Integer integer){
+        if (integer>0){
+            homeTitleBar.getTipTextView().setUnread(integer);
+            homeTitleBar.getTipTextView().setVisibility(View.VISIBLE);
+        }else {
+            homeTitleBar.getTipTextView().setVisibility(View.GONE);
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onWxUserSysNtf(WxUserSysNtf ntf) {
+        if (ntf.code == 30) {// 申请好友请求
+            requestApplyNum();
+        }
+    }
+    // 更新好友申请数量的事件
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onWxUserSysNtf(UpdateFriendApplyNumEvent event) {
+        requestApplyNum();
+    }
+    /**
+     * 获取好友申请数
+     */
+    private void requestApplyNum() {
+        ApplyDataReq applyDataReq = new ApplyDataReq();
+        applyDataReq.setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE);
+        applyDataReq.setCancelTag(this);
+        applyDataReq.get(new TioCallback<Integer>() {
+            @Override
+            public void onTioSuccess(Integer integer) {
+                if (integer>0){
+                    homeTitleBar.getTipTextView().setUnread(integer);
+                    homeTitleBar.getTipTextView().setVisibility(View.VISIBLE);
+                }else {
+                    homeTitleBar.getTipTextView().setVisibility(View.GONE);
+                }
+                if(getActivity() instanceof MainActivity){
+                    ((MainActivity)getActivity()).updateMsgUnReadCount(integer);
+                }
+            }
+
+            @Override
+            public void onTioError(String msg) {
+                TioToast.showShort(msg);
+            }
+        });
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
     }
 }

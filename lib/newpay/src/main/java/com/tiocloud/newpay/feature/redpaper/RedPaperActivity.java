@@ -11,13 +11,21 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.tiocloud.newpay.R;
 import com.tiocloud.newpay.databinding.WalletRedpaperActivityBinding;
+import com.tiocloud.newpay.feature.paypwd_setup.SetupPayPwdActivity;
 import com.tiocloud.newpay.feature.redpacket.RedPacketActivity;
 import com.tiocloud.newpay.feature.redpaper.adapter.RedPacketFragmentAdapter;
 import com.tiocloud.newpay.feature.redpaper.adapter.RedPacketTabAdapter;
+import com.tiocloud.newpay.feature.wallet.WalletActivity;
 import com.watayouxiang.androidutils.page.BindingDarkActivity;
 import com.watayouxiang.androidutils.widget.dialog.progress.EasyProgressDialog;
+import com.watayouxiang.httpclient.callback.TioCallback;
+import com.watayouxiang.httpclient.model.request.PayOpenFlagReq;
+import com.watayouxiang.httpclient.model.request.PayOpenReq;
+import com.watayouxiang.httpclient.model.response.PayOpenFlagResp;
+import com.watayouxiang.httpclient.model.response.PayOpenResp;
 
 /**
  * <pre>
@@ -32,13 +40,96 @@ public class RedPaperActivity extends BindingDarkActivity<WalletRedpaperActivity
     private static final String RED_PAPER_VO = "red_paper_vo";
 
     public static void startP2P(Context context, String chatlinkid) {
-        RedPaperVo redPaperVo = new RedPaperVo(RedPaperType.P2P, chatlinkid);
-        start(context, redPaperVo);
+        PayOpenFlagReq openFlagReq = new PayOpenFlagReq();
+        openFlagReq.setCancelTag(context);
+        openFlagReq.get(new TioCallback<PayOpenFlagResp>() {
+            @Override
+            public void onTioSuccess(PayOpenFlagResp payOpenFlagResp) {
+                int openflag = payOpenFlagResp.getOpenflag();
+                int paypwdflag = payOpenFlagResp.paypwdflag;
+                if (openflag == 1) {
+                    // 已经开户
+                    // 是否设置钱包支付密码
+                    if (paypwdflag == 1) {
+                        RedPaperVo redPaperVo = new RedPaperVo(RedPaperType.P2P, chatlinkid);
+                        start(context, redPaperVo);
+                    } else {
+                        SetupPayPwdActivity.start(context);
+                    }
+                } else {
+                    // 未开户
+//                    OpenWalletActivity.start(activity);
+                    PayOpenReq payOpenReq = new PayOpenReq("0", "0", "0");
+                    payOpenReq.setCancelTag(context);
+                    payOpenReq.post(new TioCallback<PayOpenResp>() {
+                        @Override
+                        public void onTioSuccess(PayOpenResp payOpenResp) {
+//                            Intent starter = new Intent(activity, WalletActivity.class);
+//                            activity.startActivity(starter);
+                            SetupPayPwdActivity.start(context);
+
+                        }
+
+                        @Override
+                        public void onTioError(String msg) {
+                            ToastUtils.showShort(msg);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTioError(String msg) {
+                ToastUtils.showShort(msg);
+            }
+        });
     }
 
     public static void startGroup(Context context, String chatlinkid) {
-        RedPaperVo redPaperVo = new RedPaperVo(RedPaperType.Group, chatlinkid);
-        start(context, redPaperVo);
+        PayOpenFlagReq openFlagReq = new PayOpenFlagReq();
+        openFlagReq.setCancelTag(context);
+        openFlagReq.get(new TioCallback<PayOpenFlagResp>() {
+            @Override
+            public void onTioSuccess(PayOpenFlagResp payOpenFlagResp) {
+                int openflag = payOpenFlagResp.getOpenflag();
+                int paypwdflag = payOpenFlagResp.paypwdflag;
+                if (openflag == 1) {
+                    // 已经开户
+                    // 是否设置钱包支付密码
+                    if (paypwdflag == 1) {
+                        RedPaperVo redPaperVo = new RedPaperVo(RedPaperType.Group, chatlinkid);
+                        start(context, redPaperVo);
+                    } else {
+                        SetupPayPwdActivity.start(context);
+                    }
+                } else {
+                    // 未开户
+//                    OpenWalletActivity.start(activity);
+                    PayOpenReq payOpenReq = new PayOpenReq("0", "0", "0");
+                    payOpenReq.setCancelTag(context);
+                    payOpenReq.post(new TioCallback<PayOpenResp>() {
+                        @Override
+                        public void onTioSuccess(PayOpenResp payOpenResp) {
+//                            Intent starter = new Intent(activity, WalletActivity.class);
+//                            activity.startActivity(starter);
+                            SetupPayPwdActivity.start(context);
+
+                        }
+
+                        @Override
+                        public void onTioError(String msg) {
+                            ToastUtils.showShort(msg);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTioError(String msg) {
+                ToastUtils.showShort(msg);
+            }
+        });
+
     }
 
     private static void start(Context context, RedPaperVo vo) {
