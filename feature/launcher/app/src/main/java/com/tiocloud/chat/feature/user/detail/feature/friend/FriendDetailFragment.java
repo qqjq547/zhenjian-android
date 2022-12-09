@@ -102,7 +102,9 @@ public class FriendDetailFragment extends TioFragment implements FriendDetailCon
         // 删除好友
         binding.tvDeleteFriend.setOnClickListener(view -> presenter.doDelFriend(view));
         // 聊天
-        binding.tvP2pTalk.setOnClickListener(view1 -> P2PSessionActivity.active(getTioActivity(), getUid()));
+        binding.tvP2pTalk.setOnClickListener(view1 ->
+
+                P2PSessionActivity.active(getTioActivity(), getUid()));
         binding.ivEditRemarkName.setOnClickListener(view ->
                 presenter.doModifyRemarkName(view.getContext(), getUid())
         );

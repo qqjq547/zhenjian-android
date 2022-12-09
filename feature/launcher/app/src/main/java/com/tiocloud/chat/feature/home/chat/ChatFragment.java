@@ -172,6 +172,15 @@ public class ChatFragment extends TioFragment implements ChatContract.View {
             List<ChatListResp.List> chatList = event.getChatList();
             listAdapter.updateItem(chatList);
         }
+        if(listAdapter.getData().size()>0) {
+            binding.recyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    binding.recyclerView.scrollToPosition(0);
+                }
+            }, 500);
+        }
+
     }
 
     @Override

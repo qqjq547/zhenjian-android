@@ -15,7 +15,9 @@ import androidx.databinding.DataBindingUtil;
 
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.databinding.TitlebarSessionBinding;
+import com.tiocloud.chat.feature.main.MainActivity;
 import com.tiocloud.chat.util.StringUtil;
+import com.watayouxiang.androidutils.page.AppManager;
 
 /**
  * author : TaoWang
@@ -56,7 +58,11 @@ public class SessionTitleBar extends RelativeLayout {
         binding.ivBack.setOnClickListener(view -> {
             Context context = getContext();
             if (context instanceof Activity) {
-                ((Activity) context).finish();
+                if (AppManager.getAppManager().getLastActivity() instanceof MainActivity){
+                    ((Activity) context).finish();
+                }else {
+                    MainActivity.start(context);
+                }
             }
         });
     }
