@@ -101,6 +101,10 @@ public class AppManager {
         return false;
     }
 
+    public Activity getLastActivity() {
+        return activityStack.get(activityStack.size()-1);
+    }
+
     /**
      * 退出应用程序
      */
