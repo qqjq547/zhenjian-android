@@ -326,7 +326,7 @@ public class MainChatFragment extends MainTabFragment {
                     homeTitleBar.getTipTextView().setVisibility(View.GONE);
                 }
                 if(getActivity() instanceof MainActivity){
-                    ((MainActivity)getActivity()).updateMsgUnReadCount(integer);
+                    ((MainActivity)getActivity()).updateApplyUnReadCount(integer);
                 }
             }
 
