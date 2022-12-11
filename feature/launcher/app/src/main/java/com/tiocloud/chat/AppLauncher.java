@@ -87,7 +87,7 @@ public class AppLauncher {
         AndroidUtils.init(app);
         // jpush
         PushLauncher.getInstance().init(app);
-        PushLauncher.getInstance().setOnPushListener(context -> MainActivity.start(context, 0));
+        PushLauncher.getInstance().setOnPushListener(context -> MainActivity.start(context, 2));
         // 踢出登录
         TioIMClient.getInstance().setKickOutListener(this::handleKickOut);
         TioHttpClient.getInstance().getRespInterceptor().setKickOutListener(this::handleKickOut);
