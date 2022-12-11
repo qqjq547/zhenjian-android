@@ -3,10 +3,14 @@ package com.tiocloud.jpush.receiver;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.tiocloud.jpush.PushLauncher;
 import com.tiocloud.jpush.listener.OnPushListener;
 import com.tiocloud.jpush.utils.LogUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Locale;
 
@@ -71,7 +75,15 @@ public class NewJPushReceiver extends JPushMessageReceiver {
         // TODO: 2020/9/28 点击通知栏
         OnPushListener onPushListener = PushLauncher.getInstance().getOnPushListener();
         if (onPushListener != null) {
-            onPushListener.onNotificationClick(context);
+            String jsonExtras=notificationMessage.notificationExtras;
+            try {
+                String chatlinkid = new JSONObject(jsonExtras).getString("chatlinkid");
+                onPushListener.onNotificationClick(context,chatlinkid);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                onPushListener.onNotificationClick(context,null);
+            }
+
         }
 
 //        try {

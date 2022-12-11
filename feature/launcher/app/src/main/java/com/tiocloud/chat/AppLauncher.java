@@ -20,6 +20,7 @@ import com.tiocloud.account.mvp.logout.LogoutPresenter;
 import com.tiocloud.chat.constant.TioConfig;
 import com.tiocloud.chat.feature.account.pwd.ModifyPwdActivity;
 import com.tiocloud.chat.feature.main.MainActivity;
+import com.tiocloud.chat.feature.main.model.MainTab;
 import com.tiocloud.chat.feature.user.detail.UserDetailActivity;
 import com.tiocloud.chat.mvp.card.CardContract;
 import com.tiocloud.chat.mvp.card.CardPresenter;
@@ -87,7 +88,9 @@ public class AppLauncher {
         AndroidUtils.init(app);
         // jpush
         PushLauncher.getInstance().init(app);
-        PushLauncher.getInstance().setOnPushListener(context -> MainActivity.start(context, 2));
+        PushLauncher.getInstance().setOnPushListener((context,chatLinkId ) -> {
+            MainActivity.start(context, MainTab.CHAT.getTabIndex(),chatLinkId);
+        });
         // 踢出登录
         TioIMClient.getInstance().setKickOutListener(this::handleKickOut);
         TioHttpClient.getInstance().getRespInterceptor().setKickOutListener(this::handleKickOut);

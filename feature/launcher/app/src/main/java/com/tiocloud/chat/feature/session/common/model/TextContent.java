@@ -49,7 +49,6 @@ public class TextContent implements Serializable {
             TextContent textContent=GsonUtils.fromJson(jsonString,TextContent.class);
             return AESEncrypt.decrypt(textContent.getData(),textContent.getFingerprint());
         }catch (Exception e){
-            e.printStackTrace();
             Log.e("hjq",GsonUtils.toJson(jsonString));
         }
         return jsonString;

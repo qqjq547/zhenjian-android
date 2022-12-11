@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -187,6 +188,12 @@ public class ChatFragment extends TioFragment implements ChatContract.View {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
+    }
+    public List<ChatListResp.List> getChatList(){
+        if (listAdapter!=null){
+            return listAdapter.getData();
+        }else {
+            return new ArrayList<>();
+        }
     }
 }

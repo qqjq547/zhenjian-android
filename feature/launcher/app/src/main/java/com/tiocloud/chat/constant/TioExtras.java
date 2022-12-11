@@ -55,4 +55,6 @@ public interface TioExtras {
      * 页签索引
      */
     String EXTRA_TAB_INDEX = "EXTRA_TAB_INDEX";
+
+    String EXTRA_CHAT_LINK_ID = "chatLinkId";
 }

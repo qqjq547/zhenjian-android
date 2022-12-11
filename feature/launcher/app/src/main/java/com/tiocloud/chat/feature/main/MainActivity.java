@@ -23,6 +23,7 @@ import com.tiocloud.chat.baseNewVersion.utils2.SPUtilsNew;
 import com.tiocloud.chat.constant.TioExtras;
 import com.tiocloud.chat.databinding.TioMainActivityBinding;
 import com.tiocloud.chat.feature.main.adapter.MainTabPagerAdapter;
+import com.tiocloud.chat.feature.main.fragment.MainChatFragment;
 import com.tiocloud.chat.feature.main.fragment.MainWebFragment;
 import com.tiocloud.chat.feature.main.model.MainTab;
 import com.tiocloud.chat.feature.main.mvp.MainContract;
@@ -60,6 +61,12 @@ public class MainActivity extends TioActivity implements MainContract.View {
         intent.putExtra(TioExtras.EXTRA_TAB_INDEX, tabIndex);
         MainActivity.start(context, intent);
     }
+    public static void start(Context context,int tabIndex, String chatLinkId) {
+        Intent intent = new Intent();
+        intent.putExtra(TioExtras.EXTRA_TAB_INDEX, tabIndex);
+        intent.putExtra(TioExtras.EXTRA_CHAT_LINK_ID, chatLinkId);
+        MainActivity.start(context, intent);
+    }
 
     public static void start(Context context, Intent extras) {
         Intent intent = new Intent();
@@ -92,6 +99,10 @@ public class MainActivity extends TioActivity implements MainContract.View {
         int tabIndex = intent.getIntExtra(TioExtras.EXTRA_TAB_INDEX, -1);
         if (tabIndex != -1) {
             binding.viewPager.setCurrentItem(tabIndex);
+        }
+        String chatLinkId=intent.getStringExtra(TioExtras.EXTRA_CHAT_LINK_ID);
+        if (!TextUtils.isEmpty(chatLinkId)){
+            ((MainChatFragment)((FragmentPagerAdapter)binding.viewPager.getAdapter()).getItem(MainTab.CHAT.getTabIndex())).enterSession(chatLinkId);
         }
     }
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -36,12 +37,15 @@ import com.tiocloud.chat.feature.main.adapter.LineAdapter;
 import com.tiocloud.chat.feature.main.base.MainTabFragment;
 import com.tiocloud.chat.feature.main.model.MainTab;
 import com.tiocloud.chat.feature.search.curr.SearchActivity;
+import com.tiocloud.chat.feature.session.group.GroupSessionActivity;
+import com.tiocloud.chat.feature.session.p2p.P2PSessionActivity;
 import com.tiocloud.chat.widget.titlebar.HomeTitleBar;
 import com.watayouxiang.androidutils.widget.TioToast;
 import com.watayouxiang.httpclient.callback.TioCallback;
 import com.watayouxiang.httpclient.model.request.ApplyDataReq;
 import com.watayouxiang.httpclient.model.request.UserCurrReq;
 import com.watayouxiang.httpclient.model.request.UserOnlineReq;
+import com.watayouxiang.httpclient.model.response.ChatListResp;
 import com.watayouxiang.httpclient.model.response.UserCurrResp;
 import com.watayouxiang.imclient.TioIMClient;
 import com.watayouxiang.imclient.client.IMState;
@@ -55,6 +59,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import static android.app.Notification.EXTRA_CHANNEL_ID;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
+
+import java.util.List;
 
 /**
  * author : TaoWang
@@ -340,6 +346,47 @@ public class MainChatFragment extends MainTabFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
+    }
+    public void enterSession(String chatlinkid){
+        if (TextUtils.isEmpty(chatlinkid)||fragment==null||!fragment.isAdded()){
+            MainActivity.start(getActivity(),MainTab.CHAT.getTabIndex());
+            return;
+        }
+        List<ChatListResp.List> chatList=fragment.getChatList();
+        if (chatList.isEmpty()){
+            MainActivity.start(getActivity(),MainTab.CHAT.getTabIndex());
+            return;
+        }
+        ChatListResp.List chatItem=null;
+        for (ChatListResp.List list: chatList) {
+            if (TextUtils.equals(chatlinkid,list.id)){
+                chatItem=list;
+                break;
+            }
+        }
+        if (chatItem==null){
+            MainActivity.start(getActivity(),MainTab.CHAT.getTabIndex());
+        }else {
+            TioApplication.getInstanceKit().chatmode = chatItem.chatmode;
+//            Log.d("===会话信息：" , item.id);
+            ChatListResp.List finalChatItem = chatItem;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (TioIMClient.getInstance().isHandshake()) {
+                        switch (finalChatItem.chatmode) {
+                            case 1:// 私聊
+                                // 进入私聊页
+                                P2PSessionActivity.enter(getActivity(), finalChatItem.id);
+                                break;
+                            case 2:// 群聊
+                                // 进入群聊页
+                                GroupSessionActivity.enter(getActivity(), finalChatItem.id);
+                                break;
+                        }
+                    }
+                }
+            },500);
+        }
     }
 }

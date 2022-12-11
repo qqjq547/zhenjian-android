@@ -2,6 +2,8 @@ package com.tiocloud.jpush.listener;
 
 import android.content.Context;
 
+import cn.jpush.android.api.NotificationMessage;
+
 /**
  * <pre>
  *     author : TaoWang
@@ -12,5 +14,5 @@ import android.content.Context;
  */
 public interface OnPushListener {
 
-    void onNotificationClick(Context context);
+    void onNotificationClick(Context context, String chatLinkId);
 }
