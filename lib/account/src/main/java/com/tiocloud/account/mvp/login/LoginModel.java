@@ -62,6 +62,11 @@ public class LoginModel extends LoginContract.Model {
         });
     }
 
+    @Override
+    public void reqAutoLogin(String imei, String channelCode, DataProxy<UserCurrResp> proxy) {
+
+    }
+
     private void loginStep2(final DataProxy<UserCurrResp> proxy) {
         // 获取用户信息
         new UserCurrReq().setCancelTag(this).get(new TioCallbackImpl<UserCurrResp>() {

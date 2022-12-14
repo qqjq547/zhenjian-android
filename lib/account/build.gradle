@@ -15,6 +15,7 @@ dependencies {
     implementation 'com.zhihu.android:matisse:0.5.3-beta3'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     api 'com.github.yalantis:ucrop:2.2.2'
+    api files('libs/OpenInstall_v2.6.4.jar')
 }
 
 apply from: "config.gradle"

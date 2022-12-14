@@ -21,7 +21,7 @@ android {
     }
     compileSdkVersion Config.compileSdkVersion
     defaultConfig {
-        applicationId Config.applicationId + suffix
+        applicationId Config.applicationId
         minSdkVersion Config.minSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode Config.versionCode
@@ -33,7 +33,10 @@ android {
             abiFilters 'x86', 'x86_64', 'arm64-v8a', 'armeabi-v7a'
         }
 
-        manifestPlaceholders = [OUT_APK_TIME: outApkTime]
+        manifestPlaceholders = [
+                OUT_APK_TIME: outApkTime,
+                OPENINSTALL_APPKEY: "ahfkyw",
+        ]
     }
 
     buildTypes {

@@ -25,6 +25,9 @@ public interface LoginContract {
         public abstract void reqCodeLogin(String account, String authcode, BaseModel.DataProxy<UserCurrResp> proxy);
 
         public abstract void reqPwdLogin(String account, String pwd, BaseModel.DataProxy<UserCurrResp> proxy);
+
+        public abstract void reqAutoLogin(String imei, String channelCode,BaseModel.DataProxy<UserCurrResp> proxy);
+
     }
 
     interface View extends BaseView {
@@ -41,6 +44,8 @@ public interface LoginContract {
         public abstract void pwdLogin(String account, String pwd, Activity activity);
 
         public abstract void codeLogin(String account, String code, Activity activity);
+
+        public abstract void reqAutoLogin(String imei, Activity activity);
 
         public abstract void sendSms(Context context, String phone, OnSendSmsListener listener);
 

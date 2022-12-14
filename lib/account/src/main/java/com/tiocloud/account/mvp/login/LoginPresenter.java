@@ -3,10 +3,15 @@ package com.tiocloud.account.mvp.login;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.Utils;
+import com.fm.openinstall.OpenInstall;
+import com.fm.openinstall.listener.AppInstallAdapter;
+import com.fm.openinstall.model.AppData;
+import com.google.gson.Gson;
 import com.tiocloud.account.TioAccount;
 import com.tiocloud.account.data.AccountSP;
 import com.tiocloud.verification.widget.TioBlockPuzzleDialog;
@@ -16,6 +21,7 @@ import com.watayouxiang.androidutils.utils.ViewUtil;
 import com.watayouxiang.androidutils.widget.TioToast;
 import com.watayouxiang.androidutils.widget.dialog.progress.SingletonProgressDialog;
 import com.watayouxiang.db.dao.CurrUserTableCrud;
+import com.watayouxiang.db.prefernces.TioDBPreferences;
 import com.watayouxiang.httpclient.callback.TioCallback;
 import com.watayouxiang.httpclient.model.response.UserCurrResp;
 
@@ -25,9 +31,21 @@ import com.watayouxiang.httpclient.model.response.UserCurrResp;
  * desc :
  */
 public class LoginPresenter extends LoginContract.Presenter {
+    private String channelCode;
 
     public LoginPresenter(LoginContract.View view) {
         super(view);
+        OpenInstall.getInstall(new AppInstallAdapter() {
+            @Override
+            public void onInstall(AppData appData) {
+                // 打印数据便于调试
+                Log.d("OpenInstall", "getInstall : installData = " + appData.toString());
+                //  获取渠道编号参数
+                channelCode = appData.getChannel();
+                // 获取自定义参数
+                String bindData = appData.getData();
+            }
+        });
     }
 
     @Override
@@ -106,6 +124,28 @@ public class LoginPresenter extends LoginContract.Presenter {
             public void onSuccess(UserCurrResp resp) {
                 // 登录成功
                 login(resp, account);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                TioToast.showShort(msg);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                SingletonProgressDialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void reqAutoLogin(String imei, Activity activity) {
+        getModel().reqAutoLogin(imei, channelCode, new BaseModel.DataProxy<UserCurrResp>() {
+            @Override
+            public void onSuccess(UserCurrResp resp) {
+                // 登录成功
+                loginByImei(resp);
             }
 
             @Override
@@ -221,5 +261,22 @@ public class LoginPresenter extends LoginContract.Presenter {
         TioAccount.getBridge().startMainActivity(Utils.getApp());
         // 关闭其他页面
         ActivityUtils.finishAllActivities();
+    }
+    public static void loginByImei(UserCurrResp currInfo) {
+        // 存储登录名
+        // 存储当前uid
+//        TioDBPreferences.saveCurrUid(currInfo.id);
+//        TioDBPreferences.savePhone(currInfo.phone);
+//        TioDBPreferences.saveEmail(currInfo.email);
+//        String json = new Gson().toJson(currInfo.extData);
+//        TioDBPreferences.saveExData(json);
+
+
+        // 存储用户信息
+        CurrUserTableCrud.insert(currInfo);
+        // 打开主页
+        TioAccount.getBridge().startMainActivity(Utils.getApp());
+        // 关闭其他页面
+//        ActivityUtils.finishAllActivities();
     }
 }
