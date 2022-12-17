@@ -46,6 +46,8 @@ public class MainWebFragment extends MainTabFragment {
     private ListPopupWindow mListPop;
     private List<FoundListResp.Found> itemData=new ArrayList<>();
     private LineAdapter lineAdapter;
+    private int currentPosition=0;
+
 
     @Override
     protected void onInit() {
@@ -70,7 +72,7 @@ public class MainWebFragment extends MainTabFragment {
             @Override
             public void onClick(View v) {
                 if (!itemData.isEmpty()){
-                    showItem(0);
+                    showItem(currentPosition);
                 }
             }
         });
@@ -201,6 +203,7 @@ public class MainWebFragment extends MainTabFragment {
     }
     public void showItem(int position){
         if (position<itemData.size()){
+            currentPosition=position;
             loadUrlFromWebView(itemData.get(position).linkedaddress);
             homeTitleBar.setWebTitle(itemData.get(position).itemname);
         }
