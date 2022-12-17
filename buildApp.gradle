@@ -62,7 +62,7 @@ android {
             manifestPlaceholders = [
                     JPUSH_PKGNAME          : applicationId,
                     JPUSH_APPKEY           : "6787d5a2392d8ce8d8f0d655",
-                    OPENINSTALL_APPKEY     : "ahfkyw",
+                    OPENINSTALL_APPKEY     : "p6xshd",
             ]
         }
         cskz {
@@ -81,6 +81,7 @@ android {
             manifestPlaceholders = [
                     JPUSH_PKGNAME          : applicationId,
                     JPUSH_APPKEY           : "337c3feff74d762b48279054",
+                    OPENINSTALL_APPKEY     : "ahfkyw",
             ]
         }
     }
