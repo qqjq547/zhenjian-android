@@ -36,6 +36,9 @@ android {
         manifestPlaceholders = [
                 OUT_APK_TIME: outApkTime,
                 OPENINSTALL_APPKEY: "ahfkyw",
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "e156cf3afe420642057f7306",
+                JPUSH_CHANNEL: "default",
         ]
     }
 
@@ -53,10 +56,32 @@ android {
     flavorDimensions "single"
     productFlavors {
         forqa {
-            resValue "string", "app_name", "测试"
+            resValue "string", "app_name", "IM测试"
+            applicationId "com.ceshi.chat"
+            buildConfigField "String", "ip", "\"ceshi\""
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME          : applicationId,
+                    JPUSH_APPKEY           : "6787d5a2392d8ce8d8f0d655",
+                    OPENINSTALL_APPKEY     : "ahfkyw",
+            ]
         }
         cskz {
-            resValue "string", "app_name", Config.appName + suffix
+            applicationId  'com.chengshikezhan.chat'
+            buildConfigField "String", "ip", "\"ip\""
+            resValue "string", "app_name", "城市客栈"
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME          : applicationId,
+                    JPUSH_APPKEY           : "e156cf3afe420642057f7306",
+            ]
+        }
+        tanqi {
+            applicationId "com.tanqi.chat"
+            buildConfigField "String", "ip", "\"tanqi\""
+            resValue "string", "app_name", "谭奇"
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME          : applicationId,
+                    JPUSH_APPKEY           : "337c3feff74d762b48279054",
+            ]
         }
     }
     android.applicationVariants.all { variant ->
