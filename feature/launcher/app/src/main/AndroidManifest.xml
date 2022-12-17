@@ -36,6 +36,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="${OPENINSTALL_APPKEY}"/>
+            </intent-filter>
         </activity>
             <!-- 登录页 -->
         <activity
@@ -263,7 +269,9 @@
         <activity
             android:name=".test.activity.RecordTestActivity"
             android:theme="@style/WtTheme.Blue.DarkActionBar" />
-
+        <meta-data
+            android:name="com.openinstall.APP_KEY"
+            android:value="${OPENINSTALL_APPKEY}"/>
     </application>
 
 </manifest>

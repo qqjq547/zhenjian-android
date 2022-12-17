@@ -4,6 +4,8 @@ import android.os.Handler;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.fm.openinstall.OpenInstall;
+
 public class TioApplication extends MultiDexApplication {
 
     public static TioApplication sApplication;
@@ -19,6 +21,7 @@ public class TioApplication extends MultiDexApplication {
         super.onCreate();
         sApplication=this;
         AppLauncher.getInstance().init(this);
+        OpenInstall.init(this);
     }
 
 }

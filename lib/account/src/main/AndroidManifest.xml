@@ -75,9 +75,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/WtTheme.Blue.NoActionBar" />
-        <meta-data
-            android:name="com.openinstall.APP_KEY"
-            android:value="${OPENINSTALL_APPKEY}"/>
+
     </application>
 
 </manifest>
