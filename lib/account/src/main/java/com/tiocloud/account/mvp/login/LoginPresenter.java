@@ -31,21 +31,8 @@ import com.watayouxiang.httpclient.model.response.UserCurrResp;
  * desc :
  */
 public class LoginPresenter extends LoginContract.Presenter {
-    private String channelCode;
-
     public LoginPresenter(LoginContract.View view) {
         super(view);
-        OpenInstall.getInstall(new AppInstallAdapter() {
-            @Override
-            public void onInstall(AppData appData) {
-                // 打印数据便于调试
-                Log.d("OpenInstall", "getInstall : installData = " + appData.toString());
-                //  获取渠道编号参数
-                channelCode = appData.getChannel();
-                // 获取自定义参数
-                String bindData = appData.getData();
-            }
-        });
     }
 
     @Override
@@ -140,7 +127,7 @@ public class LoginPresenter extends LoginContract.Presenter {
     }
 
     @Override
-    public void reqAutoLogin(String imei, Activity activity) {
+    public void reqAutoLogin(String imei,String channelCode, Activity activity) {
         getModel().reqAutoLogin(imei, channelCode, new BaseModel.DataProxy<UserCurrResp>() {
             @Override
             public void onSuccess(UserCurrResp resp) {

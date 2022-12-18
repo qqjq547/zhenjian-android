@@ -2,6 +2,7 @@ package com.tiocloud.account.mvp.login;
 
 import com.watayouxiang.httpclient.callback.TioCallback;
 import com.watayouxiang.httpclient.callback.TioCallbackImpl;
+import com.watayouxiang.httpclient.model.request.LoginAutoReq;
 import com.watayouxiang.httpclient.model.request.LoginReq;
 import com.watayouxiang.httpclient.model.request.SmsBeforeCheckReq;
 import com.watayouxiang.httpclient.model.request.SmsSendReq;
@@ -64,7 +65,18 @@ public class LoginModel extends LoginContract.Model {
 
     @Override
     public void reqAutoLogin(String imei, String channelCode, DataProxy<UserCurrResp> proxy) {
+        LoginAutoReq.getInstance(imei, channelCode).setCancelTag(this).get(new TioCallbackImpl<LoginResp>() {
+            @Override
+            public void onTioSuccess(LoginResp loginResp) {
+                loginStep2(proxy);
+            }
 
+            @Override
+            public void onTioError(String msg) {
+                proxy.onFailure(msg);
+                proxy.onFinish();
+            }
+        });
     }
 
     private void loginStep2(final DataProxy<UserCurrResp> proxy) {

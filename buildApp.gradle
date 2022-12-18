@@ -112,6 +112,7 @@ android {
         main {
             assets.srcDirs = ['assets']
         }
+        cskz.res.srcDirs = ['src/cskz/res']
     }
 //    defaultConfig {
 //        vectorDrawables.useSupportLibrary = true

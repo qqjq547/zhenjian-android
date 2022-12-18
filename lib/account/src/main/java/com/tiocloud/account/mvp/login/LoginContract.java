@@ -45,7 +45,7 @@ public interface LoginContract {
 
         public abstract void codeLogin(String account, String code, Activity activity);
 
-        public abstract void reqAutoLogin(String imei, Activity activity);
+        public abstract void reqAutoLogin(String imei,String channelCode, Activity activity);
 
         public abstract void sendSms(Context context, String phone, OnSendSmsListener listener);
 

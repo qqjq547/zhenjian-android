@@ -32,6 +32,7 @@ import com.tiocloud.account.feature.login.LoginActivity;
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.baseNewVersion.OssDataJsonBean;
 import com.tiocloud.chat.constant.TioConfig;
+import com.tiocloud.chat.feature.account.login.LoginAutoActivity;
 import com.tiocloud.chat.feature.main.MainActivity;
 import com.tiocloud.chat.mvp.launcher.LauncherContract;
 import com.tiocloud.chat.mvp.launcher.LauncherPresenter;
@@ -112,6 +113,7 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
     @Override
     public void openLoginPage() {
         LoginActivity.start(this);
+//        LoginAutoActivity.start(this);
     }
 
     @Override
