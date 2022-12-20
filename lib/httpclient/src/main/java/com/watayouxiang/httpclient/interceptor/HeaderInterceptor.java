@@ -41,7 +41,7 @@ public class HeaderInterceptor implements Interceptor {
                 // 手机型号
                 .addHeader("tio-deviceinfo", ObjectUtils.nonNull(deviceInfo))
                 // IMEI
-                .addHeader("tio-imei", ObjectUtils.nonNull(encodeHeader(DeviceUtils.getImei(context))))
+                .addHeader("tio-imei", ObjectUtils.nonNull(encodeHeader(com.blankj.utilcode.util.DeviceUtils.getUniqueDeviceId())))
                 // App版本
                 .addHeader("tio-appversion", ObjectUtils.nonNull(appVersion))
                 // 渠道号
