@@ -37,4 +37,12 @@ public class ModuleConfig {
      * 是否为 "测试模式"
      */
     public static final boolean DEBUG = BuildConfig.DEBUG;
+    /**
+     * 是否打开钱包里面充值按钮
+     */
+    public static final boolean ENABLE_RECHARGE  = false;
+    /**
+     * 是否打开钱包里面提款按钮
+     */
+    public static final boolean ENABLE_WITHDRAW  = false;
 }

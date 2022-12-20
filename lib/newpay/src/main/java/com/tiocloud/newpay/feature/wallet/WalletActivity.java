@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.SpanUtils;
+import com.tiocloud.common.ModuleConfig;
 import com.tiocloud.newpay.feature.account.AccountActivity;
 import com.tiocloud.newpay.feature.bill.BillActivity;
 import com.tiocloud.newpay.feature.recharge.RechargeActivity;
@@ -62,6 +63,16 @@ public class WalletActivity extends BindingDarkActivity<WalletWalletActivityBind
         binding.setView(this);
         presenter = new Presenter(this);
         presenter.init();
+        if (ModuleConfig.ENABLE_RECHARGE){
+            binding.tvRecharge.setVisibility(View.VISIBLE);
+        }else {
+            binding.tvRecharge.setVisibility(View.GONE);
+        }
+        if (ModuleConfig.ENABLE_WITHDRAW){
+            binding.tvWithdraw.setVisibility(View.VISIBLE);
+        }else {
+            binding.tvWithdraw.setVisibility(View.GONE);
+        }
     }
 
     @Override
