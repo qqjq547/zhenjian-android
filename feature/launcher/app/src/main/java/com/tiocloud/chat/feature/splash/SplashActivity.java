@@ -111,9 +111,12 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
         }
     }
     @Override
-    public void openLoginPage() {
-        LoginActivity.start(this);
-//        LoginAutoActivity.start(this);
+    public void openLoginPage(boolean autologin) {
+//        if (autologin){
+            LoginAutoActivity.start(this);
+//        }else {
+//            LoginActivity.start(this);
+//        }
     }
 
     @Override

@@ -44,7 +44,18 @@ public class ConfigResp implements Serializable {
     public int im_file_encrypt;// // 是否开启聊天文件加密 1 开启 2 关闭
     public List<MainTabBean> app_find_page_base_list;// 首页tab配置
 
-
+    /**
+     * user_login_type
+     * 自动登录
+     * 11-设备自动登录
+     * 验证登录
+     * 21-账号+密码登录
+     * 22-手机+验证码登录
+     * 23-邮箱+密码登录
+     * 24-第三方登录
+     */
+    public int user_login_type;
+    public int appinvitecodeflag;
 
     @Override
     public String toString() {

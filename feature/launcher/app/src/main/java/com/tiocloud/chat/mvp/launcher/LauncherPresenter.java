@@ -35,6 +35,7 @@ import com.watayouxiang.db.prefernces.TioDBPreferences;
 import com.watayouxiang.httpclient.callback.TioCallbackImpl;
 import com.watayouxiang.httpclient.model.request.LoginReq;
 import com.watayouxiang.httpclient.model.request.UserCurrReq;
+import com.watayouxiang.httpclient.model.response.ConfigResp;
 import com.watayouxiang.httpclient.model.response.LoginResp;
 import com.watayouxiang.httpclient.model.response.UserCurrResp;
 import com.watayouxiang.httpclient.preferences.CookieUtils;
@@ -247,11 +248,11 @@ public class LauncherPresenter extends LauncherContract.Presenter {
 
     private void reqConfig() {
         // 获取配置信息
-        getModel().requestConfig(new BaseModel.DataProxy<Void>() {
+        getModel().requestConfig(new BaseModel.DataProxy<ConfigResp>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onSuccess(ConfigResp resp) {
 
-                openNextPage();
+                openNextPage(resp);
             }
 
             @Override
@@ -262,7 +263,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
         });
     }
 
-    private void openNextPage() {
+    private void openNextPage(ConfigResp resp) {
         Log.d("hjq","openNextPage");
 //        if (!getModel().isLogin()) {
 //            getView().openLoginPage();
@@ -272,21 +273,21 @@ public class LauncherPresenter extends LauncherContract.Presenter {
 //        getView().finish();
         try {
             if (!getModel().isLogin()) {
-                getView().openLoginPage();
+                getView().openLoginPage(resp.user_login_type==11);
             } else {
                 getView().openMainPage();
             }
             getView().finish();
 
         }catch (Exception e){
-            getView().openLoginPage();
+            getView().openLoginPage(true);
         }
     }
 
     private void exitApp(String reason) {
         TioToast.showShort(reason);
         //避免退出软件
-        getView().openLoginPage();
+//        getView().openLoginPage();
 //        AppUtils.exitApp();
     }
 }

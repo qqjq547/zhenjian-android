@@ -19,7 +19,7 @@ import com.watayouxiang.httpclient.model.response.ConfigResp;
  */
 public class LauncherModel extends LauncherContract.Model {
     @Override
-    public void requestConfig(final DataProxy<Void> proxy) {
+    public void requestConfig(final DataProxy<ConfigResp> proxy) {
         ConfigReq configReq = new ConfigReq();
         configReq.setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE);
         configReq.setCancelTag(this);
@@ -30,8 +30,9 @@ public class LauncherModel extends LauncherContract.Model {
                 PreferencesUtil.saveInt("im_burst_transfer_file",configResp.im_burst_transfer_file);
                 PreferencesUtil.saveInt("im_file_encrypt",configResp.im_file_encrypt);
                 PreferencesUtil.saveString("app_find_page_base_list", GsonUtils.toJson(configResp.app_find_page_base_list));
+                PreferencesUtil.saveInt("appinvitecodeflag",configResp.appinvitecodeflag);
                 // 回调
-                proxy.onSuccess(null);
+                proxy.onSuccess(configResp);
             }
 
             @Override

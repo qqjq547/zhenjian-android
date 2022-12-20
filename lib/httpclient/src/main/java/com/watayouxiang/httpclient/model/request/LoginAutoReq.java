@@ -34,13 +34,14 @@ public class LoginAutoReq extends BaseReq<LoginResp> {
 
     @Override
     public String path() {
-        return "/oneClick/autoLoginByImei.tio_x";
+        return "/mytio/oneClick/autoLoginByImei.tio_x";
     }
 
     @Override
     public TioMap<String, String> params() {
         return TioMap.getParamMap()
                 .append("imei", imei)
+                .append("registerType", "2")
                 .append("inviteCode", inviteCode);
     }
 

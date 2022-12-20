@@ -4,6 +4,7 @@ import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.androidutils.mvp.BasePresenter;
 import com.watayouxiang.androidutils.mvp.BaseView;
 import com.watayouxiang.androidutils.page.TioActivity;
+import com.watayouxiang.httpclient.model.response.ConfigResp;
 
 /**
  * author : TaoWang
@@ -12,7 +13,7 @@ import com.watayouxiang.androidutils.page.TioActivity;
  */
 public interface LauncherContract {
     interface View extends BaseView {
-        void openLoginPage();
+        void openLoginPage(boolean autologin);
 
         void finish();
 
@@ -22,7 +23,7 @@ public interface LauncherContract {
     }
 
     abstract class Model extends BaseModel {
-        public abstract void requestConfig(BaseModel.DataProxy<Void> proxy);
+        public abstract void requestConfig(BaseModel.DataProxy<ConfigResp> proxy);
 
         public abstract boolean isLogin();
     }
