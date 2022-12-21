@@ -92,7 +92,7 @@ public class LogoutPresenter extends LogoutContract.Presenter {
     public static void kickOut() {
         // 清除登录信息
         clearLoginInfo();
-        PreferencesUtil.saveString("saveBaseUrl","");
+        PreferencesUtil.saveString(PreferencesUtil.SAVEBASEURL,"");
         // 只打开登录
         openLoginCloseOthers();
     }
@@ -120,7 +120,7 @@ public class LogoutPresenter extends LogoutContract.Presenter {
     public static void openLoginCloseOthers() {
         ThreadUtils.runOnUiThread(() -> {
             ActivityUtils.finishAllActivities();
-            LoginActivity.start(Utils.getApp());
+            ThreadUtils.runOnUiThread(AppUtils::relaunchApp);
         });
 //        PreferencesUtil.saveInt("firstTab",3);
 //        ThreadUtils.runOnUiThread(AppUtils::relaunchApp);

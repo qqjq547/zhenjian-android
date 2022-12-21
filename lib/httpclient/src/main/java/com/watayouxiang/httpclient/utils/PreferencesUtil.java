@@ -15,6 +15,9 @@ public class PreferencesUtil {
     private static String NAME = "TioPreferences";
     private static SharedPreferences.Editor editor;
 
+//    public static final String SESSION="session";
+    public static final String SAVEBASEURL="saveBaseUrl";
+
     public static void init(String name) {
         NAME = name;
     }

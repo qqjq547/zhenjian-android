@@ -37,6 +37,7 @@ import com.tiocloud.chat.feature.main.MainActivity;
 import com.tiocloud.chat.mvp.launcher.LauncherContract;
 import com.tiocloud.chat.mvp.launcher.LauncherPresenter;
 import com.tiocloud.chat.util.AESEncrypt;
+import com.tiocloud.chat.util.PreferencesUtil;
 import com.watayouxiang.androidutils.page.TioActivity;
 import com.watayouxiang.httpclient.preferences.HttpPreferences;
 
@@ -112,16 +113,15 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
     }
     @Override
     public void openLoginPage(boolean autologin) {
-//        if (autologin){
+        if (autologin){
             LoginAutoActivity.start(this);
-//        }else {
-//            LoginActivity.start(this);
-//        }
+        }else {
+            LoginActivity.start(this);
+        }
     }
 
     @Override
     public void openMainPage() {
-        Log.d("hjq","openMainPage");
         MainActivity.start(this);
     }
 }

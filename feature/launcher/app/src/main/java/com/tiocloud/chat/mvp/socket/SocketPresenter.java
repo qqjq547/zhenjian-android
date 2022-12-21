@@ -166,6 +166,7 @@ public class SocketPresenter extends SocketContract.Presenter {
         TioHttpClient.getInstance().setOnCookieListener(tioCookies -> {
             // 获取新token
             String newTioCookie = CookieUtils.getCookie(tioCookies);
+
 //        String newTioCookie=PreferencesUtil.getString("session_cookie_nameNew","");
 //            Log.d("===newTioCookie==","=="+newTioCookie);
 ////            // 更新token

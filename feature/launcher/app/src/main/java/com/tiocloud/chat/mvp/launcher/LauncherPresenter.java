@@ -134,7 +134,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
 
                     HttpCache.TIO_BASE_URL=jsonBean.getAPI_URLS().get(randomNum-1);
                     String save=HttpCache.TIO_BASE_URL.substring(0, HttpCache.TIO_BASE_URL.length()-5);
-                    String getStringUrl=PreferencesUtil.getString("saveBaseUrl","");
+                    String getStringUrl=PreferencesUtil.getString(PreferencesUtil.SAVEBASEURL,"");
                     if(!TextUtils.isEmpty(getStringUrl)&& HttpCache.TIO_BASE_URL.contains(getStringUrl)){
                         Log.d("====是否包含==","==是==="+save);
                         reqConfig();
@@ -143,7 +143,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
 //                        Log.d("====是否包含==","==否==="+"===上次保存Url==="+getStringUrl+"===本次访问Url=="+save);
                         String account = AccountSP.getLoginName();
                         String  paw= AccountSP.getKeyLoginPwd();
-                        PreferencesUtil.saveString("saveBaseUrl",save);
+                        PreferencesUtil.saveString(PreferencesUtil.SAVEBASEURL,save);
 
                         if (!TextUtils.isEmpty(account) &&!TextUtils.isEmpty(paw) &&TioDBPreferences.getCurrUid()>0) {
                             LoginReq.getPwdInstance(paw, account).setCancelTag(this).post(new TioCallbackImpl<LoginResp>() {

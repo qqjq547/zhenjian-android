@@ -120,7 +120,8 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
         binding.btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                channelCode=binding.etYaoqingma.getText().toString().trim();
+                presenter.reqAutoLogin(DeviceUtils.getUniqueDeviceId(),channelCode, getActivity());
             }
         });
 

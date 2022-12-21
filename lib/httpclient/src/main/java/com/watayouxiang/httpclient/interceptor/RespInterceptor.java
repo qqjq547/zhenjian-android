@@ -1,9 +1,12 @@
 package com.watayouxiang.httpclient.interceptor;
 
+import android.text.TextUtils;
+
 import com.lzy.okgo.utils.IOUtils;
 import com.watayouxiang.httpclient.listener.KickOutListener;
 import com.watayouxiang.httpclient.model.BaseResp;
 import com.watayouxiang.httpclient.model.TioRespCode;
+import com.watayouxiang.httpclient.utils.PreferencesUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +43,6 @@ public class RespInterceptor implements Interceptor {
         Response.Builder builder = resp.newBuilder();
         Response clone = builder.build();
         ResponseBody responseBody = clone.body();
-
         try {
             if (HttpHeaders.hasBody(clone)) {
                 if (responseBody == null) return resp;

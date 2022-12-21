@@ -2,8 +2,10 @@ package com.watayouxiang.httpclient.interceptor;
 
 import android.content.Context;
 
+import com.watayouxiang.httpclient.preferences.CookieUtils;
 import com.watayouxiang.httpclient.utils.DeviceUtils;
 import com.watayouxiang.httpclient.utils.ObjectUtils;
+import com.watayouxiang.httpclient.utils.PreferencesUtil;
 
 import java.io.IOException;
 
@@ -50,6 +52,7 @@ public class HeaderInterceptor implements Interceptor {
                 .addHeader("tio-resolution", ObjectUtils.nonNull(resolution))
                 // 运营商
                 .addHeader("tio-operator", ObjectUtils.nonNull(encodeHeader(DeviceUtils.getOperator(context))))
+                .addHeader("tio_session", ObjectUtils.nonNull(CookieUtils.getCookie()))
                 // 手机尺寸
                 .addHeader("tio-size", ObjectUtils.nonNull(size));
 
