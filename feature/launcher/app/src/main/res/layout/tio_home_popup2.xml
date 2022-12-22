@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="10dp">
 
     <ImageView
         android:id="@+id/_iv_bg"
-        android:layout_width="130dp"
-        android:layout_height="179dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/bg_home_bubble"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -15,10 +16,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:paddingVertical="5dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,8 +29,8 @@
     <LinearLayout
         android:id="@+id/ll_create_group"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="@dimen/dp_35"
+        android:paddingHorizontal="12dp"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -37,7 +38,6 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
             android:src="@drawable/ic_create_group" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -52,8 +52,8 @@
     <LinearLayout
         android:id="@+id/ll_add_friend"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="@dimen/dp_35"
+        android:paddingHorizontal="12dp"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -61,7 +61,6 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
             android:src="@drawable/ic_add_friend" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -75,8 +74,8 @@
     <LinearLayout
         android:id="@+id/ll_addZhuanshu"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="@dimen/dp_35"
+        android:paddingHorizontal="12dp"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -84,7 +83,6 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
             android:src="@drawable/ic_add_friend" />
         
         <androidx.appcompat.widget.AppCompatTextView
@@ -99,10 +97,8 @@
     <LinearLayout
         android:id="@+id/ll_qrcode_decoder"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="1"
-        android:layout_marginBottom="4dp"
+        android:layout_height="@dimen/dp_35"
+        android:paddingHorizontal="12dp"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -110,7 +106,6 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
             android:src="@drawable/ic_scan_qrcode" />
 
         <androidx.appcompat.widget.AppCompatTextView

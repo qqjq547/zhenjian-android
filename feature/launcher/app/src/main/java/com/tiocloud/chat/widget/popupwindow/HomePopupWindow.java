@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import com.tiocloud.chat.R;
@@ -35,7 +36,7 @@ public class HomePopupWindow extends BasePopupWindow {
 
     @Override
     protected int getViewLayout() {
-        return ModuleConfig.ENABLE_QR_CODE ? R.layout.tio_home_popup2 : R.layout.tio_home_popup;
+        return R.layout.tio_home_popup2;
     }
 
     @Override
@@ -56,10 +57,13 @@ public class HomePopupWindow extends BasePopupWindow {
             dismiss();
         });
         if (ModuleConfig.ENABLE_QR_CODE) {
+            findViewById(R.id.ll_qrcode_decoder).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_qrcode_decoder).setOnClickListener(view -> {
                 QRCodeDecoderActivity.start(getActivity());
                 dismiss();
             });
+        }else {
+            findViewById(R.id.ll_qrcode_decoder).setVisibility(View.GONE);
         }
     }
     public void searchCustServiceTeam(String searchkey){
@@ -128,8 +132,7 @@ public class HomePopupWindow extends BasePopupWindow {
             }
         });
         animator.start();
-        // show window
-        HomePopupWindow.super.showAsDropDown(getAnchor(), -ScreenUtil.dp2px(94), ScreenUtil.dp2px(8));
+        HomePopupWindow.super.showAsDropDown(getAnchor(), 0, ScreenUtil.dp2px(8));
         // bg alpha
         bgAlpha(0.8f);
     }
