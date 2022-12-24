@@ -27,7 +27,7 @@ public class P2PActions extends ArrayList<BaseAction> {
         menus.add(new ShootAction());
 //        menus.add(new FaceTimeAction());
 //        menus.add(new CallAction());
-//        menus.add(new P2PRedPaperAction());
+        menus.add(new P2PRedPaperAction());
 //        menus.add(new UserCardAction());
 //        menus.add(new GroupCardAction());
 //        menus.add(new FileAction());

@@ -24,7 +24,7 @@ public class ModuleConfig {
     /**
      * 钱包
      */
-    public static final boolean ENABLE_WALLET = false;
+    public static final boolean ENABLE_WALLET = true;
     /**
      * 三方登录
      */
