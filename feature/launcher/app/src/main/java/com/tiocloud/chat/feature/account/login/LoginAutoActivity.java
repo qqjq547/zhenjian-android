@@ -35,6 +35,7 @@ import com.watayouxiang.androidutils.page.TioActivity;
 import com.watayouxiang.httpclient.TioHttpClient;
 import com.watayouxiang.httpclient.callback.TioCallback;
 import com.watayouxiang.httpclient.model.request.AccountCheckReq;
+import com.watayouxiang.httpclient.model.request.LoginCheckReq;
 import com.watayouxiang.httpclient.model.request.RegisterNewflagReq;
 import com.watayouxiang.httpclient.model.request.SmsSendReq;
 
@@ -79,8 +80,21 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
             }
         });
         initViews();
-        RegisterNewflagReq req2 = new RegisterNewflagReq();
+        LoginCheckReq req2 =  LoginCheckReq.getInstance(DeviceUtils.getUniqueDeviceId());
         req2.setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE);
+        TioHttpClient.get(req2, new TioCallback<Object>() {
+
+            @Override
+            public void onTioSuccess(Object o) {
+
+            }
+
+            @Override
+            public void onTioError(String msg) {
+                ToastUtils.showLong(msg);
+
+            }
+        });
         int appinvitecodeflag= PreferencesUtil.getInt("appinvitecodeflag",0);
         if (appinvitecodeflag==1&& TextUtils.isEmpty(channelCode)){
             binding.tvTips.setVisibility(View.GONE);

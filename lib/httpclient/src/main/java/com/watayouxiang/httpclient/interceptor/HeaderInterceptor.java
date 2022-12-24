@@ -1,6 +1,7 @@
 package com.watayouxiang.httpclient.interceptor;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.watayouxiang.httpclient.preferences.CookieUtils;
 import com.watayouxiang.httpclient.utils.DeviceUtils;
@@ -38,7 +39,8 @@ public class HeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-
+        String tioSession=PreferencesUtil.getString(PreferencesUtil.SESSION,"");
+        Log.d("hjq","getCookie="+tioSession);
         Request.Builder builder = request.newBuilder()
                 // 手机型号
                 .addHeader("tio-deviceinfo", ObjectUtils.nonNull(deviceInfo))
@@ -52,7 +54,7 @@ public class HeaderInterceptor implements Interceptor {
                 .addHeader("tio-resolution", ObjectUtils.nonNull(resolution))
                 // 运营商
                 .addHeader("tio-operator", ObjectUtils.nonNull(encodeHeader(DeviceUtils.getOperator(context))))
-                .addHeader("tio_session", ObjectUtils.nonNull(CookieUtils.getCookie()))
+                .addHeader("tio_session", ObjectUtils.nonNull(tioSession))
                 // 手机尺寸
                 .addHeader("tio-size", ObjectUtils.nonNull(size));
 
