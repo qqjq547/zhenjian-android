@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
  *
  * @see LoginResp
  */
-public class LoginCheckReq extends BaseReq<Object> {
+public class LoginCheckReq extends BaseReq<Boolean> {
 
     private final String imei;
 
@@ -40,7 +40,7 @@ public class LoginCheckReq extends BaseReq<Object> {
 
     @Override
     public Type bodyType() {
-        return new TypeToken<BaseResp<Object>>() {
+        return new TypeToken<BaseResp<Boolean>>() {
         }.getType();
     }
 }

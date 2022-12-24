@@ -72,19 +72,21 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
         hideStatusBar();
         setStatusBarLightMode(false);
         presenter = new LoginPresenter(this);
-//        OpenInstall.getInstall(new AppInstallAdapter() {
-//            @Override
-//            public void onInstall(AppData appData) {
-//                // 打印数据便于调试
-//                Log.d("OpenInstall", "getInstall : installData = " + appData.toString());
-//                //  获取渠道编号参数
-//                channelCode = appData.getChannel();
-//                // 获取自定义参数
-//                String bindData = appData.getData();
-//            }
-//        });
+        OpenInstall.getInstall(new AppInstallAdapter() {
+            @Override
+            public void onInstall(AppData appData) {
+                // 打印数据便于调试
+                Log.d("OpenInstall", "getInstall : installData = " + appData.toString());
+                //  获取渠道编号参数
+                channelCode = appData.getChannel();
+                // 获取自定义参数
+                String bindData = appData.getData();
+            }
+        });
         initViews();
+        Log.d("hjq","111");
         LoginCheckReq req2 =  LoginCheckReq.getInstance(DeviceUtils.getUniqueDeviceId());
+        Log.d("hjq","222");
         req2.setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE);
         TioHttpClient.get(req2, new TioCallback<Boolean>() {
 

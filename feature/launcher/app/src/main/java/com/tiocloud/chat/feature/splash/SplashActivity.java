@@ -71,11 +71,7 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("hjq","onCreate");
         if (!isTaskRoot()) {
-            // Android launched another instance of the root activity into an existing task
-            //  so just quietly finish and go away, dropping the user back into the activity
-            //  at the top of the stack (ie: the last state of this task)
             finish();
             return;
         }
@@ -85,27 +81,11 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.d("hjq","init");
-                presenter.init();
+=                presenter.init();
             }
         }).start();
-
-//        test();
     }
-//    public  void test() {
-//        String data="1234567890123456789012345678901234567891234567890";
-//        String fingerprint= "17f036040c6c9e39ea661f41c9f988b2";
-////        String data="I/GOlKj4EUAEIX5/qwK09QX+uqQBOdZScLhCZP0FmYJkCgwqT6g3rcewieF7fDZHcuYJiNHQvg9NmVrfvEq9oQ==";
-////        String fingerprint= "17f036040c6c9e39ea661f41c9f988b2";
-////        String content=decrypt(data,fingerprint);
-//        try {
-//            String content= AESEncrypt.encrypt(data,fingerprint);
-//            Log.d("hjq",content);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//    }
+
 
     @Override
     protected void onDestroy() {
