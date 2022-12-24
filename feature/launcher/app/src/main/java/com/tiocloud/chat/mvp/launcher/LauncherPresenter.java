@@ -30,6 +30,7 @@ import com.tiocloud.chat.util.AppUpdateTool;
 import com.tiocloud.chat.widget.dialog.tio.ProtectGuideDialog;
 import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.androidutils.widget.TioToast;
+import com.watayouxiang.androidutils.widget.dialog.progress.SingletonProgressDialog;
 import com.watayouxiang.db.dao.CurrUserTableCrud;
 import com.watayouxiang.db.prefernces.TioDBPreferences;
 import com.watayouxiang.httpclient.callback.TioCallbackImpl;
@@ -261,13 +262,13 @@ public class LauncherPresenter extends LauncherContract.Presenter {
             @Override
             public void onFailure(String msg) {
                 super.onFailure(msg);
+                SingletonProgressDialog.dismiss();
                 exitApp("获取配置信息失败：" + msg);
             }
         });
     }
 
     private void openNextPage(ConfigResp resp) {
-        Log.d("hjq","openNextPage");
 //        if (!getModel().isLogin()) {
 //            getView().openLoginPage();
 //        } else {

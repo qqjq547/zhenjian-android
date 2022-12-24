@@ -39,6 +39,7 @@ import com.tiocloud.chat.mvp.launcher.LauncherPresenter;
 import com.tiocloud.chat.util.AESEncrypt;
 import com.tiocloud.chat.util.PreferencesUtil;
 import com.watayouxiang.androidutils.page.TioActivity;
+import com.watayouxiang.androidutils.widget.dialog.progress.SingletonProgressDialog;
 import com.watayouxiang.httpclient.preferences.HttpPreferences;
 
 import java.io.BufferedInputStream;
@@ -78,7 +79,7 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
             return;
         }
         setContentView(R.layout.tio_activity_welcome);
-
+        SingletonProgressDialog.show_unCancel(this,null);
         presenter = new LauncherPresenter(this);
         new Thread(new Runnable() {
             @Override
@@ -113,6 +114,7 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
     }
     @Override
     public void openLoginPage(boolean autologin) {
+        SingletonProgressDialog.dismiss();
         if (autologin){
             LoginAutoActivity.start(this);
         }else {
@@ -122,6 +124,7 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
 
     @Override
     public void openMainPage() {
+        SingletonProgressDialog.dismiss();
         MainActivity.start(this);
     }
 }
