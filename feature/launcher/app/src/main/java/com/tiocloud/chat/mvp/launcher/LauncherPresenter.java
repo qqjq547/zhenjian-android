@@ -135,7 +135,10 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                     HttpCache.TIO_BASE_URL=jsonBean.getAPI_URLS().get(randomNum-1);
                     String save=HttpCache.TIO_BASE_URL.substring(0, HttpCache.TIO_BASE_URL.length()-5);
                     String getStringUrl=PreferencesUtil.getString(PreferencesUtil.SAVEBASEURL,"");
-                    if(!TextUtils.isEmpty(getStringUrl)){
+                    Log.d("hjq","getAPI_URLS="+jsonBean.getAPI_URLS());
+                    Log.d("hjq","TIO_BASE_URL="+HttpCache.TIO_BASE_URL);
+                    Log.d("hjq","getStringUrl="+getStringUrl);;
+                    if(!TextUtils.isEmpty(getStringUrl)&& HttpCache.TIO_BASE_URL.contains(getStringUrl)){
                         Log.d("====是否包含==","==是==="+save);
                         reqConfig();
                     }else {

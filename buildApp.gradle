@@ -65,23 +65,24 @@ android {
                     OPENINSTALL_APPKEY     : "p6xshd",
             ]
         }
-        cskz {
-            applicationId  'com.chengshikezhan.chat'
-            buildConfigField "String", "ip", "\"ip\""
-            resValue "string", "app_name", "城市客栈"
-            manifestPlaceholders = [
-                    JPUSH_PKGNAME          : applicationId,
-                    JPUSH_APPKEY           : "e156cf3afe420642057f7306",
-            ]
-        }
         tanqi {
             applicationId "com.tanqi.chat"
             buildConfigField "String", "ip", "\"tanqi\""
-            resValue "string", "app_name", "谭奇"
+            resValue "string", "app_name", "探奇"
             manifestPlaceholders = [
                     JPUSH_PKGNAME          : applicationId,
                     JPUSH_APPKEY           : "337c3feff74d762b48279054",
-                    OPENINSTALL_APPKEY     : "ahfkyw",
+                    OPENINSTALL_APPKEY     : "haalpf",
+            ]
+        }
+        fangyuan {
+            applicationId "com.fangyuan.chat"
+            buildConfigField "String", "ip", "\"ip\""
+            resValue "string", "app_name", "方媛"
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME          : applicationId,
+                    JPUSH_APPKEY           : "ab7635a345be9230d7d98089",
+                    OPENINSTALL_APPKEY     : "l5j66s",
             ]
         }
     }
@@ -112,7 +113,8 @@ android {
         main {
             assets.srcDirs = ['assets']
         }
-        cskz.res.srcDirs = ['src/cskz/res']
+        tanqi.res.srcDirs = ['src/tanqi/res']
+        fangyuan.res.srcDirs = ['src/fangyuan/res']
     }
 //    defaultConfig {
 //        vectorDrawables.useSupportLibrary = true

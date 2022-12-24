@@ -20,11 +20,11 @@ public class ModuleConfig {
     /**
      * 二维码
      */
-    public static final boolean ENABLE_QR_CODE = true;
+    public static final boolean ENABLE_QR_CODE = false;
     /**
      * 钱包
      */
-    public static final boolean ENABLE_WALLET = true;
+    public static final boolean ENABLE_WALLET = false;
     /**
      * 三方登录
      */

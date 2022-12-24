@@ -26,8 +26,8 @@ public class GroupActions extends ArrayList<BaseAction> {
 //        menus.add(new FaceTimeAction());
 //        menus.add(new CallAction());
 //        menus.add(new GroupRedPaperAction());
-        menus.add(new UserCardAction());
-        menus.add(new GroupCardAction());
+//        menus.add(new UserCardAction());
+//        menus.add(new GroupCardAction());
 //        menus.add(new FileAction());
         return menus;
     }
