@@ -71,10 +71,11 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 问题：用android的installer安装打开闪屏页，按Home键回到首页，然后点击launcher的图标会再打开一个闪屏页。
-        // 原因：installer安装方式打开闪屏页，系统会创建了新的Task中用于存放闪屏页实例，从而导致重复启动闪屏页面。
-        // 解决办法：避免从桌面启动程序后，会重新实例化入口类的activity。
-        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) > 0) {
+        Log.d("hjq","onCreate");
+        if (!isTaskRoot()) {
+            // Android launched another instance of the root activity into an existing task
+            //  so just quietly finish and go away, dropping the user back into the activity
+            //  at the top of the stack (ie: the last state of this task)
             finish();
             return;
         }
@@ -84,6 +85,7 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.d("hjq","init");
                 presenter.init();
             }
         }).start();

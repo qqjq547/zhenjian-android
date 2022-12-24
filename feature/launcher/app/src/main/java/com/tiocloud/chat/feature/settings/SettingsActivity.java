@@ -16,6 +16,7 @@ import com.tiocloud.chat.feature.settings.mvp.SettingsContract;
 import com.tiocloud.chat.feature.settings.mvp.SettingsPresenter;
 import com.watayouxiang.androidutils.page.TioActivity;
 import com.watayouxiang.androidutils.widget.titlebar.WtTitleBar;
+import com.watayouxiang.httpclient.utils.PreferencesUtil;
 
 /**
  * author : TaoWang
@@ -47,11 +48,14 @@ public class SettingsActivity extends TioActivity implements SettingsContract.Vi
         public RelativeLayout rl_account;
 
         public ViewHolder(View decorView) {
+            //11为自动登录
+            boolean isAutoLogin= PreferencesUtil.getInt(PreferencesUtil.LOGIN_TYPE,0)==11;
             rl_account=decorView.findViewById(R.id.rl_account);
-
+            rl_account.setVisibility(isAutoLogin?View.GONE:View.VISIBLE);
             rl_fontSize=decorView.findViewById(R.id.rl_fontSize);
             titleBar = decorView.findViewById(R.id.titleBar);
             tv_logoutBtn = decorView.findViewById(R.id.tv_logoutBtn);
+            tv_logoutBtn.setVisibility(isAutoLogin?View.GONE:View.VISIBLE);
             tv_version = decorView.findViewById(R.id.tv_version);
             switch_verifyAddFriend = decorView.findViewById(R.id.switch_verifyAddFriend);
             switch_searchMeAuth = decorView.findViewById(R.id.switch_searchMeAuth);

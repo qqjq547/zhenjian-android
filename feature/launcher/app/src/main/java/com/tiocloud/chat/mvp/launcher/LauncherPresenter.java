@@ -255,7 +255,6 @@ public class LauncherPresenter extends LauncherContract.Presenter {
         getModel().requestConfig(new BaseModel.DataProxy<ConfigResp>() {
             @Override
             public void onSuccess(ConfigResp resp) {
-
                 openNextPage(resp);
             }
 
@@ -275,6 +274,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
 //            getView().openMainPage();
 //        }
 //        getView().finish();
+        PreferencesUtil.saveInt(PreferencesUtil.LOGIN_TYPE,resp.user_login_type);
         try {
             if (!getModel().isLogin()) {
                 getView().openLoginPage(resp.user_login_type==11);
@@ -282,7 +282,6 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                 getView().openMainPage();
             }
             getView().finish();
-
         }catch (Exception e){
             getView().openLoginPage(true);
         }

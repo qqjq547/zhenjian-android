@@ -1,5 +1,6 @@
 package com.tiocloud.chat.feature.home.user.mvp;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.watayouxiang.httpclient.callback.TioCallback;
 import com.watayouxiang.httpclient.model.response.UserCurrResp;
 import com.watayouxiang.androidutils.widget.TioToast;

@@ -31,13 +31,17 @@ import com.tiocloud.chat.R;
 import com.tiocloud.chat.databinding.ActivityLoginAutoBinding;
 import com.tiocloud.chat.feature.account.pwd.RetrievePwdActivity;
 import com.tiocloud.chat.util.PreferencesUtil;
+import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.androidutils.page.TioActivity;
+import com.watayouxiang.androidutils.widget.TioToast;
+import com.watayouxiang.androidutils.widget.dialog.progress.SingletonProgressDialog;
 import com.watayouxiang.httpclient.TioHttpClient;
 import com.watayouxiang.httpclient.callback.TioCallback;
 import com.watayouxiang.httpclient.model.request.AccountCheckReq;
 import com.watayouxiang.httpclient.model.request.LoginCheckReq;
 import com.watayouxiang.httpclient.model.request.RegisterNewflagReq;
 import com.watayouxiang.httpclient.model.request.SmsSendReq;
+import com.watayouxiang.httpclient.model.response.UserCurrResp;
 
 import org.json.JSONObject;
 
@@ -68,42 +72,48 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
         hideStatusBar();
         setStatusBarLightMode(false);
         presenter = new LoginPresenter(this);
-        OpenInstall.getInstall(new AppInstallAdapter() {
-            @Override
-            public void onInstall(AppData appData) {
-                // 打印数据便于调试
-                Log.d("OpenInstall", "getInstall : installData = " + appData.toString());
-                //  获取渠道编号参数
-                channelCode = appData.getChannel();
-                // 获取自定义参数
-                String bindData = appData.getData();
-            }
-        });
+//        OpenInstall.getInstall(new AppInstallAdapter() {
+//            @Override
+//            public void onInstall(AppData appData) {
+//                // 打印数据便于调试
+//                Log.d("OpenInstall", "getInstall : installData = " + appData.toString());
+//                //  获取渠道编号参数
+//                channelCode = appData.getChannel();
+//                // 获取自定义参数
+//                String bindData = appData.getData();
+//            }
+//        });
         initViews();
         LoginCheckReq req2 =  LoginCheckReq.getInstance(DeviceUtils.getUniqueDeviceId());
         req2.setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE);
-        TioHttpClient.get(req2, new TioCallback<Object>() {
+        TioHttpClient.get(req2, new TioCallback<Boolean>() {
 
             @Override
-            public void onTioSuccess(Object o) {
-
+            public void onTioSuccess(Boolean o) {
+               if (o){//已有账号直接登录
+                   binding.tvTips.setVisibility(View.VISIBLE);
+                   binding.linInvite.setVisibility(View.GONE);
+                   presenter.reqAutoLogin(DeviceUtils.getUniqueDeviceId(),channelCode, getActivity());
+               }else {
+                   int appinvitecodeflag= PreferencesUtil.getInt("appinvitecodeflag",0);
+                   if (appinvitecodeflag==1&& TextUtils.isEmpty(channelCode)){
+                       binding.tvTips.setVisibility(View.GONE);
+                       binding.linInvite.setVisibility(View.VISIBLE);
+                   }else {
+                       binding.tvTips.setVisibility(View.VISIBLE);
+                       binding.linInvite.setVisibility(View.GONE);
+                       presenter.reqAutoLogin(DeviceUtils.getUniqueDeviceId(),channelCode, getActivity());
+                   }
+               }
             }
 
             @Override
             public void onTioError(String msg) {
                 ToastUtils.showLong(msg);
-
             }
         });
-        int appinvitecodeflag= PreferencesUtil.getInt("appinvitecodeflag",0);
-        if (appinvitecodeflag==1&& TextUtils.isEmpty(channelCode)){
-            binding.tvTips.setVisibility(View.GONE);
-            binding.linInvite.setVisibility(View.VISIBLE);
-        }else {
-            binding.tvTips.setVisibility(View.VISIBLE);
-            binding.linInvite.setVisibility(View.GONE);
-            presenter.reqAutoLogin(DeviceUtils.getUniqueDeviceId(),channelCode, getActivity());
-        }
+
+
     }
 
 
