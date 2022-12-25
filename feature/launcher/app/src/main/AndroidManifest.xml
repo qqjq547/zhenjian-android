@@ -30,7 +30,7 @@
             android:name=".feature.splash.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:theme="@style/TioWelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

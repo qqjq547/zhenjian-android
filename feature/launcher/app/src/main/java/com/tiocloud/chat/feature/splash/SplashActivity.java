@@ -75,15 +75,17 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
             finish();
             return;
         }
+        // 问题：用android的installer安装打开闪屏页，按Home键回到首页，然后点击launcher的图标会再打开一个闪屏页。
+        // 原因：installer安装方式打开闪屏页，系统会创建了新的Task中用于存放闪屏页实例，从而导致重复启动闪屏页面。
+        // 解决办法：避免从桌面启动程序后，会重新实例化入口类的activity。
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) > 0) {
+            finish();
+            return;
+        }
         setContentView(R.layout.tio_activity_welcome);
         SingletonProgressDialog.show_unCancel(this,null);
         presenter = new LauncherPresenter(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-=                presenter.init();
-            }
-        }).start();
+        presenter.init();
     }
 
 

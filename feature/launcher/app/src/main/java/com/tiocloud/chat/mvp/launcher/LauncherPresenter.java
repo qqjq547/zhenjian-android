@@ -8,6 +8,7 @@ import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
 import com.alibaba.sdk.android.oss.common.auth.OSSCustomSignerCredentialProvider;
 import com.alibaba.sdk.android.oss.common.utils.OSSUtils;
@@ -100,132 +101,106 @@ public class LauncherPresenter extends LauncherContract.Presenter {
         };
         OSS oss = new OSSClient(TioApplication.getInstanceKit(), TioConfig.OSS_ENDPOINT, credentialProvider, conf);
         GetObjectRequest get = new GetObjectRequest(TioConfig.BUCKET_NAME, objectName);
-        //设置下载进度回调
-        get.setProgressListener(new OSSProgressCallback<GetObjectRequest>() {
+        oss.asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
             @Override
-            public void onProgress(GetObjectRequest request, long currentSize, long totalSize) {
-            }
-        });
-        try {
-            // 同步执行下载请求，返回结果
-            GetObjectResult getResult =oss.getObject(get);
-            // 获取文件输入流
-            InputStream inputStream = getResult.getObjectContent();
-//            byte[] buffer = new byte[2048];
-//            int len;
-            InputStreamReader inputStreamReader=  new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String  contentJson = "";
-            while (true){
-                String content=reader.readLine();
-                if (content == null) break;
-                contentJson=contentJson+content;
+            public void onSuccess(GetObjectRequest request, GetObjectResult result) {
+                try {
+                    InputStream inputStream = result.getObjectContent();
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader reader = new BufferedReader(inputStreamReader);
+                    String contentJson = "";
+                    while (true) {
+                        String content = reader.readLine();
+                        if (content == null) break;
+                        contentJson = contentJson + content;
 //                        System.out.println("========" + content);
-            }
-            Log.d("===ss222===","=="+contentJson);
-            OssDataJsonBean jsonBean=new Gson().fromJson(contentJson,OssDataJsonBean.class);
-            if(jsonBean!=null){
+                    }
+                    Log.d("===ss222===", "==" + contentJson);
+                    OssDataJsonBean jsonBean = new Gson().fromJson(contentJson, OssDataJsonBean.class);
+                    if (jsonBean != null) {
 
-                if(jsonBean.getAPI_URLS()!=null&&jsonBean.getAPI_URLS().size()>0){
-                    int min=1;
-                    int max=jsonBean.getAPI_URLS().size();
-                    Random random = new Random();
-                    int randomNum=  random.nextInt(max)%(max-min+1) + min;
-                    HttpPreferences.saveBaseUrl(jsonBean.getAPI_URLS().get(randomNum-1));
+                        if (jsonBean.getAPI_URLS() != null && jsonBean.getAPI_URLS().size() > 0) {
+                            int min = 1;
+                            int max = jsonBean.getAPI_URLS().size();
+                            Random random = new Random();
+                            int randomNum = random.nextInt(max) % (max - min + 1) + min;
+                            HttpPreferences.saveBaseUrl(jsonBean.getAPI_URLS().get(randomNum - 1));
 
-                    HttpCache.TIO_BASE_URL=jsonBean.getAPI_URLS().get(randomNum-1);
-                    String save=HttpCache.TIO_BASE_URL.substring(0, HttpCache.TIO_BASE_URL.length()-5);
-                    String getStringUrl=PreferencesUtil.getString(PreferencesUtil.SAVEBASEURL,"");
-                    Log.d("hjq","getAPI_URLS="+jsonBean.getAPI_URLS());
-                    Log.d("hjq","TIO_BASE_URL="+HttpCache.TIO_BASE_URL);
-                    Log.d("hjq","getStringUrl="+getStringUrl);;
-                    if(!TextUtils.isEmpty(getStringUrl)&& HttpCache.TIO_BASE_URL.contains(getStringUrl)){
-                        Log.d("====是否包含==","==是==="+save);
-                        reqConfig();
-                    }else {
-//                        LogoutPresenter.clearLoginInfo();
-//                        Log.d("====是否包含==","==否==="+"===上次保存Url==="+getStringUrl+"===本次访问Url=="+save);
-                        String account = AccountSP.getLoginName();
-                        String  paw= AccountSP.getKeyLoginPwd();
-                        PreferencesUtil.saveString(PreferencesUtil.SAVEBASEURL,save);
+                            HttpCache.TIO_BASE_URL = jsonBean.getAPI_URLS().get(randomNum - 1);
+                            String save = HttpCache.TIO_BASE_URL.substring(0, HttpCache.TIO_BASE_URL.length() - 5);
+                            HttpCache.TIO_RES_URL = save;
+                            HttpCache.TIO_BASE_URL = save;
+                            String getStringUrl = PreferencesUtil.getString(PreferencesUtil.SAVEBASEURL, "");
+                            Log.d("hjq", "getAPI_URLS=" + jsonBean.getAPI_URLS());
+                            Log.d("hjq", "TIO_BASE_URL=" + HttpCache.TIO_BASE_URL);
+                            Log.d("hjq", "getStringUrl=" + getStringUrl);
+                            Log.d("hjq", "save=" + save);
+                            if (!TextUtils.isEmpty(getStringUrl) && HttpCache.TIO_BASE_URL.contains(getStringUrl)) {
+                                reqConfig();
+                            } else {
+                                LogoutPresenter.clearLoginInfo();
+                                String account = AccountSP.getLoginName();
+                                String paw = AccountSP.getKeyLoginPwd();
+                                PreferencesUtil.saveString(PreferencesUtil.SAVEBASEURL, save);
 
-                        if (!TextUtils.isEmpty(account) &&!TextUtils.isEmpty(paw) &&TioDBPreferences.getCurrUid()>0) {
-                            LoginReq.getPwdInstance(paw, account).setCancelTag(this).post(new TioCallbackImpl<LoginResp>() {
-                                @Override
-                                public void onTioSuccess(LoginResp loginResp) {
-                                    Log.d("====自动登录==","=====");
-                                    // 获取用户信息
-                                    new UserCurrReq().setCancelTag(this).get(new TioCallbackImpl<UserCurrResp>() {
+                                if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(paw) && TioDBPreferences.getCurrUid() > 0) {
+                                    LoginReq.getPwdInstance(paw, account).setCancelTag(this).post(new TioCallbackImpl<LoginResp>() {
                                         @Override
-                                        public void onTioSuccess(UserCurrResp userCurrResp) {
-                                            Log.d("hjq","getPwdInstance");
+                                        public void onTioSuccess(LoginResp loginResp) {
+                                            // 获取用户信息
+                                            new UserCurrReq().setCancelTag(this).get(new TioCallbackImpl<UserCurrResp>() {
+                                                @Override
+                                                public void onTioSuccess(UserCurrResp userCurrResp) {
 //                                            Log.d("====自动登录==","===获取信息==");
-                                            // 存储用户信息
-                                            CurrUserTableCrud.insert(userCurrResp);
-                                            // 打开主页
-                                            TioAccount.getBridge().startMainActivity(Utils.getApp());
-                                            // 关闭其他页面
-                                            ActivityUtils.finishAllActivities();
+                                                    // 存储用户信息
+                                                    CurrUserTableCrud.insert(userCurrResp);
+                                                    // 打开主页
+                                                    TioAccount.getBridge().startMainActivity(Utils.getApp());
+                                                    // 关闭其他页面
+                                                    ActivityUtils.finishAllActivities();
+                                                }
+
+                                                @Override
+                                                public void onTioError(String msg) {
+
+                                                }
+                                            });
                                         }
 
                                         @Override
                                         public void onTioError(String msg) {
-
+                                            reqConfig();
                                         }
                                     });
-                                }
-
-                                @Override
-                                public void onTioError(String msg) {
+                                } else {
                                     reqConfig();
                                 }
-                            });
-                        }else {
-                            reqConfig();
+
+                            }
+
+                            System.out.println("====URL====" + HttpCache.TIO_BASE_URL);
+
                         }
+                        if (jsonBean.getRES_URLS() != null && jsonBean.getRES_URLS().size() > 0) {
+                            int min = 1;
+                            int max = jsonBean.getRES_URLS().size();
+                            Random random = new Random();
+                            int randomNum = random.nextInt(max) % (max - min + 1) + min;
+                            HttpPreferences.saveResUrl(jsonBean.getRES_URLS().get(randomNum - 1));
+                            HttpCache.TIO_RES_URL = jsonBean.getRES_URLS().get(randomNum - 1);
+                            System.out.println("====RES====" + HttpCache.TIO_RES_URL);
 
+                        }
                     }
-
-                    System.out.println("====URL====" + HttpCache.TIO_BASE_URL);
-
+                } catch (Exception e) {
+                    // 本地异常如网络异常等
+                    e.printStackTrace();
                 }
-                if(jsonBean.getRES_URLS()!=null&&jsonBean.getRES_URLS().size()>0){
-                    int min=1;
-                    int max=jsonBean.getRES_URLS().size();
-                    Random random = new Random();
-                    int randomNum=  random.nextInt(max)%(max-min+1) + min;
-                    HttpPreferences.saveResUrl(jsonBean.getRES_URLS().get(randomNum-1));
-                    HttpCache.TIO_RES_URL=jsonBean.getRES_URLS().get(randomNum-1);
-                    System.out.println("====RES====" + HttpCache.TIO_RES_URL);
-
-                }
-//                if(jsonBean.getAPI_URLS()!=null&&jsonBean.getAPI_URLS().size()>0){
-//                    HttpPreferences.saveBaseUrl(jsonBean.getAPI_URLS().get(0));
-////                    TioConfig.BASE_URL=jsonBean.getAPI_URLS().get(0);
-//                    HttpCache.TIO_BASE_URL=jsonBean.getAPI_URLS().get(0);
-//                    reqConfig();
-//
-//                }
-//                if(jsonBean.getRES_URLS()!=null&&jsonBean.getRES_URLS().size()>0){
-//                    HttpPreferences.saveResUrl(jsonBean.getRES_URLS().get(0));
-//                    HttpCache.TIO_RES_URL=jsonBean.getRES_URLS().get(0);
-//
-//                }
             }
-//                HttpPreferences.saveResUrl("");
-
-        } catch (ClientException e) {
-            // 本地异常如网络异常等
-            e.printStackTrace();
-        } catch (ServiceException e) {
-            // 服务异常
-            Log.e("RequestId", e.getRequestId());
-            Log.e("ErrorCode", e.getErrorCode());
-            Log.e("HostId", e.getHostId());
-            Log.e("RawMessage", e.getRawMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            @Override
+            public void onFailure(GetObjectRequest request, ClientException clientException, ServiceException serviceException) {
+            }
+        });
     }
 
     private void checkAppUpdate() {
@@ -290,7 +265,6 @@ public class LauncherPresenter extends LauncherContract.Presenter {
     private void exitApp(String reason) {
         TioToast.showShort(reason);
         //避免退出软件
-//        getView().openLoginPage();
-//        AppUtils.exitApp();
+        AppUtils.exitApp();
     }
 }
