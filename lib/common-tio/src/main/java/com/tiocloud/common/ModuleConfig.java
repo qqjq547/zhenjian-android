@@ -45,4 +45,8 @@ public class ModuleConfig {
      * 是否打开钱包里面提款按钮
      */
     public static final boolean ENABLE_WITHDRAW  = false;
+    /**
+     * 自动登录是否开启模拟器验证
+     */
+    public static final boolean ENABLE_REAL_DEVICE = true;
 }
