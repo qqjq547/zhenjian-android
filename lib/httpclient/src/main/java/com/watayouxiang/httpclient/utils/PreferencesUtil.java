@@ -17,6 +17,7 @@ public class PreferencesUtil {
 
     public static final String SESSION="session";
     public static final String SAVEBASEURL="saveBaseUrl";
+    public static final String LOGIN_TYPE="login_type";
 
     public static void init(String name) {
         NAME = name;
