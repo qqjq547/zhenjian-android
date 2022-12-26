@@ -203,11 +203,13 @@ public class MainActivity extends TioActivity implements MainContract.View {
         List<FoundListResp.Found> tabList=new ArrayList<>();
         for (FoundListResp.Found item:data) {
             //有icon图标，并且没有链接的，就是首页底部tab
-            if(compareTabData(mainTabBeans,item)){
+            if(item.type==1){
                 tabList.add(item);
             }else {
-                if (tabList.size()>0) {
-                    tabList.get(tabList.size() - 1).items.add(item);
+                for (FoundListResp.Found tabItem: tabList) {
+                    if (item.pid==tabItem.id){
+                        tabItem.items.add(item);
+                    }
                 }
             }
         }
