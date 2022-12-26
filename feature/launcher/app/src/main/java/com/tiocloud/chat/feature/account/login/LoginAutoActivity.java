@@ -77,6 +77,7 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
         setStatusBarLightMode(false);
         if(ModuleConfig.ENABLE_REAL_DEVICE&&AndroidDeviceIMEIUtil.isRunOnEmulator(this)){
             binding.tvTips.setVisibility(View.VISIBLE);
+            binding.tvTips.setText("正在登录中......");
         }else {
             presenter = new LoginPresenter(this);
             OpenInstall.getInstall(new AppInstallAdapter() {
