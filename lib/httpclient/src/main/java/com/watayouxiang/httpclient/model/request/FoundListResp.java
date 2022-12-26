@@ -32,6 +32,8 @@ public class FoundListResp extends LinkedList<FoundListResp.Found> implements Se
         public int updateperson;
         public String updatetime;
         public String selecticon;
+        public int type;
+        public int pid;
         public List<Found> items=new ArrayList<>();
     }
 }
