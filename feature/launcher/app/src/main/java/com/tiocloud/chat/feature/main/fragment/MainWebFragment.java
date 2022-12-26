@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.webkit.GeolocationPermissions;
+import android.webkit.PermissionRequest;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -215,6 +217,15 @@ public class MainWebFragment extends MainTabFragment {
 
         }
 
+        @Override
+        public void onPermissionRequest(PermissionRequest request) {
+            super.onPermissionRequest(request);
+        }
+
+        @Override
+        public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+//            super.onGeolocationPermissionsShowPrompt(origin, callback);
+        }
     };
     private WebViewClient mWebViewClient=new com.just.agentweb.WebViewClient(){
         @Override
