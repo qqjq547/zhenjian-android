@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.Utils;
 
 import java.util.List;
@@ -137,5 +138,8 @@ public class StringUtil {
             return large.contains(small);
         }
         return false;
+    }
+    public static String getDeviceId(){
+        return DeviceUtils.getUniqueDeviceId("im");
     }
 }

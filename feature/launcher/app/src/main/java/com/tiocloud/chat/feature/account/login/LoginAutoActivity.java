@@ -33,6 +33,7 @@ import com.tiocloud.chat.constant.TioConfig;
 import com.tiocloud.chat.databinding.ActivityLoginAutoBinding;
 import com.tiocloud.chat.feature.account.pwd.RetrievePwdActivity;
 import com.tiocloud.chat.util.PreferencesUtil;
+import com.tiocloud.chat.util.StringUtil;
 import com.tiocloud.common.ModuleConfig;
 import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.androidutils.page.TioActivity;
@@ -99,7 +100,7 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
                     if (o){//已有账号直接登录
                         binding.tvTips.setVisibility(View.VISIBLE);
                         binding.linInvite.setVisibility(View.GONE);
-                        presenter.reqAutoLogin(DeviceUtils.getUniqueDeviceId(),channelCode, getActivity());
+                        presenter.reqAutoLogin(StringUtil.getDeviceId(),channelCode, getActivity());
                     }else {
                         int appinvitecodeflag= PreferencesUtil.getInt("appinvitecodeflag",0);
                         if (appinvitecodeflag==1&& TextUtils.isEmpty(channelCode)){
@@ -108,7 +109,7 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
                         }else {
                             binding.tvTips.setVisibility(View.VISIBLE);
                             binding.linInvite.setVisibility(View.GONE);
-                            presenter.reqAutoLogin(DeviceUtils.getUniqueDeviceId(),channelCode, getActivity());
+                            presenter.reqAutoLogin(StringUtil.getDeviceId(),channelCode, getActivity());
                         }
                     }
                 }
@@ -150,7 +151,7 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
             @Override
             public void onClick(View view) {
                 channelCode=binding.etYaoqingma.getText().toString().trim();
-                presenter.reqAutoLogin(DeviceUtils.getUniqueDeviceId(),channelCode, getActivity());
+                presenter.reqAutoLogin(StringUtil.getDeviceId(),channelCode, getActivity());
             }
         });
 
