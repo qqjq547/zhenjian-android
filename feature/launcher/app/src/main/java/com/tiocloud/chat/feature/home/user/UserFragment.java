@@ -95,7 +95,7 @@ public class UserFragment extends TioFragment implements UserContract.View {
             binding.ivQrcode.setVisibility(View.GONE);
         }
         binding.qrDecode.setOnClickListener(v -> QRCodeDecoderActivity.start(getActivity()));
-        binding.llNick.setOnClickListener(v -> AccountActivity.start(getActivity()));
+        binding.llNick.setOnClickListener(v -> CurrDetailActivity.start(getActivity()));
     }
 
     @Override
