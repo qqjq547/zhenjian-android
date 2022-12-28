@@ -18,36 +18,20 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.fm.openinstall.OpenInstall;
 import com.fm.openinstall.listener.AppInstallAdapter;
 import com.fm.openinstall.model.AppData;
-import com.google.gson.Gson;
 import com.lzy.okgo.cache.CacheMode;
 import com.snail.antifake.deviceid.AndroidDeviceIMEIUtil;
-import com.tiocloud.account.data.AccountSP;
-import com.tiocloud.account.feature.register.FillInvitationCodeActivity;
-import com.tiocloud.account.feature.register.PerfectMessageActivity;
-import com.tiocloud.account.feature.register.PhoneYZCodeActivity;
-import com.tiocloud.account.feature.register.RegisterActivity;
 import com.tiocloud.account.mvp.login.LoginContract;
 import com.tiocloud.account.mvp.login.LoginPresenter;
 import com.tiocloud.chat.R;
-import com.tiocloud.chat.constant.TioConfig;
+import com.tiocloud.chat.TioApplication;
 import com.tiocloud.chat.databinding.ActivityLoginAutoBinding;
-import com.tiocloud.chat.feature.account.pwd.RetrievePwdActivity;
 import com.tiocloud.chat.util.PreferencesUtil;
-import com.tiocloud.chat.util.StringUtil;
 import com.tiocloud.common.ModuleConfig;
-import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.androidutils.page.TioActivity;
-import com.watayouxiang.androidutils.widget.TioToast;
-import com.watayouxiang.androidutils.widget.dialog.progress.SingletonProgressDialog;
+import com.watayouxiang.httpclient.utils.DeviceIdUtil;
 import com.watayouxiang.httpclient.TioHttpClient;
 import com.watayouxiang.httpclient.callback.TioCallback;
-import com.watayouxiang.httpclient.model.request.AccountCheckReq;
 import com.watayouxiang.httpclient.model.request.LoginCheckReq;
-import com.watayouxiang.httpclient.model.request.RegisterNewflagReq;
-import com.watayouxiang.httpclient.model.request.SmsSendReq;
-import com.watayouxiang.httpclient.model.response.UserCurrResp;
-
-import org.json.JSONObject;
 
 /**
  * author : TaoWang
@@ -101,7 +85,7 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
                     if (o){//已有账号直接登录
                         binding.tvTips.setVisibility(View.VISIBLE);
                         binding.linInvite.setVisibility(View.GONE);
-                        presenter.reqAutoLogin(StringUtil.getDeviceId(),channelCode, getActivity());
+                        presenter.reqAutoLogin(DeviceIdUtil.getDeviceId(TioApplication.sApplication),channelCode, getActivity());
                     }else {
                         int appinvitecodeflag= PreferencesUtil.getInt("appinvitecodeflag",0);
                         if (appinvitecodeflag==1&& TextUtils.isEmpty(channelCode)){
@@ -110,7 +94,7 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
                         }else {
                             binding.tvTips.setVisibility(View.VISIBLE);
                             binding.linInvite.setVisibility(View.GONE);
-                            presenter.reqAutoLogin(StringUtil.getDeviceId(),channelCode, getActivity());
+                            presenter.reqAutoLogin(DeviceIdUtil.getDeviceId(TioApplication.sApplication),channelCode, getActivity());
                         }
                     }
                 }
@@ -152,7 +136,7 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
             @Override
             public void onClick(View view) {
                 channelCode=binding.etYaoqingma.getText().toString().trim();
-                presenter.reqAutoLogin(StringUtil.getDeviceId(),channelCode, getActivity());
+                presenter.reqAutoLogin(DeviceIdUtil.getDeviceId(TioApplication.sApplication),channelCode, getActivity());
             }
         });
 

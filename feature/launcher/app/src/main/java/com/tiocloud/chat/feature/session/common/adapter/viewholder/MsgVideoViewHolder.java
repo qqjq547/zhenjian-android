@@ -122,74 +122,8 @@ public class MsgVideoViewHolder extends MsgBaseViewHolder {
     protected View.OnClickListener onContentClick() {
         return view -> {
             if (mVideoUrl != null) {
-//                SingletonProgressDialog.show_unCancel(msgImageView.getContext(), "正在加载中...");
-                if(!TextUtils.isEmpty(fingerprint)){
-                    boolean isfile=fileIsExists( FileUtils.bytePath+getFileName(mVideoUrl));
-                    Log.d("===是否存在===","==视频="+isfile);
-                    if(isfile){
-                        AESEncrypt.decryptFile(new File(FileUtils.bytePath+getFileName(mVideoUrl)), FileUtils.bytePath, "New"+getFileName(mVideoUrl),fingerprint);
-                        SingletonProgressDialog.dismiss();
-                        VideoPlayerActivity.start(view.getContext(), FileUtils.bytePath+"New"+getFileName(mVideoUrl));
-                    }else {
-                        ToastUtils.showShort("视频已加入缓冲");
-                        Glide.with(msgImageView.getContext())
-                                .downloadOnly()
-                                .load(HttpCache.TIO_RES_URL+mVideoUrl)
-                                .listener(new RequestListener<File>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<File> target, boolean isFirstResource) {
-                                        Log.d("===下载失败===","==视频=");
-                                        return false;
-                                    }
-
-                                    @Override
-                                    public boolean onResourceReady(File resource, Object model, Target<File> target, DataSource dataSource, boolean isFirstResource) {
-                                        try {
-                                            saveToAlbum(msgImageView.getContext(),resource.getAbsolutePath());
-                                            AESEncrypt.decryptFile(resource, FileUtils.bytePath, "New"+getFileName(mVideoUrl),fingerprint);
-                                            SingletonProgressDialog.dismiss();
-                                            VideoPlayerActivity.start(view.getContext(), FileUtils.bytePath+"New"+getFileName(mVideoUrl));
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        return false;
-                                    }
-                                })
-                                .preload();
-                    }
-                }else {
-                    VideoPlayerActivity.start(view.getContext(), HttpCache.getResUrl(mVideoUrl));
-
-                }
-
-
+                VideoPlayerActivity.start(view.getContext(), mVideoUrl,fingerprint);
             }
         };
     }
-    private void saveToAlbum(Context context, String srcPath) {
-        String dcimPath = FileUtils.bytePath;
-        File file = new File(dcimPath, getFileName(mVideoUrl));
-        boolean isCopySuccess = com.blankj.utilcode.util.FileUtils.copy(srcPath, file.getAbsolutePath());
-        if (isCopySuccess) {
-//            Log.d("===保存成功==","=="+getFileName(mVideoUrl));
-        } else {
-//            Log.d("===保存失败==","=="+getFileName(mVideoUrl));
-
-        }
-    }
-
-    public boolean fileIsExists(String strFile) {
-        try {
-            File f=new File(strFile);
-            if(f.exists()) {
-                return true;
-            }else{
-                return false;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-
 }

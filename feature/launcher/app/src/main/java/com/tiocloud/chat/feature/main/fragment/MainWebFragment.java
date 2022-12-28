@@ -1,8 +1,8 @@
 package com.tiocloud.chat.feature.main.fragment;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.webkit.PermissionRequest;
@@ -19,8 +19,6 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebChromeClient;
 import com.just.agentweb.WebViewClient;
 import com.tiocloud.chat.R;
-import com.tiocloud.chat.feature.home.found.FoundFragment;
-import com.tiocloud.chat.feature.home.found.WebViewFragment;
 import com.tiocloud.chat.feature.main.adapter.LineAdapter;
 import com.tiocloud.chat.feature.main.base.MainTabFragment;
 import com.tiocloud.chat.widget.titlebar.HomeTitleBar;
@@ -206,8 +204,16 @@ public class MainWebFragment extends MainTabFragment {
     public void showItem(int position){
         if (position<itemData.size()){
             currentPosition=position;
-            loadUrlFromWebView(itemData.get(position).linkedaddress);
+            agentWeb.clearWebCache();
+            agentWeb.getUrlLoader().loadUrl("about:blank");
             homeTitleBar.setWebTitle(itemData.get(position).itemname);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    agentWeb.clearWebCache();
+                    loadUrlFromWebView(itemData.get(position).linkedaddress);
+                }
+            },500);
         }
     }
     private WebChromeClient mWebChromeClient=new WebChromeClient(){
@@ -239,21 +245,14 @@ public class MainWebFragment extends MainTabFragment {
      */
     private void initWebView(View view) {
         agenwebView=view.findViewById(R.id.agenwebView);
-
         agentWeb= AgentWeb.with(this)
                 .setAgentWebParent(agenwebView, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator()//进度条
+                .useDefaultIndicator()
                 .setWebChromeClient(mWebChromeClient)
                 .setWebViewClient(mWebViewClient)
                 .createAgentWeb()
                 .ready()
                 .go(url);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                agentWeb.getIndicatorController().offerIndicator().setProgress(100);
-            }
-        },2000);
 
     }
     @Override

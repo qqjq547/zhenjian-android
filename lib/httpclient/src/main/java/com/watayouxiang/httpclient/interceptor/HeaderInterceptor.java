@@ -3,7 +3,7 @@ package com.watayouxiang.httpclient.interceptor;
 import android.content.Context;
 import android.util.Log;
 
-import com.watayouxiang.httpclient.preferences.CookieUtils;
+import com.watayouxiang.httpclient.utils.DeviceIdUtil;
 import com.watayouxiang.httpclient.utils.DeviceUtils;
 import com.watayouxiang.httpclient.utils.ObjectUtils;
 import com.watayouxiang.httpclient.utils.PreferencesUtil;
@@ -45,7 +45,7 @@ public class HeaderInterceptor implements Interceptor {
                 // 手机型号
                 .addHeader("tio-deviceinfo", ObjectUtils.nonNull(deviceInfo))
                 // IMEI
-                .addHeader("tio-imei", ObjectUtils.nonNull(encodeHeader(com.blankj.utilcode.util.DeviceUtils.getUniqueDeviceId("im"))))
+                .addHeader("tio-imei", ObjectUtils.nonNull(encodeHeader(DeviceIdUtil.getDeviceId(context))))
                 // App版本
                 .addHeader("tio-appversion", ObjectUtils.nonNull(appVersion))
                 // 渠道号
