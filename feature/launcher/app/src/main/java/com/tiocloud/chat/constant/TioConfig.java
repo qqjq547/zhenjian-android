@@ -13,8 +13,8 @@ public class TioConfig {
     public static  String OSS_objectName = "ip/"+ BuildConfig.ip+".json";
 
     // 访问的endpoint地址
-    public static final String OSS_ENDPOINT = "oss-accelerate.aliyuncs.com";
+    public static final String OSS_ENDPOINT = "oss-cn-shenzhen.aliyuncs.com";
     public static final String BUCKET_NAME = "tyiposs";
-    public static final String OSS_ACCESS_KEY_ID = "LTAI5tHpHfyaVihRsNKiNb3o";
-    public static final String OSS_ACCESS_KEY_SECRET = "iQZNj7BsHit2GBB6sFIM0oJdBE9duU";
+    public static final String OSS_ACCESS_KEY_ID = "LTAI5tLZMJSQV2DLsMgGYWYt";
+    public static final String OSS_ACCESS_KEY_SECRET = "ZmOzljqmCgOIrH2TLa68zxMqT9NY6f";
 }
