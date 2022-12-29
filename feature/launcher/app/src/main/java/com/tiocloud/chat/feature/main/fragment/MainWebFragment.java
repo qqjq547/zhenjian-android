@@ -219,11 +219,6 @@ public class MainWebFragment extends MainTabFragment {
     private WebChromeClient mWebChromeClient=new WebChromeClient(){
 
         @Override
-        public void onProgressChanged(WebView view, int newProgress) {
-
-        }
-
-        @Override
         public void onPermissionRequest(PermissionRequest request) {
             super.onPermissionRequest(request);
         }

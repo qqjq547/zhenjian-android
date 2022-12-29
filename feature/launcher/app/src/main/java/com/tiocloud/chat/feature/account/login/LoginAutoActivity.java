@@ -76,7 +76,7 @@ public class LoginAutoActivity extends TioActivity implements LoginContract.View
                 }
             });
             initViews();
-            LoginCheckReq req2 =  LoginCheckReq.getInstance(DeviceUtils.getUniqueDeviceId());
+            LoginCheckReq req2 =  LoginCheckReq.getInstance(DeviceIdUtil.getDeviceId(TioApplication.sApplication));
             req2.setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE);
             TioHttpClient.get(req2, new TioCallback<Boolean>() {
 
