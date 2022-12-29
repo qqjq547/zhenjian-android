@@ -3,6 +3,8 @@ package com.tiocloud.chat.feature.main.fragment;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.webkit.PermissionRequest;
@@ -49,6 +51,7 @@ public class MainWebFragment extends MainTabFragment {
     private LineAdapter lineAdapter;
     private int currentPosition=0;
     private ImageView ivWhite;
+    public static final String URL_BLANK="about:blank";
 
 
     @Override
@@ -215,9 +218,9 @@ public class MainWebFragment extends MainTabFragment {
     private WebChromeClient mWebChromeClient=new WebChromeClient(){
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            if (ivWhite.getVisibility()==View.GONE){
-                super.onProgressChanged(view, newProgress);
-            }
+            super.onProgressChanged(view, newProgress);
+//            Log.d("hjq","onProgressChanged="+newProgress+","+view.getUrl());
+
         }
 
         @Override
@@ -237,13 +240,17 @@ public class MainWebFragment extends MainTabFragment {
         }
 
         @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+
+        }
+        @Override
         public void onPageCommitVisible(WebView view, String url) {
             super.onPageCommitVisible(view, url);
             if (ivWhite.getVisibility()==View.VISIBLE){
                 ivWhite.setVisibility(View.GONE);
             }
         }
-
     };
     /**
      * WebView
