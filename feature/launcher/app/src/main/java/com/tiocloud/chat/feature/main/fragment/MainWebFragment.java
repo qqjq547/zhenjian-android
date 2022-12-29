@@ -210,12 +210,6 @@ public class MainWebFragment extends MainTabFragment {
             agentWeb.clearWebCache();
             loadUrlFromWebView(itemData.get(position).linkedaddress);
             homeTitleBar.setWebTitle(itemData.get(position).itemname);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ivWhite.setVisibility(View.GONE);
-                }
-            },500);
         }
     }
     private WebChromeClient mWebChromeClient=new WebChromeClient(){
@@ -240,6 +234,14 @@ public class MainWebFragment extends MainTabFragment {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
+        }
+
+        @Override
+        public void onPageCommitVisible(WebView view, String url) {
+            super.onPageCommitVisible(view, url);
+            if (ivWhite.getVisibility()==View.VISIBLE){
+                ivWhite.setVisibility(View.GONE);
+            }
         }
 
     };
