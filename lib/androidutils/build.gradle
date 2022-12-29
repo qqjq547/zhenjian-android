@@ -29,6 +29,9 @@ dependencies {
     implementation Config.depConfig.MNImageBrowser.dep
     api Config.depConfig.qmui.dep
     implementation Config.depConfig.GSYVideoPlayer.dep
+    api 'com.github.FPhoenixCorneaE:SmartProgressBar:1.0.3'
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
+    implementation 'me.jessyan:progressmanager:1.5.0'
 //    debugImplementation Config.depConfig.leakcanary_android.dep
 }
 

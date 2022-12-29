@@ -9,6 +9,7 @@ import android.webkit.PermissionRequest;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -47,6 +48,7 @@ public class MainWebFragment extends MainTabFragment {
     private List<FoundListResp.Found> itemData=new ArrayList<>();
     private LineAdapter lineAdapter;
     private int currentPosition=0;
+    private ImageView ivWhite;
 
 
     @Override
@@ -204,19 +206,25 @@ public class MainWebFragment extends MainTabFragment {
     public void showItem(int position){
         if (position<itemData.size()){
             currentPosition=position;
+            ivWhite.setVisibility(View.VISIBLE);
             agentWeb.clearWebCache();
-            agentWeb.getUrlLoader().loadUrl("about:blank");
+            loadUrlFromWebView(itemData.get(position).linkedaddress);
             homeTitleBar.setWebTitle(itemData.get(position).itemname);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    agentWeb.clearWebCache();
-                    loadUrlFromWebView(itemData.get(position).linkedaddress);
+                    ivWhite.setVisibility(View.GONE);
                 }
             },500);
         }
     }
     private WebChromeClient mWebChromeClient=new WebChromeClient(){
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            if (ivWhite.getVisibility()==View.GONE){
+                super.onProgressChanged(view, newProgress);
+            }
+        }
 
         @Override
         public void onPermissionRequest(PermissionRequest request) {
@@ -239,10 +247,11 @@ public class MainWebFragment extends MainTabFragment {
      * WebView
      */
     private void initWebView(View view) {
+        ivWhite=findViewById(R.id.iv_white);
         agenwebView=view.findViewById(R.id.agenwebView);
         agentWeb= AgentWeb.with(this)
                 .setAgentWebParent(agenwebView, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator()
+                .useDefaultIndicator(getContext().getResources().getColor(R.color.blue_579bff))
                 .setWebChromeClient(mWebChromeClient)
                 .setWebViewClient(mWebViewClient)
                 .createAgentWeb()
