@@ -14,7 +14,7 @@ public class TioConfig {
 
     // 访问的endpoint地址
     public static final String OSS_ENDPOINT = "oss-cn-shenzhen.aliyuncs.com";
-    public static final String BUCKET_NAME = "fyiposs";
+    public static final String BUCKET_NAME = "tyiposs";
     public static final String OSS_ACCESS_KEY_ID = "LTAI5tLZMJSQV2DLsMgGYWYt";
     public static final String OSS_ACCESS_KEY_SECRET = "ZmOzljqmCgOIrH2TLa68zxMqT9NY6f";
 }
