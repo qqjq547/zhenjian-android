@@ -1,7 +1,9 @@
 package com.tiocloud.chat.feature.main.fragment;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
@@ -9,6 +11,7 @@ import android.webkit.PermissionRequest;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -19,8 +22,6 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebChromeClient;
 import com.just.agentweb.WebViewClient;
 import com.tiocloud.chat.R;
-import com.tiocloud.chat.feature.home.found.FoundFragment;
-import com.tiocloud.chat.feature.home.found.WebViewFragment;
 import com.tiocloud.chat.feature.main.adapter.LineAdapter;
 import com.tiocloud.chat.feature.main.base.MainTabFragment;
 import com.tiocloud.chat.widget.titlebar.HomeTitleBar;
@@ -49,6 +50,8 @@ public class MainWebFragment extends MainTabFragment {
     private List<FoundListResp.Found> itemData=new ArrayList<>();
     private LineAdapter lineAdapter;
     private int currentPosition=0;
+    private ImageView ivWhite;
+    public static final String URL_BLANK="about:blank";
 
 
     @Override
@@ -206,14 +209,17 @@ public class MainWebFragment extends MainTabFragment {
     public void showItem(int position){
         if (position<itemData.size()){
             currentPosition=position;
+            ivWhite.setVisibility(View.VISIBLE);
+            agentWeb.clearWebCache();
             loadUrlFromWebView(itemData.get(position).linkedaddress);
             homeTitleBar.setWebTitle(itemData.get(position).itemname);
         }
     }
     private WebChromeClient mWebChromeClient=new WebChromeClient(){
-
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
+            super.onProgressChanged(view, newProgress);
+//            Log.d("hjq","onProgressChanged="+newProgress+","+view.getUrl());
 
         }
 
@@ -233,27 +239,33 @@ public class MainWebFragment extends MainTabFragment {
 
         }
 
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+
+        }
+        @Override
+        public void onPageCommitVisible(WebView view, String url) {
+            super.onPageCommitVisible(view, url);
+            if (ivWhite.getVisibility()==View.VISIBLE){
+                ivWhite.setVisibility(View.GONE);
+            }
+        }
     };
     /**
      * WebView
      */
     private void initWebView(View view) {
+        ivWhite=findViewById(R.id.iv_white);
         agenwebView=view.findViewById(R.id.agenwebView);
-
         agentWeb= AgentWeb.with(this)
                 .setAgentWebParent(agenwebView, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator()//进度条
+                .useDefaultIndicator(getContext().getResources().getColor(R.color.blue_579bff))
                 .setWebChromeClient(mWebChromeClient)
                 .setWebViewClient(mWebViewClient)
                 .createAgentWeb()
                 .ready()
                 .go(url);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                agentWeb.getIndicatorController().offerIndicator().setProgress(100);
-            }
-        },2000);
 
     }
     @Override

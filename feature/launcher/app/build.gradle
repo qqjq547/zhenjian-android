@@ -6,7 +6,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.aliyun.dpa:oss-android-sdk:2.9.11'
-    implementation 'com.just.agentweb:agentweb:4.1.4' // (必选)
+    implementation 'com.github.Justson.AgentWeb:agentweb-core:v5.0.6-androidx' // (必选)
 
     implementation 'com.tencent.bugly:crashreport:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'

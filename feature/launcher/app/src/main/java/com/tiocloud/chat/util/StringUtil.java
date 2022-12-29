@@ -139,7 +139,7 @@ public class StringUtil {
         }
         return false;
     }
-    public static String getDeviceId(){
-        return DeviceUtils.getUniqueDeviceId("im");
-    }
+//    public static String getDeviceId(){
+//        return DeviceUtils.getUniqueDeviceId("im");
+//    }
 }

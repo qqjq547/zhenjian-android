@@ -24,5 +24,4 @@
         <attr name="tet_leftDrawable" format="reference" />
     </declare-styleable>
 
-
 </resources>
