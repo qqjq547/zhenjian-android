@@ -78,13 +78,23 @@ android {
             ]
         }
         fangyuan {
-            applicationId "com.fangyuan.chat"
+            applicationId "com.pkx8asr9c.ayx60mmpl"
             buildConfigField "String", "ip", "\"ip\""
-            resValue "string", "app_name", "方媛"
+            resValue "string", "app_name", "∏"
             manifestPlaceholders = [
                     JPUSH_PKGNAME          : applicationId,
-                    JPUSH_APPKEY           : "ab7635a345be9230d7d98089",
-                    OPENINSTALL_APPKEY     : "l5j66s",
+                    JPUSH_APPKEY           : "19d2a02546cf18d5bdc6d305",
+                    OPENINSTALL_APPKEY     : "v95yxb",
+            ]
+        }
+        huashe {
+            applicationId "com.nzdgkz76x.rp1zxnmiiuge8e"
+            buildConfigField "String", "ip", "\"huashe\""
+            resValue "string", "app_name", "花蛇"
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME          : applicationId,
+                    JPUSH_APPKEY           : "231113bed0c364d6e7885d59",
+                    OPENINSTALL_APPKEY     : "r8wsx8",
             ]
         }
     }
@@ -117,6 +127,7 @@ android {
         }
         tanqi.res.srcDirs = ['src/tanqi/res']
         fangyuan.res.srcDirs = ['src/fangyuan/res']
+        huashe.res.srcDirs = ['src/huashe/res']
     }
 //    defaultConfig {
 //        vectorDrawables.useSupportLibrary = true

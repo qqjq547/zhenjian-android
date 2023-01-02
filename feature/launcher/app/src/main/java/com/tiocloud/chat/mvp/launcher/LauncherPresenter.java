@@ -18,6 +18,7 @@ import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.google.gson.Gson;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -115,7 +116,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                         contentJson = contentJson + content;
 //                        System.out.println("========" + content);
                     }
-                    Log.d("===ss222===", "==" + contentJson);
+                    Log.d("hjq",  contentJson);
                     OssDataJsonBean jsonBean = new Gson().fromJson(contentJson, OssDataJsonBean.class);
                     if (jsonBean != null) {
 
@@ -195,10 +196,19 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                 } catch (Exception e) {
                     // 本地异常如网络异常等
                     e.printStackTrace();
+                    SingletonProgressDialog.dismiss();
                 }
             }
             @Override
             public void onFailure(GetObjectRequest request, ClientException clientException, ServiceException serviceException) {
+                ToastUtils.showShort("获取配置失败");
+                SingletonProgressDialog.dismiss();
+              if (clientException!=null){
+                  clientException.printStackTrace();
+              }
+                if (serviceException!=null){
+                    serviceException.printStackTrace();
+                }
             }
         });
     }
