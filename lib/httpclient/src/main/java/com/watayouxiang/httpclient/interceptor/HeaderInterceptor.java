@@ -41,6 +41,7 @@ public class HeaderInterceptor implements Interceptor {
         Request request = chain.request();
         String tioSession=PreferencesUtil.getString(PreferencesUtil.SESSION,"");
         Log.d("hjq","getCookie="+tioSession);
+        Log.d("hjq","getDeviceId="+DeviceIdUtil.getDeviceId(context));
         Request.Builder builder = request.newBuilder()
                 // 手机型号
                 .addHeader("tio-deviceinfo", ObjectUtils.nonNull(deviceInfo))
