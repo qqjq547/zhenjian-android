@@ -100,7 +100,7 @@
                     android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:textColor="#333333"
                     android:textColorHint="#D5D5D5"
                     android:textSize="16sp"
