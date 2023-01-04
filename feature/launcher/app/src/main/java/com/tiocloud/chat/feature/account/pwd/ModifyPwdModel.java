@@ -1,5 +1,7 @@
 package com.tiocloud.chat.feature.account.pwd;
 
+import android.text.TextUtils;
+
 import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.httpclient.callback.TioCallback;
 import com.watayouxiang.httpclient.model.request.UpdatePwdReq;
@@ -19,6 +21,9 @@ public class ModifyPwdModel extends BaseModel {
             public void onTioSuccess(UserCurrResp resp) {
                 String phone = resp.phone;
                 String email = resp.email;
+                if (TextUtils.isEmpty(phone)){
+                    phone=resp.loginname;
+                }
                 updatePwdInternal(phone, email, oldPwd, newPwd, proxy);
             }
 
