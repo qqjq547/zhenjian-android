@@ -1,5 +1,6 @@
 package com.tiocloud.chat.mvp.launcher;
 
+import android.Manifest;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -50,9 +51,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Random;
 
 import static org.webrtc.ContextUtils.getApplicationContext;
+
+import androidx.annotation.NonNull;
 
 /**
  * author : TaoWang
@@ -79,7 +83,20 @@ public class LauncherPresenter extends LauncherContract.Presenter {
     public void init() {
 //        checkAppUpdate();
 //        reqConfig();
-        getOSSGetIP();
+        PermissionUtils.permission(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
+                .callback(new PermissionUtils.FullCallback() {
+                    @Override
+                    public void onGranted(@NonNull List<String> granted) {
+                        getOSSGetIP();
+                    }
+
+                    @Override
+                    public void onDenied(@NonNull List<String> deniedForever, @NonNull List<String> denied) {
+                       ToastUtils.showShort("请先允许存储权限");
+                    }
+                })
+                .request();
+
     }
     private void getOSSGetIP(){
 
@@ -139,7 +156,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                             if (!TextUtils.isEmpty(getStringUrl) && HttpCache.TIO_BASE_URL.contains(getStringUrl)) {
                                 reqConfig();
                             } else {
-                                LogoutPresenter.clearLoginInfo();
+//                                LogoutPresenter.clearLoginInfo();
                                 String account = AccountSP.getLoginName();
                                 String paw = AccountSP.getKeyLoginPwd();
                                 PreferencesUtil.saveString(PreferencesUtil.SAVEBASEURL, save);
