@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <include layout="@layout/tio_webview_fragment"
+    <include layout="@layout/tio_main_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>
