@@ -2,18 +2,26 @@ package com.tiocloud.chat.feature.main.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.http.SslError;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.webkit.PermissionRequest;
+import android.webkit.RenderProcessGoneDetail;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.widget.ListPopupWindow;
 import androidx.core.content.ContextCompat;
@@ -43,20 +51,19 @@ public class MainWebFragment extends MainTabFragment {
 
     private HomeTitleBar homeTitleBar;
     private WebView webView;
-    private LinearLayout agenwebView;
-    private AgentWeb agentWeb;
-    private String url;
     private ListPopupWindow mListPop;
     private List<FoundListResp.Found> itemData=new ArrayList<>();
     private LineAdapter lineAdapter;
     private int currentPosition=0;
-    private ImageView ivWhite;
-    public static final String URL_BLANK="about:blank";
+    private FrameLayout flContent;
+    private ProgressBar progressBar;
 
 
     @Override
     protected void onInit() {
         homeTitleBar = findViewById(R.id.homeTitleBar);
+        flContent=findViewById(R.id.fl_content);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         setStatusBarCustom(findViewById(R.id.fl_statusBar));
 //        homeTitleBar.setTitleCenter(getString(getTabData().titleId));
         homeTitleBar.setLeftClicListener(0,null);
@@ -98,7 +105,7 @@ public class MainWebFragment extends MainTabFragment {
         });
         showRightBtn();
         initPopwindow();
-        initWebView(getView());
+        initWebView();
     }
 
     /**
@@ -120,7 +127,6 @@ public class MainWebFragment extends MainTabFragment {
     private void hightRightBtn(){
         homeTitleBar.setRightClicListener(0,null);
         homeTitleBar.isShowWebBt(false);
-
     }
 
 
@@ -150,7 +156,7 @@ public class MainWebFragment extends MainTabFragment {
      * @param url
      */
     public void loadUrlFromWebView(String url) {
-        agentWeb.getUrlLoader().loadUrl(url);
+        webView.loadUrl(url);
     }
 
 
@@ -209,8 +215,7 @@ public class MainWebFragment extends MainTabFragment {
     public void showItem(int position){
         if (position<itemData.size()){
             currentPosition=position;
-            ivWhite.setVisibility(View.VISIBLE);
-            agentWeb.clearWebCache();
+            initWebView();
             loadUrlFromWebView(itemData.get(position).linkedaddress);
             homeTitleBar.setWebTitle(itemData.get(position).itemname);
         }
@@ -219,8 +224,12 @@ public class MainWebFragment extends MainTabFragment {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
-//            Log.d("hjq","onProgressChanged="+newProgress+","+view.getUrl());
-
+            if (newProgress == 100) {
+                progressBar.setVisibility(View.GONE);
+            } else {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setProgress(newProgress);
+            }
         }
 
         @Override
@@ -234,81 +243,50 @@ public class MainWebFragment extends MainTabFragment {
         }
     };
     private WebViewClient mWebViewClient=new com.just.agentweb.WebViewClient(){
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-
-        }
-        @Override
-        public void onPageCommitVisible(WebView view, String url) {
-            super.onPageCommitVisible(view, url);
-            if (ivWhite.getVisibility()==View.VISIBLE){
-                ivWhite.setVisibility(View.GONE);
-            }
-        }
     };
     /**
      * WebView
      */
-    private void initWebView(View view) {
-        ivWhite=findViewById(R.id.iv_white);
-        agenwebView=view.findViewById(R.id.agenwebView);
-        agentWeb= AgentWeb.with(this)
-                .setAgentWebParent(agenwebView, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator(getContext().getResources().getColor(R.color.blue_579bff))
-                .setWebChromeClient(mWebChromeClient)
-                .setWebViewClient(mWebViewClient)
-                .createAgentWeb()
-                .ready()
-                .go(url);
-
-    }
-    @Override
-    public void onPause() {
-        agentWeb.getWebLifeCycle().onPause();
-        super.onPause();
-
-    }
-
-    @Override
-    public void onResume() {
-        agentWeb.getWebLifeCycle().onResume();
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        try {
-            agentWeb.getWebLifeCycle().onDestroy();
-        }catch (Exception e){
-            e.printStackTrace();
+    private void initWebView() {
+        if (webView!=null){
+            flContent.removeView(webView);
         }
-        super.onDestroy();
+        webView=new WebView(getContext());
+        flContent.addView(webView,0);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setDatabaseEnabled(true);
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setSavePassword(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setUseWideViewPort(true);
+
+
+        webView.setWebViewClient(new android.webkit.WebViewClient() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed(); // 不管证书是否有风险，都给与展示；不写该方法会出现空白页面
+            }
+        });
+        webView.setWebViewClient(mWebViewClient);
+        webView.setWebChromeClient(mWebChromeClient);
     }
+
     public void goBackBt(){
-//        if (webView == null) {
-//            return;
-//        }
-//        webView.goBack();
-        if (agentWeb == null) {
+        if (webView.canGoBack()) {
+            webView.goBack();
             return;
         }
-        agentWeb.back();
     }
     public void reloadBt(){
-//        if (webView == null) {
-//            return;
-//        }
-//        webView.reload();
-        if (agentWeb == null) {
-            return;
-        }
-        agentWeb.getUrlLoader().reload();
+        webView.reload();
     }
     private void initPopwindow(){
         mListPop = new ListPopupWindow(getActivity());
