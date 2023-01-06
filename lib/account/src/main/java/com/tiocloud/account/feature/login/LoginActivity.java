@@ -25,6 +25,7 @@ import com.tiocloud.account.widget.ThirdPartyLoginView;
 import com.tiocloud.common.ModuleConfig;
 import com.watayouxiang.androidutils.page.BindingActivity;
 import com.watayouxiang.androidutils.utils.ClickUtils;
+import com.watayouxiang.httpclient.utils.PreferencesUtil;
 
 /**
  * <pre>
@@ -116,6 +117,14 @@ public class LoginActivity extends BindingActivity<AccountLoginActivityBinding> 
 //        if (!ModuleConfig.ENABLE_SMS_LOGIN) {
 //            binding.tvCodeLogin.setVisibility(View.INVISIBLE);
 //        }
+         int loginType=PreferencesUtil.getInt(PreferencesUtil.LOGIN_TYPE,0);
+        if (loginType==22){
+            binding.tvCodeLogin.setVisibility(View.VISIBLE);
+            binding.tvForgetpwd.setVisibility(View.VISIBLE);
+        }else {
+            binding.tvCodeLogin.setVisibility(View.GONE);
+            binding.tvForgetpwd.setVisibility(View.GONE);
+        }
     }
 
     // 注册
