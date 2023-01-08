@@ -10,8 +10,10 @@ import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSCustomSignerCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationToken;
 import com.alibaba.sdk.android.oss.common.utils.OSSUtils;
 import com.alibaba.sdk.android.oss.model.GetObjectRequest;
 import com.alibaba.sdk.android.oss.model.GetObjectResult;
@@ -22,39 +24,31 @@ import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.google.gson.Gson;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.tiocloud.account.TioAccount;
 import com.tiocloud.account.data.AccountSP;
-import com.tiocloud.account.mvp.logout.LogoutPresenter;
 import com.tiocloud.chat.TioApplication;
 import com.tiocloud.chat.baseNewVersion.OssDataJsonBean;
 import com.tiocloud.chat.constant.TioConfig;
+import com.tiocloud.chat.feature.splash.SplashActivity;
 import com.tiocloud.chat.util.AppUpdateTool;
 import com.tiocloud.chat.widget.dialog.tio.ProtectGuideDialog;
 import com.watayouxiang.androidutils.mvp.BaseModel;
 import com.watayouxiang.androidutils.widget.TioToast;
 import com.watayouxiang.androidutils.widget.dialog.progress.SingletonProgressDialog;
-import com.watayouxiang.db.dao.CurrUserTableCrud;
 import com.watayouxiang.db.prefernces.TioDBPreferences;
 import com.watayouxiang.httpclient.callback.TioCallbackImpl;
 import com.watayouxiang.httpclient.model.request.LoginReq;
-import com.watayouxiang.httpclient.model.request.UserCurrReq;
 import com.watayouxiang.httpclient.model.response.ConfigResp;
 import com.watayouxiang.httpclient.model.response.LoginResp;
-import com.watayouxiang.httpclient.model.response.UserCurrResp;
-import com.watayouxiang.httpclient.preferences.CookieUtils;
 import com.watayouxiang.httpclient.preferences.HttpCache;
 import com.watayouxiang.httpclient.preferences.HttpPreferences;
 import com.watayouxiang.httpclient.utils.PreferencesUtil;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Random;
-
-import static org.webrtc.ContextUtils.getApplicationContext;
 
 import androidx.annotation.NonNull;
 
@@ -114,6 +108,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                 // 详情请查看http://help.aliyun.com/document_detail/oss/api-reference/access-control/signature-header.html。客户端
                 // 的签名算法实现请参考OSSUtils.sign(accessKey,screctKey,content)
                 String signedString = OSSUtils.sign(TioConfig.OSS_ACCESS_KEY_ID, TioConfig.OSS_ACCESS_KEY_SECRET, content);
+                Log.d("hjq","signedString="+signedString);
                 return signedString;
             }
         };
@@ -133,7 +128,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                         contentJson = contentJson + content;
 //                        System.out.println("========" + content);
                     }
-                    Log.d("hjq",  contentJson);
+                    Log.d("hjq",  "contentJson="+contentJson);
                     OssDataJsonBean jsonBean = new Gson().fromJson(contentJson, OssDataJsonBean.class);
                     if (jsonBean != null) {
 
@@ -144,45 +139,28 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                             int randomNum = random.nextInt(max) % (max - min + 1) + min;
                             HttpPreferences.saveBaseUrl(jsonBean.getAPI_URLS().get(randomNum - 1));
 
-                            HttpCache.TIO_BASE_URL = jsonBean.getAPI_URLS().get(randomNum - 1);
-                            String save = HttpCache.TIO_BASE_URL.substring(0, HttpCache.TIO_BASE_URL.length() - 5);
-                            HttpCache.TIO_RES_URL = save;
-                            HttpCache.TIO_BASE_URL = save;
-                            String getStringUrl = PreferencesUtil.getString(PreferencesUtil.SAVEBASEURL, "");
-                            Log.d("hjq", "getAPI_URLS=" + jsonBean.getAPI_URLS());
+                            String randomBaseUrl = jsonBean.getAPI_URLS().get(randomNum - 1);
+                            HttpCache.TIO_BASE_URL = randomBaseUrl.substring(0, randomBaseUrl.length() - 5);
+                            String randomResUrl = jsonBean.getRES_URLS().get(randomNum - 1);
+                            HttpCache.TIO_RES_URL = randomResUrl.substring(0, randomResUrl.length() - 5);
                             Log.d("hjq", "TIO_BASE_URL=" + HttpCache.TIO_BASE_URL);
-                            Log.d("hjq", "getStringUrl=" + getStringUrl);
-                            Log.d("hjq", "save=" + save);
-                            if (!TextUtils.isEmpty(getStringUrl) && HttpCache.TIO_BASE_URL.contains(getStringUrl)) {
-                                reqConfig();
-                            } else {
+                            Log.d("hjq", "TIO_RES_URL=" + HttpCache.TIO_RES_URL);
+//                            if (!TextUtils.isEmpty(getStringUrl) && HttpCache.TIO_BASE_URL.contains(getStringUrl)) {
+//                              ToastUtils.showShort("配置解析失败");
+//                              Log.e("hjq",getStringUrl+","+HttpCache.TIO_BASE_URL);
+//                            } else {
 //                                LogoutPresenter.clearLoginInfo();
                                 String account = AccountSP.getLoginName();
                                 String paw = AccountSP.getKeyLoginPwd();
-                                PreferencesUtil.saveString(PreferencesUtil.SAVEBASEURL, save);
+                                PreferencesUtil.saveString(PreferencesUtil.SAVEBASEURL, HttpCache.TIO_BASE_URL);
 
                                 if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(paw) && TioDBPreferences.getCurrUid() > 0) {
+                                    // 打开主页
                                     LoginReq.getPwdInstance(paw, account).setCancelTag(this).post(new TioCallbackImpl<LoginResp>() {
                                         @Override
                                         public void onTioSuccess(LoginResp loginResp) {
-                                            // 获取用户信息
-                                            new UserCurrReq().setCancelTag(this).get(new TioCallbackImpl<UserCurrResp>() {
-                                                @Override
-                                                public void onTioSuccess(UserCurrResp userCurrResp) {
-//                                            Log.d("====自动登录==","===获取信息==");
-                                                    // 存储用户信息
-                                                    CurrUserTableCrud.insert(userCurrResp);
-                                                    // 打开主页
-                                                    TioAccount.getBridge().startMainActivity(Utils.getApp());
-                                                    // 关闭其他页面
-                                                    ActivityUtils.finishAllActivities();
-                                                }
+                                            getView().openMainPage();
 
-                                                @Override
-                                                public void onTioError(String msg) {
-
-                                                }
-                                            });
                                         }
 
                                         @Override
@@ -193,8 +171,7 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                                 } else {
                                     reqConfig();
                                 }
-
-                            }
+//                            }
 
                             System.out.println("====URL====" + HttpCache.TIO_BASE_URL);
 
@@ -207,13 +184,14 @@ public class LauncherPresenter extends LauncherContract.Presenter {
                             HttpPreferences.saveResUrl(jsonBean.getRES_URLS().get(randomNum - 1));
                             HttpCache.TIO_RES_URL = jsonBean.getRES_URLS().get(randomNum - 1);
                             System.out.println("====RES====" + HttpCache.TIO_RES_URL);
-
                         }
                     }
                 } catch (Exception e) {
                     // 本地异常如网络异常等
                     e.printStackTrace();
                     SingletonProgressDialog.dismiss();
+                    ToastUtils.showShort("解析配置错误"+e.getMessage());
+                    Log.e("hjq",e.getMessage());
                 }
             }
             @Override
@@ -283,7 +261,6 @@ public class LauncherPresenter extends LauncherContract.Presenter {
             } else {
                 getView().openMainPage();
             }
-            getView().finish();
         }catch (Exception e){
             getView().openLoginPage(true);
         }

@@ -22,6 +22,7 @@ public class InnerMsgAudio {
     public int seconds;
     public int uid;
     public String url;
+    public String fingerprint;
 
     @Override
     public String toString() {

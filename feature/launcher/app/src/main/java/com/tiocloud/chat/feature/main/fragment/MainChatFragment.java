@@ -90,7 +90,7 @@ public class MainChatFragment extends MainTabFragment {
         homeTitleBar.setTitle("聊天");
         IMState imState = TioIMClient.getInstance().getState();
         boolean isConnect = imState == IMState.CONNECTED;
-        setAppendTitle(isConnect ? null : "未连接");
+        setAppendTitle(isConnect ? "在线" : "未连接");
 
         fragment = new ChatFragment();
         fragment.setContainerId(R.id.chat_fragment_container);
