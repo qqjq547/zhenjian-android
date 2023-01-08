@@ -168,6 +168,11 @@ public class RecordTestActivity extends DemoActivity implements WtMediaPlayer.On
     }
 
     @Override
+    public void onPreUploadAudio(File audioFile) {
+
+    }
+
+    @Override
     public void onUploadAudioStart() {
 
     }

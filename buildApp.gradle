@@ -46,12 +46,14 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled
+            debuggable false
+            minifyEnabled true
             crunchPngs false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         debug {
+            debuggable true
             minifyEnabled false
             crunchPngs false
             signingConfig signingConfigs.release
