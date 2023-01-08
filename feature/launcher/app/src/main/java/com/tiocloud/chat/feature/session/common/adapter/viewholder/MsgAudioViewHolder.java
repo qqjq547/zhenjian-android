@@ -1,20 +1,36 @@
 package com.tiocloud.chat.feature.session.common.adapter.viewholder;
 
+import static com.tiocloud.chat.util.AESEncrypt.getFileName;
+
+import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
+import com.blankj.utilcode.util.GsonUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.feature.session.common.adapter.MsgAdapter;
 import com.tiocloud.chat.feature.session.common.adapter.viewholder.base.MsgBaseViewHolder;
+import com.tiocloud.chat.util.AESEncrypt;
+import com.tiocloud.chat.util.FileUtils;
 import com.watayouxiang.audiorecord.TioAudioBubbleUtils;
 import com.watayouxiang.audiorecord.TioAudioPlayer;
 import com.watayouxiang.httpclient.preferences.HttpCache;
 import com.watayouxiang.imclient.model.body.wx.msg.InnerMsgAudio;
 import com.watayouxiang.androidutils.widget.imageview.TioImageView;
 
+import java.io.File;
 import java.util.Locale;
 
 /**
@@ -69,6 +85,7 @@ public class MsgAudioViewHolder extends MsgBaseViewHolder {
 
     @Override
     protected void bindContent(BaseViewHolder holder) {
+        Log.d("hjq", "InnerMsgAudio="+GsonUtils.toJson(getMessage()));
         audio = (InnerMsgAudio) getMessage().getContentObj();
         if (audio == null) return;
 
@@ -76,8 +93,36 @@ public class MsgAudioViewHolder extends MsgBaseViewHolder {
         tv.setText(String.format(Locale.getDefault(), "%d''", audio.seconds));
         // 气泡长度
         TioAudioBubbleUtils.setAudioBubbleWidth(container, audio.seconds);
-        // 初始化播放器
-        TioAudioPlayer.getInstance().init(onPlayerListener, getMessage().getId());
+        if(!TextUtils.isEmpty(audio.fingerprint)) {
+            Glide.with(tv.getContext())
+                    .downloadOnly()
+                    .load(HttpCache.TIO_RES_URL+audio.url)
+                    .listener(new RequestListener<File>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<File> target, boolean isFirstResource) {
+                            Log.d("===下载失败=44==","===");
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(File resource, Object model, Target<File> target, DataSource dataSource, boolean isFirstResource) {
+                            try {
+                                AESEncrypt.decryptFile(resource, FileUtils.bytePath, getFileName(audio.url),audio.fingerprint);
+                                // 初始化播放器
+                                TioAudioPlayer.getInstance().init(onPlayerListener, getMessage().getId());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            return false;
+                        }
+                    })
+                    .preload();
+        }else {
+            // 初始化播放器
+            TioAudioPlayer.getInstance().init(onPlayerListener, getMessage().getId());
+        }
     }
 
     @Override
@@ -91,7 +136,8 @@ public class MsgAudioViewHolder extends MsgBaseViewHolder {
             @Override
             public void onClick(View v) {
                 if (audio == null) return;
-                String resUrl = HttpCache.getResUrl(audio.url);
+                String resUrl = TextUtils.isEmpty(audio.fingerprint)?
+                        HttpCache.getResUrl(audio.url) :  FileUtils.bytePath+ getFileName(audio.url);
                 if (resUrl == null) return;
                 TioAudioPlayer.getInstance().toggle(onPlayerListener, resUrl, getMessage().getId());
             }

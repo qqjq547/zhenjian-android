@@ -145,6 +145,9 @@ public class TioAudioRecorder implements WtMediaRecorder.OnRecorderListener {
     }
 
     private void uploadAudio(@NonNull File audioFile) {
+        if (mOnRecorderListener != null) {
+            mOnRecorderListener.onPreUploadAudio(audioFile);
+        }
         UploadAudioReq uploadAudioReq = new UploadAudioReq(mChatLinkId, audioFile.getAbsolutePath());
         uploadAudioReq.setCancelTag(this);
         uploadAudioReq.upload(new TioCallback<String>() {
@@ -357,6 +360,8 @@ public class TioAudioRecorder implements WtMediaRecorder.OnRecorderListener {
         void onRecorderStart();
 
         void onRecorderStop(boolean cancel);
+        //预发送，
+        void onPreUploadAudio(File audioFile);
 
         void onUploadAudioStart();
 
@@ -383,7 +388,10 @@ public class TioAudioRecorder implements WtMediaRecorder.OnRecorderListener {
         public void onRecorderStop(boolean cancel) {
 
         }
+        @Override
+        public void onPreUploadAudio(File audioFile) {
 
+        }
         @Override
         public void onUploadAudioStart() {
 
