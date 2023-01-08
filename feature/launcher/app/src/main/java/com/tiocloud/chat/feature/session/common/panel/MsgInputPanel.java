@@ -1,5 +1,7 @@
 package com.tiocloud.chat.feature.session.common.panel;
 
+import static com.tiocloud.chat.util.AESEncrypt.getFileName;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Editable;
@@ -27,6 +29,9 @@ import com.tiocloud.chat.R;
 import com.tiocloud.chat.feature.session.common.model.SessionContainer;
 import com.tiocloud.chat.feature.session.group.fragment.ait.AitTextChangeListener;
 import com.tiocloud.chat.feature.session.common.action.ActionsPanel;
+import com.tiocloud.chat.util.AESEncrypt;
+import com.tiocloud.chat.util.FileUtils;
+import com.tiocloud.chat.util.PreferencesUtil;
 import com.watayouxiang.androidutils.widget.dialog.progress.SingletonProgressDialog;
 import com.tiocloud.chat.widget.emotion.EmojiGridViewAdapter;
 import com.tiocloud.chat.widget.emotion.EmoticonPickerView;
@@ -40,6 +45,9 @@ import com.watayouxiang.androidutils.widget.TioToast;
 import com.watayouxiang.httpclient.callback.TioCallback;
 import com.watayouxiang.httpclient.model.request.EmojiCollectReq;
 import com.watayouxiang.httpclient.model.request.SendCollectEmojiReq;
+import com.watayouxiang.httpclient.utils.MD5Utils;
+
+import java.io.File;
 
 /**
  * author : TaoWang
@@ -112,6 +120,23 @@ public class MsgInputPanel implements AitTextChangeListener {
                     audioAnimLayout.cancel();
                 }
             }
+
+            @Override
+            public void onPreUploadAudio(File audioFile) {
+                super.onPreUploadAudio(audioFile);
+                int im_file_encrypt= PreferencesUtil.getInt("im_file_encrypt",0);
+                if (im_file_encrypt==1) {
+                    try {
+                        byte[] imagebyte = FileUtils.toByteArray(audioFile.getAbsolutePath());
+                        String imagezi = FileUtils.base64Byte2String(imagebyte);
+                        String fingerprint = MD5Utils.getMd5(imagezi + audioFile.length());
+                        AESEncrypt.encryptFile(audioFile, FileUtils.bytePath, audioFile.getName(), fingerprint);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
             @Override
             public void onUploadAudioStart() {
                 super.onUploadAudioStart();

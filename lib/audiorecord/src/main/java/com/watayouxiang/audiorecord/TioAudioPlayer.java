@@ -1,8 +1,13 @@
 package com.watayouxiang.audiorecord;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.StringUtils;
+
+import java.io.File;
 
 /**
  * <pre>
@@ -77,7 +82,11 @@ public class TioAudioPlayer implements WtMediaPlayer.OnPlayerListener {
             // 设置监听
             mOnPlayerListener = listener;
             // 开始播放
-            mPlayer.initUrl(audioUrl);
+            if (audioUrl.startsWith("http")){
+                mPlayer.initUrl(audioUrl);
+            }else {
+                mPlayer.initFile(new File(audioUrl));
+            }
             mPlayer.start();
         }
     }

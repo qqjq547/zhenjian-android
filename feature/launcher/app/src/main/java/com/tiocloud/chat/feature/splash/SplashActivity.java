@@ -106,11 +106,13 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
         }else {
             LoginActivity.start(this);
         }
+        finish();
     }
 
     @Override
     public void openMainPage() {
         SingletonProgressDialog.dismiss();
         MainActivity.start(this);
+        finish();
     }
 }

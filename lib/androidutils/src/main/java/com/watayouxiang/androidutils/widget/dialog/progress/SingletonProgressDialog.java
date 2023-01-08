@@ -25,7 +25,11 @@ public class SingletonProgressDialog {
     public static void dismiss() {
         TioProgressDialog dialog = getDialog();
         if (dialog != null) {
-            dialog.dismiss();
+            try {
+                dialog.dismiss();
+            }catch (Exception e){
+
+            }
             mDialogRef.clear();
         }
     }
@@ -57,7 +61,11 @@ public class SingletonProgressDialog {
         if (dialog == null) {
             dialog = new TioProgressDialog(message);
             mDialogRef = new WeakReference<>(dialog);
-            dialog.show(context, cancelable, canceledOnTouchOutside, onCancelListener);
+            try {
+                dialog.show(context, cancelable, canceledOnTouchOutside, onCancelListener);
+            }catch (Exception e){
+
+            }
         }
     }
 

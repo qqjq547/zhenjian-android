@@ -60,12 +60,15 @@ public class MainPresenter extends MainContract.Presenter {
 
     @Override
     public void checkAppUpdate() {
-        ThreadUtils.getMainHandler().postDelayed(() -> {
-            if (appUpdateTool == null) {
-                appUpdateTool = new AppUpdateTool(getView().getMainActivity());
+        ThreadUtils.getMainHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                if (appUpdateTool == null) {
+                    appUpdateTool = new AppUpdateTool(getView().getMainActivity());
+                }
+                appUpdateTool.checkUpdateNormal();
             }
-            appUpdateTool.checkUpdateNormal();
-        }, 300);
+        });
     }
 
     @Override

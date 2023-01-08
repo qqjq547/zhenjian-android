@@ -86,6 +86,8 @@ public class MainActivity extends TioActivity implements MainContract.View {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.tio_main_activity);
         presenter = new MainPresenter(this);
+        // 检测更新
+        presenter.checkAppUpdate();
         presenter.init();
 //        int selectTab=PreferencesUtil.getInt("firstTab",0);
         binding.viewPager.setCurrentItem(MainTab.CHAT.getTabIndex());
@@ -109,8 +111,6 @@ public class MainActivity extends TioActivity implements MainContract.View {
     @Override
     protected void onResume() {
         super.onResume();
-        // 检测更新
-        presenter.checkAppUpdate();
         // 清除所有通知
         presenter.clearAllNotifications();
     }
