@@ -316,6 +316,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"
         android:background="@color/white"
+        android:visibility="gone"
         android:foreground="?attr/selectableItemBackground">
 
         <TextView
