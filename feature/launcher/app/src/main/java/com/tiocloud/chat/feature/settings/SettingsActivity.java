@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 
+import com.tiocloud.chat.BuildConfig;
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.feature.settings.mvp.SettingsContract;
 import com.tiocloud.chat.feature.settings.mvp.SettingsPresenter;
@@ -49,7 +50,7 @@ public class SettingsActivity extends TioActivity implements SettingsContract.Vi
 
         public ViewHolder(View decorView) {
             //11为自动登录
-            boolean isAutoLogin= PreferencesUtil.getInt(PreferencesUtil.LOGIN_TYPE,0)==11;
+            boolean isAutoLogin= PreferencesUtil.getInt(PreferencesUtil.LOGIN_TYPE,0)==11||BuildConfig.FLAVOR.equals("fangyuan");
             rl_account=decorView.findViewById(R.id.rl_account);
             rl_account.setVisibility(isAutoLogin?View.GONE:View.VISIBLE);
             rl_fontSize=decorView.findViewById(R.id.rl_fontSize);
