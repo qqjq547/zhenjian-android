@@ -243,124 +243,20 @@
 #保持 Serializable 不被混淆
 -keepnames class * implements java.io.Serializable
 
+-keepclassmembers class * implements java.io.Serializable {
 
-#eventbus
--keepattributes *Annotation*
--keepclassmembers class * {
-    @org.greenrobot.eventbus.Subscribe <methods>;
+static final long serialVersionUID;
+
+private static final java.io.ObjectStreamField[] serialPersistentFields;
+
+!static !transient <fields>;
+
+private void writeObject(java.io.ObjectOutputStream);
+
+private void readObject(java.io.ObjectInputStream);
+
+java.lang.Object writeReplace();
+
+java.lang.Object readResolve();
+
 }
--keep enum org.greenrobot.eventbus.ThreadMode { *; }
-
-#https://github.com/hackware1993/MagicIndicator
--dontwarn net.lucode.hackware.**
-# Only required if you use AsyncExecutor
--keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <init>(java.lang.Throwable);
-}
-#Matisse
--dontwarn com.squareup.picasso.**
--dontwarn com.bumptech.glide.**
-#RXpermission
--keep class com.tbruyelle.rxpermissions2.* {
-*;
-}
--keepclassmembers class fqcn.of.javascript.interface.for.webview {
-   public *;
-}
-#lottie动画
--dontwarn com.airbnb.lottie.**
--keep class com.airbnb.lottie.** {*;}
-
--keep class com.wang.avi.** { *; }
--keep class com.wang.avi.indicators.** { *; }
-
-# bugly
--dontwarn com.tencent.bugly.**
--keep public class com.tencent.bugly.**{*;}
-
-# jzvd视频播放器
--keep public class cn.jzvd.JZMediaSystem {*; }
--keep public class cn.jzvd.demo.CustomMedia.CustomMedia {*; }
--keep public class cn.jzvd.demo.CustomMedia.JZMediaIjk {*; }
--keep public class cn.jzvd.demo.CustomMedia.JZMediaSystemAssertFolder {*; }
-
--keep class tv.danmaku.ijk.media.player.** {*; }
--dontwarn tv.danmaku.ijk.media.player.*
--keep interface tv.danmaku.ijk.media.player.** { *; }
--ignorewarnings
--keep class * {
-    public private *;
-}
-
--keepattributes *Annotation*
--keep public class com.netease.nis.captcha.**{*;}
-
--keep public class android.webkit.**
-
--keepattributes SetJavaScriptEnabled
--keepattributes JavascriptInterface
-
--keepclassmembers class * {
-    @android.webkit.JavascriptInterface <methods>;
-}
-
-#小米推送
--dontwarn com.xiaomi.push.**
--keep class com.xiaomi.push.** { *; }
-#vivo推送
-#-dontwarn com.vivo.push.**
-#-keep class com.vivo.push.**{*; }
-#-keep class com.vivo.vms.**{*; }
-#OPPO push
-#-dontwarn com.coloros.mcsdk.**
-#-keep class com.coloros.mcsdk.** { *; }
-#魅族 push
--dontwarn com.meizu.cloud.**
--keep class com.meizu.cloud.** { *; }
-#华为
-#-keep class com.huawei.hms.**{*;}
-
-# ServiceLoader support
--keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
--keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
--keepnames class kotlinx.coroutines.android.AndroidExceptionPreHandler {}
--keepnames class kotlinx.coroutines.android.AndroidDispatcherFactory {}
-
-# Most of volatile fields are updated with AFU and should not be mangled
--keepclassmembernames class kotlinx.** {
-    volatile <fields>;
-}
-#tencent player
--keep class com.tencent.** { *; }
-#okio
--dontwarn okio.**
--keep class okio.**{*;}
-#versionchecklib
--keep class com.allenliu.versionchecklib.**{*;}
-#ucrop
--dontwarn com.yalantis.ucrop**
--keep class com.yalantis.ucrop** { *; }
--keep interface com.yalantis.ucrop** { *; }
-
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
--keep public class com.panda.house.R$*{
-public static final int *;
-}
-#banner
--dontwarn androidx.viewpager2.**
--keep class androidx.viewpager2.** {*;}
--dontwarn com.youth.banner.**
--keep class com.youth.banner.** {*;}
-#immersionbar
--keep class com.gyf.immersionbar.* {*;}
--dontwarn com.gyf.immersionbar.**
-#smart
--dontwarn android.support.v8.renderscript.*
--keepclassmembers class android.support.v8.renderscript.RenderScript {
-  native *** rsn*(...);
-  native *** n*(...);
-}
--keep class com.huantansheng.easyphotos.models.** { *; }
