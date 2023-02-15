@@ -46,16 +46,12 @@ android {
 
     buildTypes {
         release {
-            debuggable false
-            minifyEnabled true
-            crunchPngs false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         debug {
-            debuggable true
             minifyEnabled false
-            crunchPngs false
             signingConfig signingConfigs.release
         }
     }
@@ -81,6 +77,10 @@ android {
                     OPENINSTALL_APPKEY     : "haalpf",
             ]
         }
+        /**
+         * 绑定默认邀请码
+         * 全局搜索 INVITE_CODE ，只要设置这个参数然后打包就可以了
+         */
         fangyuan {
             applicationId "com.pkx8asr9c.ayx60mmpl"
             buildConfigField "String", "ip", "\"ip\""

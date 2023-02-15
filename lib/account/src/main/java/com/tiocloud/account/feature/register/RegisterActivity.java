@@ -32,6 +32,7 @@ import com.watayouxiang.httpclient.callback.TioCallback;
 import com.watayouxiang.httpclient.callback.TioCallbackImpl;
 import com.watayouxiang.httpclient.model.BaseResp;
 import com.watayouxiang.httpclient.model.request.AccountCheckReq;
+import com.watayouxiang.httpclient.model.request.CheckFriendInviteCodeReq;
 import com.watayouxiang.httpclient.model.request.RegisterNewflagReq;
 import com.watayouxiang.httpclient.model.request.RegisterphoneflagReq;
 import com.watayouxiang.httpclient.model.request.SmsCheckReq;
@@ -55,6 +56,8 @@ public class RegisterActivity extends BindingActivity<AccountRegisterActivityBin
     private PhoneRegisterBindEmailFragment emailFragment;
     private ShowPage showPage;
     private String registerType="2";
+    public static final String INVITE_CODE = "";
+
     public static void start(Context context) {
         Intent starter = new Intent(context, RegisterActivity.class);
         if (!(context instanceof Activity)) {
@@ -202,10 +205,7 @@ public class RegisterActivity extends BindingActivity<AccountRegisterActivityBin
 
                                     if(phoneflag==1){//注册是否需要手机号  1是  2否
                                         if(appinvitecodeflag==1){//是否需要邀请码
-                                            startActivity(new Intent(RegisterActivity.this,FillInvitationCodeActivity.class)
-                                                    .putExtra("registerType",registerType)
-                                                    .putExtra("nameNum",nameNum)
-                                                    .putExtra("passs",passs));
+                                            autoInviteCode(nameNum,passs);
                                         }else {
                                             new SmsSendReq("2", nameNum, "").setCancelTag(this).post(new TioCallback<String>() {
                                                 @Override
@@ -225,10 +225,7 @@ public class RegisterActivity extends BindingActivity<AccountRegisterActivityBin
                                         }
                                     }else {
                                         if(appinvitecodeflag==1) {//是否需要邀请码
-                                            startActivity(new Intent(RegisterActivity.this,FillInvitationCodeActivity.class)
-                                                    .putExtra("registerType",registerType)
-                                                    .putExtra("nameNum",nameNum)
-                                                    .putExtra("passs",passs));
+                                            autoInviteCode(nameNum,passs);
                                         }else {
                                             startActivity(new Intent(RegisterActivity.this,PerfectMessageActivity.class)
                                                     .putExtra("registerType",registerType)
@@ -310,4 +307,54 @@ public class RegisterActivity extends BindingActivity<AccountRegisterActivityBin
         }
         return super.onKeyDown(keyCode, event);
     }
+    public void autoInviteCode(String nameNum,String passs) {
+        if (TextUtils.isEmpty(INVITE_CODE)){
+            startActivity(new Intent(RegisterActivity.this,FillInvitationCodeActivity.class)
+                    .putExtra("registerType",registerType)
+                    .putExtra("nameNum",nameNum)
+                    .putExtra("passs",passs));
+            return;
+        }
+        CheckFriendInviteCodeReq req = new CheckFriendInviteCodeReq(INVITE_CODE);
+        req.setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE);
+        TioHttpClient.get(this, req, new TioCallback<String>() {
+            @Override
+            public void onTioSuccess(String s) {
+                Log.e("===验证==", "==" + s);
+                if (registerType.equals("1")) {//手机号验证
+                    new SmsSendReq("2", nameNum, "").setCancelTag(this).post(new TioCallback<String>() {
+                        @Override
+                        public void onTioSuccess(String s) {
+                            Log.e("===发送验证码==", "==" + s);
+                            startActivity(new Intent(RegisterActivity.this, PhoneYZCodeActivity.class)
+                                    .putExtra("registerType", registerType)
+                                    .putExtra("nameNum", nameNum)
+                                    .putExtra("friendInviteCode", INVITE_CODE)
+                                    .putExtra("passs", passs));
+                        }
+
+                        @Override
+                        public void onTioError(String msg) {
+                            ToastUtils.showLong(msg);
+                        }
+                    });
+
+                } else {
+                    startActivity(new Intent(RegisterActivity.this, PerfectMessageActivity.class)
+                            .putExtra("registerType", registerType)
+                            .putExtra("nameNum", nameNum)
+                            .putExtra("friendInviteCode", INVITE_CODE)
+                            .putExtra("passs", passs));
+                }
+
+            }
+
+            @Override
+            public void onTioError(String msg) {
+                Log.e("===验证==", "==" + msg);
+                ToastUtils.showLong(msg);
+            }
+        });
+    }
+
 }
