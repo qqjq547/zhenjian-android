@@ -55,7 +55,7 @@ public abstract class AppIMClient extends TaoIMClient<TioPacket> implements TioP
     private EventEngine mEventEngine;
     private JsonEngine mJsonEngine;
     // "App进入后台，自动断开连接"（默认开启）
-    private boolean mAutoDisconnectOnAppBackground = true;
+    private boolean mAutoDisconnectOnAppBackground = false;
     // "进入会话接口" 消息
     private WxSessionOperReq mWxSessionOperReq = null;
 
@@ -301,7 +301,7 @@ public abstract class AppIMClient extends TaoIMClient<TioPacket> implements TioP
     @Override
     public void setAutoDisconnectOnAppBackground(boolean onOff) {
         LoggerUtils.i(String.format(Locale.getDefault(), "%s [App进入后台，自动断开连接]", onOff ? "开启" : "关闭"));
-        mAutoDisconnectOnAppBackground = onOff;
+        mAutoDisconnectOnAppBackground = false;
     }
 
     private final NetworkUtils.OnNetworkStatusChangedListener mNetworkStatusChangedListener =
