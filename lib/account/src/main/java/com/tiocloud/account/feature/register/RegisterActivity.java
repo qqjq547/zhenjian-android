@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -120,7 +121,7 @@ public class RegisterActivity extends BindingActivity<AccountRegisterActivityBin
                     }else {
                         binding.etLoginName.setHint("请输入手机号");
                         binding.etLoginName.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        binding.etLoginName.setMaxEms(11);
+                        binding.etLoginName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
                     }
 
                 }
