@@ -105,6 +105,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="phone"
                 android:singleLine="true"
+                android:maxLength="11"
                 android:text="@={data.txt_phone}"
                 android:textColor="#333333"
                 android:textColorHint="#D5D5D5"
