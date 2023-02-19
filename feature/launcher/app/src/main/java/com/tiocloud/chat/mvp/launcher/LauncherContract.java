@@ -13,7 +13,7 @@ import com.watayouxiang.httpclient.model.response.ConfigResp;
  */
 public interface LauncherContract {
     interface View extends BaseView {
-        void openLoginPage(boolean autologin);
+        void openLoginPage(int loginType);
 
         void finish();
 

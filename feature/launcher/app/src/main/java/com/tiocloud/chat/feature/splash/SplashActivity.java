@@ -31,6 +31,7 @@ import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.snail.antifake.deviceid.AndroidDeviceIMEIUtil;
 import com.tiocloud.account.feature.login.LoginActivity;
+import com.tiocloud.account.feature.login_sms.SmsLoginActivity;
 import com.tiocloud.chat.R;
 import com.tiocloud.chat.baseNewVersion.OssDataJsonBean;
 import com.tiocloud.chat.constant.TioConfig;
@@ -99,12 +100,26 @@ public class SplashActivity extends TioActivity implements LauncherContract.View
         }
     }
     @Override
-    public void openLoginPage(boolean autologin) {
+    public void openLoginPage(int loginType) {
         SingletonProgressDialog.dismiss();
-        if (autologin){
-            LoginAutoActivity.start(this);
-        }else {
-            LoginActivity.start(this);
+        //11-设备自动登录 验证登录
+        //21-账号+密码登录
+        //22-手机+验证码登录
+        //23-邮箱+密码登录
+        //24-第三方登录
+        switch (loginType){
+            case 11:
+                LoginAutoActivity.start(this);
+                break;
+            default:
+                LoginActivity.start(this);
+                break;
+//            case 22:
+//                SmsLoginActivity.start(getActivity());
+//                break;
+//            case 23:
+//                LoginActivity.start(this);
+//                break;
         }
         finish();
     }

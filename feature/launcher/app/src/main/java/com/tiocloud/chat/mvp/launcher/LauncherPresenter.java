@@ -24,13 +24,12 @@ import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.google.gson.Gson;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.tiocloud.account.TioAccount;
 import com.tiocloud.account.data.AccountSP;
-import com.tiocloud.account.mvp.logout.LogoutPresenter;
 import com.tiocloud.chat.TioApplication;
 import com.tiocloud.chat.baseNewVersion.OssDataJsonBean;
 import com.tiocloud.chat.constant.TioConfig;
+import com.tiocloud.chat.feature.splash.SplashActivity;
 import com.tiocloud.chat.util.AppUpdateTool;
 import com.tiocloud.chat.widget.dialog.tio.ProtectGuideDialog;
 import com.watayouxiang.androidutils.mvp.BaseModel;
@@ -258,12 +257,13 @@ public class LauncherPresenter extends LauncherContract.Presenter {
         PreferencesUtil.saveInt(PreferencesUtil.LOGIN_TYPE,resp.user_login_type);
         try {
             if (!getModel().isLogin()) {
-                getView().openLoginPage(resp.user_login_type==11);
+                getView().openLoginPage(resp.user_login_type);
             } else {
                 getView().openMainPage();
             }
         }catch (Exception e){
-            getView().openLoginPage(true);
+            //默认自动登录
+            getView().openLoginPage(11);
         }
     }
 
