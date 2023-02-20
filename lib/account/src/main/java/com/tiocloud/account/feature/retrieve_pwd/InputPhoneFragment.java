@@ -2,6 +2,8 @@ package com.tiocloud.account.feature.retrieve_pwd;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import androidx.annotation.Nullable;

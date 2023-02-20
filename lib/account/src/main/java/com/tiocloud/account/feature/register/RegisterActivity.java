@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -122,8 +124,29 @@ public class RegisterActivity extends BindingActivity<AccountRegisterActivityBin
                         binding.etLoginName.setHint("请输入手机号");
                         binding.etLoginName.setInputType(InputType.TYPE_CLASS_NUMBER);
                         binding.etLoginName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
-                    }
+                        binding.btRegister.setEnabled(false);
+                        binding.etLoginName.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                if (binding.etLoginName.getText().toString().trim().length()==11){
+                                    binding.btRegister.setEnabled(true);
+                                }else {
+                                    binding.btRegister.setEnabled(false);
+                                }
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable editable) {
+
+                            }
+                        });
+
+                    }
                 }
 
             }
@@ -254,6 +277,12 @@ public class RegisterActivity extends BindingActivity<AccountRegisterActivityBin
                                 ToastUtils.showLong(msg);
 
                             }
+
+                            @Override
+                            public void onFinish() {
+                                super.onFinish();
+                                binding.btRegister.setEnabled(true);
+                            }
                         });
 
                     }
@@ -262,8 +291,13 @@ public class RegisterActivity extends BindingActivity<AccountRegisterActivityBin
                     public void onTioError(String msg) {
                         Log.e("===账号是否可用==","=="+msg);
                         ToastUtils.showLong(msg);
-                        binding.btRegister.setEnabled(true);
 
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        binding.btRegister.setEnabled(true);
                     }
                 });
 
@@ -273,12 +307,7 @@ public class RegisterActivity extends BindingActivity<AccountRegisterActivityBin
             }
         });
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        binding.btRegister.setEnabled(true);
 
-    }
     @Override
     public <T extends BaseFragment> T addFragment(T fragment) {
         fragment.setContainerId(binding.flContainer.getId());

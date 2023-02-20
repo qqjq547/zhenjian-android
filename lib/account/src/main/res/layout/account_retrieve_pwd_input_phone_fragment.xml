@@ -125,9 +125,10 @@
             app:layout_constraintTop_toBottomOf="@id/ll_phone">
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:enabled="@{!TextUtils.isEmpty(data.txt_phone)}"
+                android:enabled="@{data.txt_phone.length()==11}"
                 android:gravity="center"
                 android:onClick="@{data.onClick_ok}"
                 android:text="下一步"
